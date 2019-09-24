@@ -7,4 +7,8 @@ router.get('/', function (req, res) {
     res.render('index', { title: 'Express' });
 });
 
+router.get('/offline.html', function (req, res) {
+    res.sendFile('public/offline.html');
+});
+
 module.exports = router;

@@ -30,6 +30,30 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="public\images\apple-touch-icon-180x180.png" />
+    <Content Include="public\images\browserconfig.xml" />
+    <Content Include="public\images\favicon-16x16.png" />
+    <Content Include="public\images\favicon-32x32.png" />
+    <Content Include="public\images\favicon.ico" />
+    <Content Include="public\images\pwa-192x192.png" />
+    <Content Include="public\images\pwa-512x512.png" />
+    <Content Include="public\images\tile150x150.png" />
+    <Content Include="public\images\tile310x150.png" />
+    <Content Include="public\images\tile310x310.png" />
+    <Content Include="public\images\tile70x70.png" />
+    <Content Include="public\images\_head.html" />
+    <Content Include="public\service-worker-register.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\service-worker.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\manifest.json">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\offline.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\index.js" />
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
@@ -42,7 +66,7 @@
   <ItemGroup>
     <Folder Include="public\" />
     <Folder Include="public\images\" />
-    <Folder Include="public\javascripts\" />
+    <Folder Include="public\javascript\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />

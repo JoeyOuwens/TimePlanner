@@ -3,5 +3,8 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/main.css')
+    link(rel='manifest', href='/manifest.json')
+    link(rel="shortcut icon", href="/images/favicon.ico", type="image/x-icon")
+    script(src='/service-worker-register.js')
   body
     block content
