@@ -13,6 +13,9 @@ For android what you have to do is link an existing android studio SDK with your
 download a new sdk. For the usage of an existing SDK, you'll have to go to `tools > options > 
 Xamarin > Android Settings > Android SDK Location` and then select the folder of your sdk. 
 
+NOTE: you have to download/install all node packages, this can be done by browsing to the project
+root and then run `npm install`. 
+
 After this you can just run the web server and with the android studio emulator you can 
 navigate to your ip-address, e.g. http://192.168.1.2:1337 and then you're able to add the 
 page to your home screen `settings > Add to Home screen`
