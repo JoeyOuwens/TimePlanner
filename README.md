@@ -11,7 +11,8 @@ In order to let things work on android there is some more setup to be done.
 
 For android what you have to do is link an existing android studio SDK with your project OR 
 download a new sdk. For the usage of an existing SDK, you'll have to go to `tools > options > 
-Xamarin > Android Settings > Android SDK Location` and then select the folder of your sdk. 
+Xamarin > Android Settings > Android SDK Location` and then select the folder of your sdk.  
+Overall the android sdk can be found at `C:\Users\{USER}\AppData\Local\Android\Sdk`.
 
 NOTE: you have to download/install all node packages, this can be done by browsing to the project
 root and then run `npm install`. 
