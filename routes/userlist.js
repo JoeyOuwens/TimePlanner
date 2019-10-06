@@ -9,14 +9,14 @@ var userHasPageAccess = true;
 /* GET users page. */
 if (userHasPageAccess) {
     router.get('/', function (req, res) {
-        res.render('users', { title: 'Medewerkers', users: users });
+        res.render('userlist', { title: 'Medewerkers', users: users });
     });
 } else {
     router.get('/', function (req, res) {
         return res.redirect('/');
     });
 }
-
+ 
 
 
 module.exports = router;

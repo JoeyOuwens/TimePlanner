@@ -1,0 +1,70 @@
+extends layout
+
+block content
+    br
+     
+    div(class="card  shadow p-3 mb-5")
+        div(class="card-header")
+            h2 #{title}
+        div(class="card-body") 
+            form(method='POST' action='/usermanagement/create') 
+                div( class="form-group row")
+                    div(class="col")
+                        label(for="inputFname" class="col-form-label") Voornaam                         
+                        input(type="text" class="form-control" name="inputFname" id="inputFname" placeholder="Voornaam" required)
+                    div(class="col")
+                        label(for="inputLname" class=" col-form-label") Achternaam                         
+                        input(type="text" class="form-control"  name="inputLname" id="inputLname" placeholder="Achternaam" required)
+                    div(class="col")
+                        label(for="inputEmail" class="col-form-label") Email 
+                        input(type="text" class="form-control " name="inputEmail" id="inputEmail" placeholder="Email" required)
+                if(userRights == "x")
+                div(class="form-group row")
+                    div(class="col")
+                            label(for="inputFunction" class="col-form-label") Functie 
+                            input(type="text" class="form-control" name="inputFunction" id="inputFunction" placeholder="Functie" required)    
+                    div(class="col")
+                        label(class="col-form-label" for="inputRights") Rechten 
+                        select(class="form-control" name="inputRights" id="inputRights" required)
+                           option(selected value="WORKER") Medewerker
+                           option(value="MANAGER") Manager
+                if(userRights == "MANAGER")
+                div(class="form-group row")
+                    div(class="col")
+                            label(for="inputFunction" class="col-form-label") Functie 
+                            input(type="text" class="form-control" name="inputFunction" id="inputFunction" placeholder="Functie" required)    
+                
+                
+                div(class="form-group row")                 
+                    div(class="col custom-switch")
+                        input(type="checkbox" class="custom-control-input" id="checkFulltime")                    
+                        label(for="checkFulltime" class="custom-control-label") Fulltime         
+                    div(class="col")
+                        label(for="inputWorkHours" class="col-form-label") Uren 
+                        input(type="text" class="form-control" name="inputWorkHours" id="inputWorkHours" placeholder="Uren" required)
+                div( class="form-group row")                         
+                    div(class="col")
+                        label(for="inputDOB" class=" col-form-label") Geboortedatum  
+                        input(type="text" class="form-control" name="inputDOB" id="inputDOB" placeholder="Geboortedatum" required)
+                    div(class="col")
+                        label(for="inputTelephone" class="col-form-label") Telefoon nummer
+                        input(type="text" class="form-control"  name="inputTelephone" id="inputTelephone" placeholder="Telefoon nummer" required) 
+                div(class="form-group row")  
+                    div(class="col")
+                        label(for="inputAddress" class="col-form-label") Adres  
+                        input(type="text" class="form-control"  name="inputAddress"  id="inputAddress" placeholder="Adres" required)  
+                    div(class="col")
+                        label(for="inputZipcode" class="col-form-label") Postcode  
+                        input(type="text" class="form-control"  name="inputZipcode" id="inputZipcode" placeholder="Postcode" required)    
+                    div(class="col")
+                        label(for="inputPlace" class="col-form-label") Plaats  
+                        input(type="text" class="form-control"  name="inputPlace" id="inputPlace" placeholder="Plaats" required)  
+                div(class="form-group row float-right")       
+                    div(class="col custom-control custom-switch") 
+                        input(type="checkbox" class="custom-control-input " name="checkPageStay" id="checkPageStay" checked)                        
+                        label(for="checkPageStay" class="custom-control-label  ") Op pagina blijven    
+                        
+                    div(class="col")
+                        button(type="submit"  class=" btn btn-success") Cre&#235;er
+
+                                              
