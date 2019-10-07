@@ -24,4 +24,4 @@ page to your home screen `settings > Add to Home screen`
 ## Running tests
 
 In order to run a test for the code you've written, you have to write one. These tests can be added to the tests folder.  
-After writing a test you're able to run the tests by running the following command 'npm test'. 
+After writing a test you're able to run the tests by running the following command `npm test`. 
