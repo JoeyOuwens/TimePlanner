@@ -36,6 +36,7 @@
     <Content Include="knexfile.js" />
     <Content Include="migrations\20191010105705_users.js" />
     <Content Include="models\user.js">
+    <Content Include="controller\authenticate\login.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\images\apple-touch-icon-180x180.png" />
@@ -62,6 +63,9 @@
     <Content Include="public\offline.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\style.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\index.js" />
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
@@ -73,7 +77,10 @@
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
-    <Content Include="views\loginpage.pug">
+    <Content Include="views\login2.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
@@ -82,6 +89,8 @@
     <Folder Include="models\" />
     <Folder Include="db\" />
     <Folder Include="tests\" />
+    <Folder Include="controller\" />
+    <Folder Include="controller\authenticate\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascript\" />
