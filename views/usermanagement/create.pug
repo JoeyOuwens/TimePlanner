@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
     br
@@ -23,24 +23,14 @@ block content
                             label(for="inputFunction" class="col-form-label") Functie 
                             input(type="text" class="form-control" name="inputFunction" id="inputFunction" placeholder="Functie" required)    
                     div(class="col")
-                        label(class="col-form-label" for="inputRights") Rechten 
-                        select(class="form-control" name="inputRights" id="inputRights" required)
-                           option(selected value="WORKER") Medewerker
-                           option(value="MANAGER") Manager
-             if(userRights == "MANAGER")
-                div(class="form-group row")
-                    div(class="col")
-                            label(for="inputFunction" class="col-form-label") Functie 
-                            input(type="text" class="form-control" name="inputFunction" id="inputFunction" placeholder="Functie" required)    
-                
-                
-                div(class="form-group row")                 
-                    div(class="col custom-switch")
-                        input(type="checkbox" class="custom-control-input" id="checkFulltime")                    
-                        label(for="checkFulltime" class="custom-control-label") Fulltime         
-                    div(class="col")
-                        label(for="inputWorkHours" class="col-form-label") Uren 
-                        input(type="text" class="form-control" name="inputWorkHours" id="inputWorkHours" placeholder="Uren" required)
+                            label(for="inputWorkHours" class="col-form-label") Uren 
+                            input(type="text" class="form-control" name="inputWorkHours" id="inputWorkHours" placeholder="Uren" required)    
+                    if(userRights == "OWNER")
+                        div(class="col")
+                            label(class="col-form-label" for="inputRights") Rechten 
+                            select(class="form-control" name="inputRights" id="inputRights" required)
+                                option(selected value="WORKER") Medewerker
+                                option(value="MANAGER") Manager 
                 div( class="form-group row")                         
                     div(class="col")
                         label(for="inputDOB" class=" col-form-label") Geboortedatum  

@@ -31,6 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="classes\emailHandler.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\images\apple-touch-icon-180x180.png" />
     <Content Include="public\images\browserconfig.xml" />
     <Content Include="public\images\favicon-16x16.png" />
@@ -56,26 +59,31 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\index.js" />
-    <Content Include="routes\createuser.js" />
-    <Content Include="routes\userlist.js" />
+    <Content Include="routes\usermanagement\create.js" />
+    <Content Include="routes\usermanagement\list.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
-    <Content Include="views\createuser.pug">
+    <Content Include="settings\mailing.json">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\userlist.pug" />
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
+    <Content Include="views\usermanagement\create.pug" />
+    <Content Include="views\usermanagement\list.pug" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="classes\" />
+    <Folder Include="settings\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascript\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
+    <Folder Include="routes\usermanagement\" />
     <Folder Include="views\" />
+    <Folder Include="views\usermanagement\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
