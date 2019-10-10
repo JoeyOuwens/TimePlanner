@@ -11,16 +11,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var app = express();
 
-var knex = require('knex')({
-    client: 'time_planner',
-    connection: {
-        host: '127.0.0.1',
-        user: 'postgres',
-        password: 'password',
-        database: 'time_planner'
-    }
-});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
