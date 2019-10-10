@@ -21,7 +21,8 @@
     "pg-promise": "^9.2.1",
     "pug": "^2.0.0-beta6",
     "react-scripts": "^3.1.2",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "sqlite3": "^4.1.0"
   },
   "devDependencies": {
     "jest": "^24.9.0",
