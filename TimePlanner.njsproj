@@ -30,6 +30,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="db\knex.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="knexfile.js" />
+    <Content Include="migrations\20191010105705_users.js" />
+    <Content Include="models\user.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\images\apple-touch-icon-180x180.png" />
     <Content Include="public\images\browserconfig.xml" />
     <Content Include="public\images\favicon-16x16.png" />
@@ -59,6 +67,9 @@
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="tests\database.test.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
@@ -67,6 +78,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="migrations\" />
+    <Folder Include="models\" />
+    <Folder Include="db\" />
+    <Folder Include="tests\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascript\" />

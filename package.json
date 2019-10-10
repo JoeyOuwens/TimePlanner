@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "description": "TimePlanner",
   "author": {
@@ -17,6 +17,7 @@
     "express": "^4.14.0",
     "knex": "^0.19.5",
     "morgan": "^1.7.0",
+    "objection": "^1.6.11",
     "pg": "^7.12.1",
     "pg-promise": "^9.2.1",
     "pug": "^2.0.0-beta6",
