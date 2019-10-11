@@ -32,6 +32,15 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="classes\emailHandler.js">
+    <Content Include="db\knex.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="knexfile.js" />
+    <Content Include="migrations\20191010105705_users.js" />
+    <Content Include="models\user.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="controller\authenticate\login.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\images\apple-touch-icon-180x180.png" />
@@ -58,24 +67,48 @@
     <Content Include="public\offline.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\stylesheets\style.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\index.js" />
     <Content Include="routes\usermanagement\create.js" />
     <Content Include="routes\usermanagement\list.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+<<<<<<< HEAD
     <Content Include="settings\mailing.json">
+=======
+    <Content Include="tests\database.test.js">
+>>>>>>> development
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
+<<<<<<< HEAD
     <Content Include="views\usermanagement\create.pug" />
     <Content Include="views\usermanagement\list.pug" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="classes\" />
     <Folder Include="settings\" />
+=======
+    <Content Include="views\login2.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\users.pug">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="migrations\" />
+    <Folder Include="models\" />
+    <Folder Include="db\" />
+    <Folder Include="tests\" />
+    <Folder Include="controller\" />
+    <Folder Include="controller\authenticate\" />
+>>>>>>> development
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascript\" />
