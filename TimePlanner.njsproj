@@ -5,7 +5,6 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>TimePlanner</Name>
     <RootNamespace>TimePlanner</RootNamespace>
-    <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -21,7 +20,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
     <NodejsPort>1337</NodejsPort>
-    <StartWebBrowser>True</StartWebBrowser>
+    <StartWebBrowser>true</StartWebBrowser>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,7 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="classes\emailHandler.js">
+    <Content Include="classes\emailHandler.js" />
     <Content Include="db\knex.js">
       <SubType>Code</SubType>
     </Content>
@@ -71,29 +70,38 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\index.js" />
+    <Content Include="routes\login.js" />
     <Content Include="routes\usermanagement\create.js" />
     <Content Include="routes\usermanagement\list.js" />
+    <Content Include="routes\users.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
-    <Content Include="README.md" />
-<<<<<<< HEAD
-    <Content Include="settings\mailing.json">
-=======
+    <Content Include="README.md" /> 
+    <Content Include="settings\mailing.json" />
     <Content Include="tests\database.test.js">
->>>>>>> development
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
-    <Content Include="views\error.pug" />
+    <Content Include="views\error.pug" /> 
+    <Content Include="views\login.pug" />
+    <Content Include="views\login2.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\users.pug">
+      <SubType>Code</SubType>
+    </Content> 
 <<<<<<< HEAD
     <Content Include="views\usermanagement\create.pug" />
     <Content Include="views\usermanagement\list.pug" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="classes\" />
+    <Folder Include="migrations\" />
+    <Folder Include="models\" />
+    <Folder Include="db\" />
+    <Folder Include="routes\usermanagement\" />
     <Folder Include="settings\" />
-=======
     <Content Include="views\login2.pug">
       <SubType>Code</SubType>
     </Content>
@@ -108,15 +116,12 @@
     <Folder Include="tests\" />
     <Folder Include="controller\" />
     <Folder Include="controller\authenticate\" />
->>>>>>> development
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascript\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
-    <Folder Include="routes\usermanagement\" />
     <Folder Include="views\" />
-    <Folder Include="views\usermanagement\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
