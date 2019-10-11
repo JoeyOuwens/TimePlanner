@@ -30,6 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="classes\emailHandler.js" />
     <Content Include="db\knex.js">
       <SubType>Code</SubType>
     </Content>
@@ -69,16 +70,37 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\index.js" />
+    <Content Include="routes\login.js" />
+    <Content Include="routes\usermanagement\create.js" />
+    <Content Include="routes\usermanagement\list.js" />
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
-    <Content Include="README.md" />
+    <Content Include="README.md" /> 
+    <Content Include="settings\mailing.json" />
     <Content Include="tests\database.test.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
-    <Content Include="views\error.pug" />
+    <Content Include="views\error.pug" /> 
+    <Content Include="views\login.pug" />
+    <Content Include="views\login2.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\users.pug">
+      <SubType>Code</SubType>
+    </Content>  
+    <Content Include="views\usermanagement\create.pug" />
+    <Content Include="views\usermanagement\list.pug" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="classes\" />
+    <Folder Include="migrations\" />
+    <Folder Include="models\" />
+    <Folder Include="db\" />
+    <Folder Include="routes\usermanagement\" />
+    <Folder Include="settings\" />
     <Content Include="views\login2.pug">
       <SubType>Code</SubType>
     </Content>
