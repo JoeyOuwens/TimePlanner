@@ -90,8 +90,7 @@
     </Content>
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
-    </Content> 
-<<<<<<< HEAD
+    </Content>  
     <Content Include="views\usermanagement\create.pug" />
     <Content Include="views\usermanagement\list.pug" />
   </ItemGroup>
