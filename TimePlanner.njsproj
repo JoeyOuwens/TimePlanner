@@ -36,6 +36,8 @@
     <Content Include="knexfile.js" />
     <Content Include="migrations\20191010105705_users.js" />
     <Content Include="models\user.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="controller\authenticate\login.js">
       <SubType>Code</SubType>
     </Content>
