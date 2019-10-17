@@ -76,21 +76,21 @@
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
-    <Content Include="README.md" /> 
+    <Content Include="README.md" />
     <Content Include="settings\mailing.json" />
     <Content Include="tests\database.test.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
-    <Content Include="views\error.pug" /> 
+    <Content Include="views\error.pug" />
     <Content Include="views\login.pug" />
     <Content Include="views\login2.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
-    </Content>  
+    </Content>
     <Content Include="views\usermanagement\create.pug" />
     <Content Include="views\usermanagement\list.pug" />
   </ItemGroup>
@@ -107,6 +107,7 @@
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>
+    <Folder Include="views\usermanagement\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="migrations\" />
