@@ -4,6 +4,7 @@ var emailHandler = require('../../classes/emailHandler');
 var generatePassword = require('password-generator');
 var validation = require('../../classes/validation');
 var router = express.Router();
+var userDBHandler = require('../../classes/userDBHandler')
 
 
 /* TEMP VARIABLES CHANGE WITH AN ACTUAL FUNCTION */
@@ -32,18 +33,20 @@ router.post('/', function (req, res) {
     accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, ''); 
     var failedFields = fieldValidation(accountDetails);
     if (failedFields.length == 0) {
-        if (insertedIntoDB) {
+        if (userDBHandler.insertUser(accountDetails, password)) {
             emailHandler.sendNewAccountEmail(accountDetails.inputEmail, accountDetails.inputFname, password);
-            handlePageStayCheck(req.body.checkPageStay,res)
-        }        
+            handlePageStayCheck(req.body.checkPageStay, res)
+        } else {
+            res.render('usermanagement/create', { title: 'Nieuwe medewerker', userRights: userRights, throwError: true, errorMessage: "Er is wat fout gegaan met een medewerker toevoegen, probeer opnieuw.", accountDetails: accountDetails });
+        }
     } else {
-        res.render('usermanagement/create', { title: 'Nieuwe medewerker', userRights: userRights, failedFields: failedFields, accountDetails: accountDetails });
+        res.render('usermanagement/create', { title: 'Nieuwe medewerker', userRights: userRights, throwError: true, errorMessage:"\u00C9\u00E9n of meerdere velden zijn onjuist ingevuld.", failedFields: failedFields, accountDetails: accountDetails });
     }        
 }); 
 
 function handlePageStayCheck(checkPageStay,res) {
     if (checkPageStay) {
-        return res.redirect('/usermanagement/create');
+        res.render('usermanagement/create', { title: 'Nieuwe medewerker',throwSuccess: true, userRights: userRights, newPage: true });
     } else {
         return res.redirect('/usermanagement/list');
     }
