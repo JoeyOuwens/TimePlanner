@@ -9,7 +9,7 @@ var userDBHandler = require('../../classes/userDBHandler')
 
 /* TEMP VARIABLES CHANGE WITH AN ACTUAL FUNCTION */
 var userHasPageAccess = true;  
-var userRights = "OWNER"; 
+var userRights = "MANAGER"; 
 var validationPassed = true; 
 var insertedIntoDB = true; 
 
@@ -28,7 +28,10 @@ router.post('/', function (req, res) {
     console.log(req.body);
 
     var password = generatePassword(Math.floor(Math.random() * 10) + 8, false);
-    var accountDetails = req.body;
+    var accountDetails = req.body; 
+    if (typeof(accountDetails.inputRights) == "undefined") {
+        accountDetails.inputsRights = "USER"
+    }
 
     accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, ''); 
     var failedFields = fieldValidation(accountDetails);
