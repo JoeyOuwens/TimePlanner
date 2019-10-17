@@ -36,7 +36,16 @@ module.exports = {
     },
 
     hours: function (str) {
-        return isNumeric(str)
+        if (isNumeric(str)) {
+            if (str.length > 2) {
+                return false
+            } else {
+                return true
+            }
+        }
+        else {
+            return false
+        }
     },
 
     email: function (str) {
@@ -62,7 +71,7 @@ module.exports = {
 
 
     place: function (str) {
-        return isAlphaWithSpaces(str)
+        return isPlaceName(str)
     },
 
 
@@ -77,6 +86,10 @@ function containsAlpha(str) {
 
 function isLastName(str) {
     return /^[a-zA-Z- ]+$/.test(str);
+}
+
+function isPlaceName(str) {
+    return /^[a-zA-Z -]+$/.test(str);
 }
 
 function isAddress(str) {
