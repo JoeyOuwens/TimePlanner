@@ -34,6 +34,9 @@
     <Content Include="classes\emailHandler.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="classes\validation.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\images\apple-touch-icon-180x180.png" />
     <Content Include="public\images\browserconfig.xml" />
     <Content Include="public\images\favicon-16x16.png" />
