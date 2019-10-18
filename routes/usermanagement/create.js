@@ -29,9 +29,11 @@ router.post('/', function (req, res) {
 
     var password = generatePassword(Math.floor(Math.random() * 10) + 8, false);
     var accountDetails = req.body; 
-    if (typeof(accountDetails.inputRights) == "undefined") {
-        accountDetails.inputsRights = "USER"
+    if (userRights == "MANAGER") {
+        accountDetails.inputRights = "USER"
     }
+
+    console.log(req.body);
 
     accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, ''); 
     var failedFields = fieldValidation(accountDetails);
