@@ -445,7 +445,10 @@ typings/
 
 # gatsby files
 .cache/
+<<<<<<< HEAD
+=======
 
+>>>>>>> development
 # vuepress build output
 .vuepress/dist
 

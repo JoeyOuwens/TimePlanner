@@ -1,6 +1,9 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+    div(class="card  shadow p-3 mb-5")
+        div(class="card-header")
+            h1= message
+            h2= error.status
+        div(class="card-body")  
+            pre #{error.stack}
