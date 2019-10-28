@@ -457,3 +457,6 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# SQLite3 Files
+*.sqlite3
