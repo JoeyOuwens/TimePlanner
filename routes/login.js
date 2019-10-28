@@ -1,7 +1,7 @@
-var login = function (user, password) {
+var login = async function (email, password) {
 
-    console.log(user, password)
-        if (user === "admin@admin.com" && password === "admin") {
+    console.log(email, password)
+    if (await knex('users').where({ email: email }).where({ password: password }).first() !== undefined) {
             return true;
     }
     else {
