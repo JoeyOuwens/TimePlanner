@@ -28,10 +28,16 @@ After this you can just run the web server and with the android studio emulator 
 navigate to your ip-address, e.g. http://192.168.1.2:1337 and then you're able to add the 
 page to your home screen `settings > Add to Home screen`.
 
-### Making migrations
 
+## Migrations
+
+### Making migrations
 For making migrations you have to be in the root folder and run the following command `node_modules\.bin\knex migrate:make <migration_name>`.
 After creating the migration you'll have to create the fields, for more info you can take a look at `migrations/20191010102705_users.js`.
+
+### Running migrations
+Before you can use knexjs or any other db related changes you have to migrate the database to the latest version.  
+This can be done with the following command that should be executed in the root of the project folder; `node_modules\.bin\knex migrate:up`.  
 
 ## Running tests
 
