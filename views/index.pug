@@ -6,7 +6,8 @@ block content
             form(class="form-signin form" method="POST" action="../users/login")
                 #error
                     if error
-                        p.text-danger Error!!!
+                        p(class="alert alert-danger")
+                            | Wachtwoord of gebruikersnaam onjuist, probeer opnieuw.
                 div(class="round-border-white-box")
                     img(src="/images/horecaplanner.svg" height="128px" class="middle-image" id="logo")
                 h2(class="mb-3 font-weight-normal text-center") Please sign in
