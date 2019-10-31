@@ -21,8 +21,48 @@ module.exports = {
                 console.log('Email sent: ' + info.response);
             }
         });
+    },
+
+
+        sendResetPasswordEmail: function (email, resetToken) {
+        var emailText = `<h2>Beste, </h2> <p>Je kan je wachtwoord resetten met de volgende link.<p> ${resetToken} <p> Als je niet je wachtwoord opnieuw hebt aangevraagd kan je deze email negeren.`
+        var mailOptions = {
+            from: `"${mailSettings.general.senderName}" <${mailSettings.transporter.auth.user}>`,
+            to: email,
+            subject: 'Timeplanner wachtwoord aangevraag!',
+            html: emailText
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+    },
+        sendNoAccountFoundEmail: function (email) {
+        var emailText = `<h2>Beste, </h2> <p>Er is geen account gevonden met dit email address.`
+        var mailOptions = {
+            from: `"${mailSettings.general.senderName}" <${mailSettings.transporter.auth.user}>`,
+            to: email,
+            subject: 'Timeplanner wachtwoord aangevraag!',
+            html: emailText
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
     }
 };
+
+function consoleLog(transporter) {
+
+}
 
 
 function getSettings() {

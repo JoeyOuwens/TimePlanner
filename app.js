@@ -11,6 +11,7 @@ var routes = require('./routes/index');
 var login = require('./routes/users');
 var users = require('./routes/usermanagement/list');
 var createuser = require('./routes/usermanagement/create');
+var passwordreset = require('./routes/reset-password');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/', routes);
 app.use('/users', login);  
 app.use('/usermanagement/list', users);
 app.use('/usermanagement/create', createuser);
+app.use('/user/resetpassword', passwordreset);
 
 
 

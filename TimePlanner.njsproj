@@ -34,6 +34,9 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="classes\emailHandler.js" />
+    <Content Include="classes\resetToken.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="db\knex.js">
       <SubType>Code</SubType>
     </Content>
@@ -77,6 +80,9 @@
     </Content>
     <Content Include="routes\index.js" />
     <Content Include="routes\login.js" />
+    <Content Include="routes\reset-password.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\usermanagement\create.js" />
     <Content Include="routes\usermanagement\list.js" />
     <Content Include="routes\users.js" />
@@ -95,6 +101,9 @@
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
     <Content Include="views\login.pug" />
+    <Content Include="views\reset-password.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>
