@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    div( class="container")
+        div( class="row profile")
+            div( class="col-md-3")
+                div( class="profile-sidebar")
+                //SIDEBAR USERPIC
+                div( class="profile-userpic")
+                    img( src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="")
+                div( class="profile-usertitle")
+                    div( class="profile-usertitle-name") Marcus Doe #{username}
+                    div( class="profile-usertitle-job") Eigenaar / Manager
+                div( class="profile-userbuttons")
+                    button( type="button" class="btn btn-success btn-sm") Follow
+                    button( type="button" class="btn btn-danger btn-sm") Message
+                div( class="profile-usermenu")
+                    ul( class="nav")
+                        li( class="active")
+                            a( href="#")
+                                    i( class="glyphicon glyphicon-home") Overview
+                        li()
+                            a( href="#")
+                                    i( class="glyphicon glyphicon-user") Account Settings 
+                        li()
+                            a( href="#" target="_blank")
+                                    i( class="glyphicon glyphicon-ok") Tasks 
+                        li()
+                            a( href="#")
+                                    i( class="glyphicon glyphicon-flag") Help 
+            div( class="col-md-9")
+                div( class="profile-content") Some user related content goes here...
+            

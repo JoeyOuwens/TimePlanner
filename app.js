@@ -12,6 +12,7 @@ var login = require('./routes/users');
 var users = require('./routes/usermanagement/list');
 var createuser = require('./routes/usermanagement/create');
 var dashboard = require('./routes/dashboard');
+var profile = require('./routes/profile');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/users', login);
 app.use('/usermanagement/list', users);
 app.use('/usermanagement/create', createuser);
 app.use('/dashboard', dashboard);
+app.use('/profile', profile);
 
 
 
