@@ -15,8 +15,8 @@ var insertedIntoDB = true;
 
 /* GET create user page. */ 
     router.get('/', function (req, res) { 
-        if (req.session.user !== undefined){
-        res.render('usermanagement/create', { title: 'Nieuwe medewerker', userRights : req.session.user.role, newPage: true });
+        if (req.session.user !== undefined && req.session.user.role != "USER"){
+            res.render('usermanagement/create', { title: 'Nieuwe medewerker', userRights : req.session.user.role, newPage: true });
         } else {
             
         return res.redirect('/');
