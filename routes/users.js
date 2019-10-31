@@ -15,7 +15,9 @@ router.post('/login', function (req, res, next) {
     let loginResult = login(username, req.body.password);
 
     if (loginResult) {
-            res.render('users', { username: username });
+        //res.render('users', { username: username });
+        res.redirect('/dashboard');
+        
         }
         else {
             res.render('index', { error: true });

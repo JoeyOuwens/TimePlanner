@@ -11,6 +11,7 @@ var routes = require('./routes/index');
 var login = require('./routes/users');
 var users = require('./routes/usermanagement/list');
 var createuser = require('./routes/usermanagement/create');
+var dashboard = require('./routes/dashboard');
 
 var app = express();
 
@@ -27,9 +28,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);  
-app.use('/login', login);  
+app.use('/users', login);  
 app.use('/usermanagement/list', users);
 app.use('/usermanagement/create', createuser);
+app.use('/dashboard', dashboard);
+
 
 
 
