@@ -3,7 +3,7 @@ extends layout
 block content
     div(class="row")
         div(class="col-sm-12 col-md-6 offset-md-3")
-            form(class="form-signin form" method="POST" action="../users/login")
+            form(class="form-signin form" method="POST" action="/login/")
                 #error
                     if error
                         p(class="alert alert-danger")
