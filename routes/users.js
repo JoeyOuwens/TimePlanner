@@ -26,10 +26,9 @@ router.post('/', async function (req, res, next) {
     if (loginResult) {
         if (req.session.user === undefined) {
             req.session.user = await User.query().where('email', username).first();
-            console.log(req.session.user);
         }
-            
-        res.render('users', { username: req.session.user.firstname + ' ' + req.session.user.lastname });
+        
+        res.redirect('/dashboard');
     } else {
         res.render('index', { error: true });
     }

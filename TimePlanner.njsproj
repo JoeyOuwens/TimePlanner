@@ -75,6 +75,9 @@
     <Content Include="public\stylesheets\style.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\dashboard.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\index.js" />
     <Content Include="routes\login.js" />
     <Content Include="routes\usermanagement\create.js" />
@@ -90,6 +93,9 @@
       <TestFramework>Jest</TestFramework>
     </Content>
     <Content Include="tests\database.test.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\dashboard.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\index.pug" />
