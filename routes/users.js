@@ -3,23 +3,36 @@ var express = require('express');
 var router = express.Router();
 var login = require('../controller/authenticate/login');
 
+var User = require('../models/user');
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
+    console.log(req.sessionID); 
+    console.log(req.session); 
+    if (req.session.user !== undefined)
+        res.render('users', { username: req.session.user.firstname + ' ' + req.session.user.lastname });
+    else
+        res.redirect('/');
 });
 
 /* Login user */
-router.post('/login', async function (req, res, next) {
 
+router.post('/', async function (req, res, next) {
+    console.log(req.session);
     const username = req.body.username;
-    let loginResult = await login(username, req.body.password);
+    const password = req.body.password;
+    let loginResult = await login(username, password);
 
     if (loginResult) {
-            res.render('users', { username: username });
+        if (req.session.user === undefined) {
+            req.session.user = await User.query().where('email', username).first();
+            console.log(req.session.user);
         }
-        else {
-            res.render('index', { error: true });
-        }
+            
+        res.render('users', { username: req.session.user.firstname + ' ' + req.session.user.lastname });
+    } else {
+        res.render('index', { error: true });
+    }
 });
 
 module.exports = router;

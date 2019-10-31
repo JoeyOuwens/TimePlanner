@@ -84,6 +84,7 @@
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="settings\mailing.json" />
+    <Content Include="tests\add_user.test.js" />
     <Content Include="tests\create-user-validation-unitTest.js">
       <SubType>Code</SubType>
       <TestFramework>Jest</TestFramework>

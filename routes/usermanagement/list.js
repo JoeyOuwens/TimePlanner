@@ -10,16 +10,13 @@ var userRights = "OWNER";
 
 
 /* GET users page. */
-if (userHasPageAccess) {
-    router.get('/', function (req, res) {
-        res.render('usermanagement/list', { title: 'Medewerkers', users: users, userRights: userRights});
-    });
-} else {
-    router.get('/', function (req, res) {
+router.get('/', function (req, res) {
+    if (req.session.user !== undefined)
+        res.render('usermanagement/list', { title: 'Medewerkers', users: users, userRights: req.session.user.role });
+    else 
         return res.redirect('/');
-    });
-}
- 
+
+});
 
 
 module.exports = router;
