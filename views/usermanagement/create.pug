@@ -1,8 +1,15 @@
 extends ../layout
 
 block content
-    br
-     
+    br 
+    if(throwError) 
+        div(class="alert alert-danger alert-dismissible fade show" role="alert") #{errorMessage}
+            button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                span(aria-hidden="true") &times;
+    if(throwSuccess)
+        div(class="alert alert-success alert-dismissible fade show" role="alert") Medewerker is toegevoegd.
+            button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                span(aria-hidden="true") &times;
     div(class="card  shadow p-3 mb-5")
         div(class="card-header")
             h2 #{title}

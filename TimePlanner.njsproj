@@ -34,6 +34,9 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="classes\emailHandler.js" />
+    <Content Include="classes\userDBHandler.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="db\knex.js">
       <SubType>Code</SubType>
     </Content>
@@ -86,6 +89,7 @@
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="seeds\01_users.js" />
     <Content Include="settings\mailing.json" />
     <Content Include="tests\add_user.test.js" />
     <Content Include="tests\create-user-validation-unitTest.js">
@@ -114,6 +118,7 @@
     <Folder Include="models\" />
     <Folder Include="db\" />
     <Folder Include="routes\usermanagement\" />
+    <Folder Include="seeds\" />
     <Folder Include="settings\" />
     <Content Include="views\login2.pug">
       <SubType>Code</SubType>
