@@ -8,6 +8,10 @@
     <JavaScriptTestFramework>Jest</JavaScriptTestFramework>
     <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
     <JavaScriptTestRoot>tests\</JavaScriptTestRoot>
+    <NodeExePath>
+    </NodeExePath>
+    <NodeExeArguments>
+    </NodeExeArguments>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -34,21 +38,29 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="classes\emailHandler.js" />
-    <Content Include="classes\resetToken.js">
+    <Content Include="classes\resetToken.js" />
+    <Content Include="classes\resetTokenDBHandler.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="classes\userDBHandler.js" />
+    <Content Include="classes\validation.js" />
     <Content Include="db\knex.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="knexfile.js" />
     <Content Include="migrations\20191010105705_users.js" />
+    <Content Include="migrations\20191031174844_token.js" />
+    <Content Include="migrations\20191031181138_token.js" />
+    <Content Include="migrations\20191031182050_token.js" />
+    <Content Include="migrations\20191031184830_token.js" />
+    <Content Include="migrations\20191031184923_token.js" />
+    <Content Include="models\token.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="models\user.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="controller\authenticate\login.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="classes\validation.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\images\apple-touch-icon-180x180.png" />
@@ -89,7 +101,9 @@
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="seeds\01_users.js" />
     <Content Include="settings\mailing.json" />
+    <Content Include="tests\add_user.test.js" />
     <Content Include="tests\create-user-validation-unitTest.js">
       <SubType>Code</SubType>
       <TestFramework>Jest</TestFramework>
@@ -116,6 +130,7 @@
     <Folder Include="models\" />
     <Folder Include="db\" />
     <Folder Include="routes\usermanagement\" />
+    <Folder Include="seeds\" />
     <Folder Include="settings\" />
     <Content Include="views\login2.pug">
       <SubType>Code</SubType>

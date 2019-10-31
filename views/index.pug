@@ -24,5 +24,22 @@ block content
                        | Remember me
                 div(class="form-group")
                     input(class=['btn', 'btn-primary', 'form-control'] type="submit" value="Sign in")
-                a(href="#forgotten-password") I forgot my password.
+                a(href="#forgotten-password" data-toggle="modal" data-target="#forgotten-password") I forgot my password.
     
+
+    div(class="modal fade" id="forgotten-password" tabindex="-1" role="dialog" aria-labelledby="forgotten-password" aria-hidden="true")
+      div(class="modal-dialog modal-dialog-centered" role="document")     
+        div(class="modal-content")
+            div(class="modal-header")
+                h5(class="modal-title" id="Title") Wachtwoord reset aanvragen.
+                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                  span(aria-hidden="true") &times; 
+            div(class="modal-body")
+
+                form(method="POST" class="form-reset form" action="../users/reset" id="resetPassword" )
+                    p Voer hier onder je email adres in om je wachtwoord te resetten.
+                    div(class="form-group")
+                        label(for="email-address" class="col-form-label") Email adres
+                        input(type="text" class="form-control" id="inputEmail"  name="inputEmail"  required)
+                        br
+                        button(type="submit" id="submit" class="btn btn-primary") Verstuur  

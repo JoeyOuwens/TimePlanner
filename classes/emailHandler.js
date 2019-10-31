@@ -29,7 +29,7 @@ module.exports = {
         var mailOptions = {
             from: `"${mailSettings.general.senderName}" <${mailSettings.transporter.auth.user}>`,
             to: email,
-            subject: 'Timeplanner wachtwoord aangevraag!',
+            subject: 'TimePlanner wachtwoord aanvraag!',
             html: emailText
         };
 
@@ -46,7 +46,7 @@ module.exports = {
         var mailOptions = {
             from: `"${mailSettings.general.senderName}" <${mailSettings.transporter.auth.user}>`,
             to: email,
-            subject: 'Timeplanner wachtwoord aangevraag!',
+            subject: 'Timeplanner wachtwoord aanvraag!',
             html: emailText
         };
 
