@@ -36,8 +36,17 @@ async function tokenExists(tokenSerial) {
 }
 
 
- function isValidToken(token) { 
-    if (token.length == 1 && token[0].used == false) {
+function isValidToken(token) {
+    if (token.length == 1 && token[0].used == false && !isTokenExpired(token[0].validUntil)) {
+        return true
+    } else {
+        return false
+    }
+}
+
+function isTokenExpired(dateTime) {
+    var today = new Date()
+    if (today > dateTime) {
         return true
     } else {
         return false
