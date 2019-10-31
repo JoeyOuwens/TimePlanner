@@ -31,7 +31,7 @@ router.post('/', function (req, res) {
 
     accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, ''); 
     var failedFields = fieldValidation(accountDetails);
-    if (failedFields.length == 0) {
+    if (failedFields.length === 0) {
         if (insertedIntoDB) {
             emailHandler.sendNewAccountEmail(accountDetails.inputEmail, accountDetails.inputFname, password);
             handlePageStayCheck(req.body.checkPageStay,res)

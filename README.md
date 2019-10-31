@@ -9,8 +9,9 @@ The default project works out-of-the-box for browsers. You can run everything by
 `.sln` file in `Visual Studio 2017-2019` and run in the browser(with F5 or the run button).  
 In order to let things work on android there is some more setup to be done. 
 
-NOTE: it could be possible that you can run the server with the following commands from the root folder, 
-`node app.js` or `npm run app`, but this hasn't worked for me. 
+NOTE: If you want to run the code from the terminal, cmd or powershell you're able to do so  by 
+running the following command `node run app`. If you want to run the server with hot reloading,  
+reloading the server when a file changes, then you can run the server with the following command `npm run dev`
 
 ### Adding Android Emulator
 

@@ -4,6 +4,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    /* Redirect user to another page when he/she is logged in */
+    if (req.session.user !== undefined)
+        res.redirect('/dashboard/');
+
     res.render('index', { error: false });
 });
 
