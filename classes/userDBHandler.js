@@ -58,5 +58,18 @@ module.exports = {
                 return false
             })  
 
+    },
+
+    updateUserPasswordById: function (userId, password) {
+        return knex('users')
+            .where({ id: userId })
+            .update({ password: password })
+            .then(function () {
+                return true
+            })
+            .catch(function (e) {
+                console.log(e)
+                return false
+            })  
     }
 };

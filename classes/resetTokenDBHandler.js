@@ -17,6 +17,16 @@ module.exports = {
                 return false
             })  
     },
+    useToken: function (tokenSerial) {
+       return knex('token')
+            .where({ tokenSerial: tokenSerial })
+            .update({ used: true })
+            .then(function () { return true })
+            .catch(function (e) {
+                console.log(e)
+                return false
+            })  
+    },
 
     getTokenByTokenSerial: async function(tokenSerial) { 
             var token = await knex.select()
@@ -27,6 +37,18 @@ module.exports = {
                 }).catch(function () {
                     return [];
                 })
+        return token
+    },
+
+    getUserIdByTokenSerial: async function (tokenSerial) {
+        var token = await knex.select("userId")
+            .from("token")
+            .where("tokenSerial", tokenSerial)
+            .then(function (data) {
+                return data
+            }).catch(function () {
+                return [];
+            })
         return token
     },
 
