@@ -1,7 +1,9 @@
-var login = function (user, password) {
+const knex = require('../../db/knex');
 
-    console.log(user, password)
-    if (user === "admin@admin.com" && password === "admin") {
+var login = async function (email, password) {
+
+    console.log(email, password)
+    if (await knex('users').where({ email: email }).where({ password: password }).first() !== undefined) {
         return true;
     }
     else {
