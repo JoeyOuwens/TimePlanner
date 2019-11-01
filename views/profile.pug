@@ -7,35 +7,69 @@ block content
             h2 Profiel
         div(class="col-sm-12")
             div(class="row no-gutter")
-                div( class="col-md-3", style="background:yellow;")
+                div( class="col-md-6 col-lg-3", style="background:yellow;")
                     div( class="profile-sidebar")
                     //SIDEBAR USERPIC
                     div( class="profile-userpic text-center")
                         img( src="https://via.placeholder.com/150" class="img-responsive" alt="")
                     div( class="profile-usertitle")
-                        div( class="profile-usertitle-name") #{user.firstname} #{user.firstname}
-                        div( class="profile-usertitle-job") #{user.role}
-                    div( class="profile-userbuttons")
-                        button( type="button" class="btn btn-success btn-sm") Follow
-                        button( type="button" class="btn btn-danger btn-sm") Message
+                        div( class="profile-usertitle-name") #{user.firstname} #{user.lastname}
+                        div( class="profile-usertitle-job") 
+                            if user.role == 'MANAGER'
+                                | Manager
+                            else if user.role == 'OWNER'
+                                | Beheerder
+                            else
+                                | Gebruiker
                     div( class="profile-usermenu")
                         ul( class="list-unstyled")
-                            li( class="active")
+                            li( class={active: page == 'overview'})
                                 a( href="#")
                                     i( class="fa fa-home") 
-                                    | Overview
-                            li
+                                    | Overzicht
+                            li( class={active: page == 'changesettings'})
                                 a( href="#")
                                     i( class="fa fa-user") 
-                                    | Account Settings 
-                            li
+                                    | Account instellingen 
+                            li( class={active: page == 'tasks'})
                                 a( href="#" target="_blank")
                                     i( class="fa fa-calendar") 
-                                    | Tasks 
-                            li
+                                    | Rooster 
+                            li( class={active: page == 'help'})
                                 a( href="#")
                                     i( class="fa fa-info-circle")
                                     | Help 
-                div( class="col-md-9")
-                    div( class="profile-content") Some user related content goes here...
-            
+                div( class="col-md-6 col-lg-9")
+                    div( class="profile-content") 
+                        div(class="row")
+                            div( class="col-sm-12 col-lg-6")
+                                div(class="form-group")
+                                    label(for="emailaddress") Emailadres:
+                                    input(type="text" class="form-control" name="emailaddress" value=user.email disabled)
+                                div(class="form-group")
+                                    label(for="birth_date") Geboortedatum: 
+                                    input(type="text" class="form-control" name="birth_date" value=user.birth_date disabled)
+                                div(class="form-group")
+                                    label(for="address") adres:
+                                    input(type="text" class="form-control" name="address" value=user.address disabled)
+                                div(class="form-group")
+                                    label(for="zip") Postcode
+                                    input(type="text" class="form-control" name="zip" value=user.zip disabled)
+                                div(class="form-group")
+                                    label(for="place") Woonplaats
+                                    input(type="text" class="form-control" name="place" value=user.place disabled)
+                                
+                            div( class="col-sm-12 col-lg-6")
+                                div(class="form-group")
+                                    label(for="function") Functie: 
+                                    input(type="text" class="form-control" name="function" value=user.function disabled)
+                                div(class="form-group")
+                                    label(for="contract_hours") Contract uren:
+                                    input(type="text" class="form-control" name="contract_hours" value=user.contract_hours disabled)
+                                div(class="form-group")
+                                    label(for="employed_since") In dienst sinds: 
+                                    input(type="text" class="form-control" name="employed_since" value=user.employed_since disabled)
+                                div(class="form-group")
+                                    label(for="phone_number") Telefoonnummer: 
+                                    input(type="text" class="form-control" name="phone_number" value=user.phone_number disabled)
+                                
