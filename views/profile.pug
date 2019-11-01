@@ -87,40 +87,48 @@ block content
                                     div( class="col-sm-12 col-lg-6")
                                         div(class="form-group")
                                             label(for="firstname") Voornaam:
-                                            input(type="text" class="form-control" name="firstname" value=user.firstname)
+                                            input(type="text" class="form-control" name="firstname" value=user.firstname required)
                                         div(class="form-group")
                                             label(for="email") Emailadres:
-                                            input(type="email" class="form-control" name="email" value=user.email)
+                                            input(type="email" class="form-control" name="email" value=user.email required)
                                         div(class="form-group")
                                             label(for="birth_date") Geboortedatum: 
-                                            input(type="text" class="form-control" name="birth_date" value=user.birth_date)
+                                            input(type="text" class="form-control" name="birth_date" value=user.birth_date required)
                                         div(class="form-group")
                                             label(for="address") adres:
-                                            input(type="text" class="form-control" name="address" value=user.address)
+                                            input(type="text" class="form-control" name="address" value=user.address required)
                                         div(class="form-group")
                                             label(for="zip") Postcode
-                                            input(type="text" class="form-control" name="zip" value=user.zip)
+                                            input(type="text" class="form-control" name="zip" value=user.zip required)
                                         div(class="form-group")
                                             label(for="place") Woonplaats
-                                            input(type="text" class="form-control" name="place" value=user.place)
+                                            input(type="text" class="form-control" name="place" value=user.place required)
 
                                     div( class="col-sm-12 col-lg-6")
                                         div(class="form-group")
                                             label(for="lastname") Achternaam:
-                                            input(type="text" class="form-control" name="lastname" value=user.lastname)
+                                            input(type="text" class="form-control" name="lastname" required)
                                         div(class="form-group")
                                             label(for="function") Functie: 
-                                            input(type="text" class="form-control" name="function" value=user.function)
+                                            input(type="text" class="form-control" name="function" value=user.function required)
                                         div(class="form-group")
                                             label(for="contract_hours") Contract uren:
-                                            input(type="text" class="form-control" name="contract_hours" value=user.contract_hours)
+                                            input(type="text" class="form-control" name="contract_hours" value=user.contract_hours required)
                                         div(class="form-group")
                                             label(for="employed_since") In dienst sinds: 
-                                            input(type="text" class="form-control" name="employed_since" value=user.employed_since)
+                                            input(type="text" class="form-control" name="employed_since" value=user.employed_since required)
                                         div(class="form-group")
                                             label(for="phone_number") Telefoonnummer: 
-                                            input(type="text" class="form-control" name="phone_number" value=user.phone_number)
+                                            input(type="text" class="form-control" name="phone_number" value=user.phone_number required)
 
                                     div(class="col-sm-12")
                                         div(class="form-group")
                                             input(type="submit" class="btn-md btn btn-success" name="submit" value="Wijzigen")
+                            script.
+                                var failedValidation = [!{failedFields}]; 
+                                for (let i = 0; i < failedValidation.length; i++) {
+                                    console.log(failedValidation[i])
+                                    let element = document.querySelector('input[name="' + failedValidation[i] + '"');
+                                    console.log(element);
+                                    element.classList.add('is-invalid');
+                                }
