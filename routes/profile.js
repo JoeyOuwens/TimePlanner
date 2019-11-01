@@ -58,9 +58,6 @@ function fieldValidation(details) {
     if (!validation.birthdate(details.birth_date)) {
         failed.push("'birth_date'");
     }
-    if (!validation.hours(details.contract_hours)) {
-        failed.push("'contract_hours'");
-    }
     if (!validation.telephone(details.phone_number)) {
         failed.push("'phone_number'");
     }
