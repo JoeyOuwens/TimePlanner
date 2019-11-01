@@ -24,52 +24,103 @@ block content
                     div( class="profile-usermenu")
                         ul( class="list-unstyled")
                             li( class={active: page == 'overview'})
-                                a( href="#")
+                                a( href="/profile/")
                                     i( class="fa fa-home") 
                                     | Overzicht
                             li( class={active: page == 'changesettings'})
-                                a( href="#")
+                                a( href="/profile/changesettings/")
                                     i( class="fa fa-user") 
-                                    | Account instellingen 
+                                    | Profiel wijzigen
                             li( class={active: page == 'tasks'})
-                                a( href="#" target="_blank")
+                                a( href="/profile/tasks")
                                     i( class="fa fa-calendar") 
                                     | Rooster 
                             li( class={active: page == 'help'})
-                                a( href="#")
+                                a( href="/profile/help/")
                                     i( class="fa fa-info-circle")
                                     | Help 
                 div( class="col-md-6 col-lg-9")
                     div( class="profile-content") 
-                        div(class="row")
-                            div( class="col-sm-12 col-lg-6")
-                                div(class="form-group")
-                                    label(for="emailaddress") Emailadres:
-                                    input(type="text" class="form-control" name="emailaddress" value=user.email disabled)
-                                div(class="form-group")
-                                    label(for="birth_date") Geboortedatum: 
-                                    input(type="text" class="form-control" name="birth_date" value=user.birth_date disabled)
-                                div(class="form-group")
-                                    label(for="address") adres:
-                                    input(type="text" class="form-control" name="address" value=user.address disabled)
-                                div(class="form-group")
-                                    label(for="zip") Postcode
-                                    input(type="text" class="form-control" name="zip" value=user.zip disabled)
-                                div(class="form-group")
-                                    label(for="place") Woonplaats
-                                    input(type="text" class="form-control" name="place" value=user.place disabled)
+                        if page == 'overview'
+                            div(class="row")
+                                div( class="col-sm-12 col-lg-6")
+                                    div(class="form-group")
+                                        label(for="email") Emailadres:
+                                        input(type="text" class="form-control" name="email" value=user.email disabled)
+                                    div(class="form-group")
+                                        label(for="birth_date") Geboortedatum: 
+                                        input(type="text" class="form-control" name="birth_date" value=user.birth_date disabled)
+                                    div(class="form-group")
+                                        label(for="address") adres:
+                                        input(type="text" class="form-control" name="address" value=user.address disabled)
+                                    div(class="form-group")
+                                        label(for="zip") Postcode
+                                        input(type="text" class="form-control" name="zip" value=user.zip disabled)
+                                    div(class="form-group")
+                                        label(for="place") Woonplaats
+                                        input(type="text" class="form-control" name="place" value=user.place disabled)
                                 
-                            div( class="col-sm-12 col-lg-6")
-                                div(class="form-group")
-                                    label(for="function") Functie: 
-                                    input(type="text" class="form-control" name="function" value=user.function disabled)
-                                div(class="form-group")
-                                    label(for="contract_hours") Contract uren:
-                                    input(type="text" class="form-control" name="contract_hours" value=user.contract_hours disabled)
-                                div(class="form-group")
-                                    label(for="employed_since") In dienst sinds: 
-                                    input(type="text" class="form-control" name="employed_since" value=user.employed_since disabled)
-                                div(class="form-group")
-                                    label(for="phone_number") Telefoonnummer: 
-                                    input(type="text" class="form-control" name="phone_number" value=user.phone_number disabled)
-                                
+                                div( class="col-sm-12 col-lg-6")
+                                    div(class="form-group")
+                                        label(for="function") Functie: 
+                                        input(type="text" class="form-control" name="function" value=user.function disabled)
+                                    div(class="form-group")
+                                        label(for="contract_hours") Contract uren:
+                                        input(type="text" class="form-control" name="contract_hours" value=user.contract_hours disabled)
+                                    div(class="form-group")
+                                        label(for="employed_since") In dienst sinds: 
+                                        input(type="text" class="form-control" name="employed_since" value=user.employed_since disabled)
+                                    div(class="form-group")
+                                        label(for="phone_number") Telefoonnummer: 
+                                        input(type="text" class="form-control" name="phone_number" value=user.phone_number disabled)
+                        else if page == 'changesettings'
+                            #error
+                                if error
+                                    div(class="alert alert-danger")
+                                        p #{error}
+                                else if saved
+                                    div(class="alert alert-success")
+                                        p De wijzigingen zijn succesvol opgeslagen!
+                            form(class="form" method="POST")
+                                input(type="hidden" name="userid" value=user.id)
+                                div(class="row")
+                                    div( class="col-sm-12 col-lg-6")
+                                        div(class="form-group")
+                                            label(for="firstname") Voornaam:
+                                            input(type="text" class="form-control" name="firstname" value=user.firstname)
+                                        div(class="form-group")
+                                            label(for="email") Emailadres:
+                                            input(type="email" class="form-control" name="email" value=user.email)
+                                        div(class="form-group")
+                                            label(for="birth_date") Geboortedatum: 
+                                            input(type="text" class="form-control" name="birth_date" value=user.birth_date)
+                                        div(class="form-group")
+                                            label(for="address") adres:
+                                            input(type="text" class="form-control" name="address" value=user.address)
+                                        div(class="form-group")
+                                            label(for="zip") Postcode
+                                            input(type="text" class="form-control" name="zip" value=user.zip)
+                                        div(class="form-group")
+                                            label(for="place") Woonplaats
+                                            input(type="text" class="form-control" name="place" value=user.place)
+
+                                    div( class="col-sm-12 col-lg-6")
+                                        div(class="form-group")
+                                            label(for="lastname") Achternaam:
+                                            input(type="text" class="form-control" name="lastname" value=user.lastname)
+                                        div(class="form-group")
+                                            label(for="function") Functie: 
+                                            input(type="text" class="form-control" name="function" value=user.function)
+                                        div(class="form-group")
+                                            label(for="contract_hours") Contract uren:
+                                            input(type="text" class="form-control" name="contract_hours" value=user.contract_hours)
+                                        div(class="form-group")
+                                            label(for="employed_since") In dienst sinds: 
+                                            input(type="text" class="form-control" name="employed_since" value=user.employed_since)
+                                        div(class="form-group")
+                                            label(for="phone_number") Telefoonnummer: 
+                                            input(type="text" class="form-control" name="phone_number" value=user.phone_number)
+
+                                    div(class="col-sm-12")
+                                        div(class="form-group")
+                                            input(type="submit" class="btn-md btn btn-success" name="submit" value="Wijzigen")
