@@ -117,17 +117,17 @@ body {
     margin-top: 10px;
 }
 
-    .profile-userbuttons .btn {
-        text-transform: uppercase;
-        font-size: 11px;
-        font-weight: 600;
-        padding: 6px 15px;
-        margin-right: 5px;
-    }
+.profile-userbuttons .btn {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
+}
 
-        .profile-userbuttons .btn:last-child {
-            margin-right: 0px;
-        }
+.profile-userbuttons .btn:last-child {
+    margin-right: 0px;
+}
 
 .profile-usermenu {
     margin-top: 30px;
@@ -155,7 +155,7 @@ body {
 .profile-usermenu ul li.active a {
     color: #5b9bd1;
     border-left: 2px solid #5b9bd1;
-    margin-left: -2px;
+    padding-left: 5px;
 }
 
 /* Profile Content */
