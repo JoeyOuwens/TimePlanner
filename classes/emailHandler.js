@@ -25,7 +25,7 @@ module.exports = {
 
 
         sendResetPasswordEmail: function (email, resetToken) {
-        var emailText = `<h2>Beste, </h2> <p>Je kan je wachtwoord resetten met de volgende link.<p> ${resetToken} <p> Als je niet je wachtwoord opnieuw hebt aangevraagd kan je deze email negeren.`
+            var emailText = `<h2>Beste, </h2> <p>Je kan je wachtwoord resetten met de volgende link.<p> <a href="http://localhost:1337/user/resetpassword/token/${resetToken}">Reset wachtwoord.</a> <p> Als je niet je wachtwoord opnieuw hebt aangevraagd kan je deze email negeren. <p> Mocht je problemen hebben met je de link openen, kopieer het volgende in je browser: http://localhost:1337/user/resetpassword/token/${resetToken} `
         var mailOptions = {
             from: `"${mailSettings.general.senderName}" <${mailSettings.transporter.auth.user}>`,
             to: email,
