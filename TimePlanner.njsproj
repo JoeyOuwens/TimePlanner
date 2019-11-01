@@ -83,6 +83,9 @@
     </Content>
     <Content Include="routes\index.js" />
     <Content Include="routes\login.js" />
+    <Content Include="routes\profile.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\usermanagement\create.js" />
     <Content Include="routes\usermanagement\list.js" />
     <Content Include="routes\users.js" />
@@ -106,6 +109,9 @@
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
     <Content Include="views\login.pug" />
+    <Content Include="views\profile.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>

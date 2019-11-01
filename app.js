@@ -18,6 +18,7 @@ var createuser = require('./routes/usermanagement/create');
 var session = require('express-session');
 const uuid = require('uuid/v4');
 var dashboard = require('./routes/dashboard');
+var profile = require('./routes/profile');
 
 var app = express();
 
@@ -55,6 +56,7 @@ app.use('/login', login);
 app.use('/usermanagement/list', users);
 app.use('/usermanagement/create', createuser);
 app.use('/dashboard', dashboard);
+app.use('/profile', profile);
 
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.

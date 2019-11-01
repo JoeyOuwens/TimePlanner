@@ -93,6 +93,6 @@ function fieldValidation(details) {
     }
     return failed;
      
-};
+}
 
 module.exports = router;
