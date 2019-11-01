@@ -164,3 +164,16 @@ body {
     background: #fff;
     min-height: 460px;
 }
+
+div {
+    position: relative;
+    overflow: hidden;
+}
+
+input {
+    position: absolute;
+    font-size: 50px;
+    opacity: 0;
+    right: 0;
+    top: 0;
+}
