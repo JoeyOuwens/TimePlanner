@@ -10,7 +10,7 @@ html
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css")
         script(src='/service-worker-register.js')
     body
-        if hidenav === undefined || hidenav == false
+        if hidenav !== undefined && hidenav == true
             header
                 nav.navbar.navbar-expand-lg.navbar-dark.bg-blue
                     a.navbar-brand(href='/') 
