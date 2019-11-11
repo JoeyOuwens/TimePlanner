@@ -63,18 +63,18 @@
     <Content Include="controller\authenticate\login.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="public\images\apple-touch-icon-180x180.png" />
-    <Content Include="public\images\browserconfig.xml" />
-    <Content Include="public\images\favicon-16x16.png" />
-    <Content Include="public\images\favicon-32x32.png" />
-    <Content Include="public\images\favicon.ico" />
-    <Content Include="public\images\pwa-192x192.png" />
-    <Content Include="public\images\pwa-512x512.png" />
-    <Content Include="public\images\tile150x150.png" />
-    <Content Include="public\images\tile310x150.png" />
-    <Content Include="public\images\tile310x310.png" />
-    <Content Include="public\images\tile70x70.png" />
-    <Content Include="public\images\_head.html" />
+    <Content Include="node_modules\images\apple-touch-icon-180x180.png" />
+    <Content Include="node_modules\images\browserconfig.xml" />
+    <Content Include="node_modules\images\favicon-16x16.png" />
+    <Content Include="node_modules\images\favicon-32x32.png" />
+    <Content Include="node_modules\images\favicon.ico" />
+    <Content Include="node_modules\images\pwa-192x192.png" />
+    <Content Include="node_modules\images\pwa-512x512.png" />
+    <Content Include="node_modules\images\tile150x150.png" />
+    <Content Include="node_modules\images\tile310x150.png" />
+    <Content Include="node_modules\images\tile310x310.png" />
+    <Content Include="node_modules\images\tile70x70.png" />
+    <Content Include="node_modules\images\_head.html" />
     <Content Include="public\service-worker-register.js">
       <SubType>Code</SubType>
     </Content>
@@ -95,7 +95,7 @@
     </Content>
     <Content Include="routes\index.js" />
     <Content Include="routes\login.js" />
-    <Content Include="routes\profile.js"/>
+    <Content Include="routes\profile.js" />
     <Content Include="routes\reset-password.js">
       <SubType>Code</SubType>
     </Content>
@@ -122,7 +122,7 @@
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
     <Content Include="views\login.pug" />
-    <Content Include="views\profile.pug"/>
+    <Content Include="views\profile.pug" />
     <Content Include="views\reset-password.pug">
       <SubType>Code</SubType>
     </Content>
@@ -156,7 +156,7 @@
     <Folder Include="controller\" />
     <Folder Include="controller\authenticate\" />
     <Folder Include="public\" />
-    <Folder Include="public\images\" />
+    <Folder Include="node_modules\images\" />
     <Folder Include="public\javascript\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />

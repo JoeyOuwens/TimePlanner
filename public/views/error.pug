@@ -1,9 +1,0 @@
-extends layout
-
-block content
-    div(class="card  shadow p-3 mb-5")
-        div(class="card-header")
-            h1= message
-            h2= error.status
-        div(class="card-body")  
-            pre #{error.stack}
