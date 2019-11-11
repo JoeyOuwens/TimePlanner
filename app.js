@@ -20,6 +20,7 @@ const uuid = require('uuid/v4');
 var dashboard = require('./routes/dashboard');
 var profile = require('./routes/profile');
 var passwordreset = require('./routes/reset-password');
+var logout = require('./routes/logout');
 
 var app = express();
 
@@ -64,6 +65,7 @@ app.use('/usermanagement/create', createuser);
 app.use('/dashboard', dashboard);
 app.use('/profile', profile);
 app.use('/user/resetpassword', passwordreset);
+app.use('/logout', logout);
 
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
