@@ -123,7 +123,6 @@
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
-    <Content Include="views\login.pug" />
     <Content Include="views\profile.pug" />
     <Content Include="views\reset-password.pug">
       <SubType>Code</SubType>
@@ -142,9 +141,6 @@
     <Folder Include="routes\usermanagement\" />
     <Folder Include="seeds\" />
     <Folder Include="settings\" />
-    <Content Include="views\login2.pug">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>

@@ -44,8 +44,13 @@ app.set('view engine', 'pug');
 //    }
 //}));
 
-app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 } }));
 
+
+app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 } }));
+app.use(function (req, res, next) {
+    res.locals.userInfo = req.session.user;
+    next();
+})
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -66,11 +71,9 @@ app.use('/user/resetpassword', passwordreset);
 app.use((req, res, next) => {
     if (req.cookies.user_sid && !req.session.user) {
         res.clearCookie('user_sid');
-    }
+    } 
     next();
-});
-
-
+}); 
 // middleware function to check for logged-in users
 var sessionChecker = (req, res, next) => {
     if (req.session.user && req.cookies.user_sid) {
