@@ -37,6 +37,7 @@ router.post('/changesettings/', async function (req, res, next) {
     res.render('profile', { page: 'changesettings', failedFields: failedFields, saved: saved });
 });
 
+
 router.get('/tasks/', function (req, res, next) {
     res.render('profile', {  page: 'tasks' });
 
@@ -77,6 +78,22 @@ function fieldValidation(details) {
         failed.push("'lastname'");
     }
     return failed;
+}
+
+/*Profile picture*/
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#profilepic')
+                .attr('src', e.target.result)
+                .width(150)
+                .height(150);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 
 module.exports = router;
