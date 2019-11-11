@@ -11,11 +11,11 @@ block content
                     div( class="profile-sidebar")
                     //SIDEBAR USERPIC
                     div( class="profile-userpic text-center")
-                        img( src="https://via.placeholder.com/150" class="img-responsive" alt="")
-                    div( class="file btn btn-lg btn-primary" )
-                        input(type="file" name="file" onchange="readURL(this);") 
-                        | Upload
-                        img(id="profilepic" src="#" class="" alt="")
+                        img(id="profilepic" src="#" class="img-responsive" alt="")
+                        div( class="file btn btn-lg btn-primary" )
+                            input(type="file" name="file" onchange="readURL(this);") 
+                            | Upload
+                        
                     div( class="profile-usertitle")
                         div( class="profile-usertitle-name") #{userInfo.firstname} #{userInfo.lastname}
                         div( class="profile-usertitle-job") 
@@ -53,3 +53,16 @@ block content
                                 include profile/changesettings
                             default
                                 include profile/overview
+                    script.
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                            reader.onload = function (e) {
+                            $('#profilepic')
+                            .attr('src', e.target.result)
+                            .width(150)
+                            .height(150);
+                            };
+                            reader.readAsDataURL(input.files[0]);
+                                }
+                            }
