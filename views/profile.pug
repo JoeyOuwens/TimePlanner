@@ -13,14 +13,15 @@ block content
                     div( class="profile-userpic text-center")
                         img( src="https://via.placeholder.com/150" class="img-responsive" alt="")
                     div( class="profile-usertitle")
-                        div( class="profile-usertitle-name") #{user.firstname} #{user.lastname}
+                        div( class="profile-usertitle-name") #{userInfo.firstname} #{userInfo.lastname}
                         div( class="profile-usertitle-job") 
-                            if user.role == 'MANAGER'
-                                | Manager
-                            else if user.role == 'OWNER'
-                                | Beheerder
-                            else
-                                | Gebruiker
+                            case userInfo.role 
+                                when "MANAGER"
+                                    | Manager
+                                when "OWNER"
+                                    | Beheerder
+                                default
+                                    | Gebruiker
                     div( class="profile-usermenu")
                         ul( class="list-unstyled")
                             li( class={active: page == 'overview'})
@@ -46,33 +47,33 @@ block content
                                 div( class="col-sm-12 col-lg-6")
                                     div(class="form-group")
                                         label(for="email") Emailadres:
-                                        input(type="text" class="form-control" name="email" value=user.email disabled)
+                                        input(type="text" class="form-control" name="email" value=userInfo.email disabled)
                                     div(class="form-group")
                                         label(for="birth_date") Geboortedatum: 
-                                        input(type="date" class="form-control" name="birth_date" value=user.birth_date disabled)
+                                        input(type="date" class="form-control" name="birth_date" value=userInfo.birth_date disabled)
                                     div(class="form-group")
                                         label(for="address") adres:
-                                        input(type="text" class="form-control" name="address" value=user.address disabled)
+                                        input(type="text" class="form-control" name="address" value=userInfo.address disabled)
                                     div(class="form-group")
                                         label(for="zip") Postcode
-                                        input(type="text" class="form-control" name="zip" value=user.zip disabled)
+                                        input(type="text" class="form-control" name="zip" value=userInfo.zip disabled)
                                     div(class="form-group")
                                         label(for="place") Woonplaats
-                                        input(type="text" class="form-control" name="place" value=user.place disabled)
+                                        input(type="text" class="form-control" name="place" value=userInfo.place disabled)
                                 
                                 div( class="col-sm-12 col-lg-6")
                                     div(class="form-group")
                                         label(for="function") Functie: 
-                                        input(type="text" class="form-control" name="function" value=user.function disabled)
+                                        input(type="text" class="form-control" name="function" value=userInfo.function disabled)
                                     div(class="form-group")
                                         label(for="contract_hours") Contract uren:
-                                        input(type="text" class="form-control" name="contract_hours" value=user.contract_hours disabled)
+                                        input(type="text" class="form-control" name="contract_hours" value=userInfo.contract_hours disabled)
                                     div(class="form-group")
                                         label(for="employed_since") In dienst sinds: 
-                                        input(type="date" class="form-control" name="employed_since" value=user.employed_since disabled)
+                                        input(type="date" class="form-control" name="employed_since" value=userInfo.employed_since disabled)
                                     div(class="form-group")
                                         label(for="phone_number") Telefoonnummer: 
-                                        input(type="text" class="form-control" name="phone_number" value=user.phone_number disabled)
+                                        input(type="text" class="form-control" name="phone_number" value=userInfo.phone_number disabled)
                         else if page == 'changesettings'
                             #error
                                 if error
@@ -82,38 +83,38 @@ block content
                                     div(class="alert alert-success")
                                         p De wijzigingen zijn succesvol opgeslagen!
                             form(class="form" method="POST")
-                                input(type="hidden" name="userid" value=user.id)
+                                input(type="hidden" name="userid" value=userInfo.id)
                                 div(class="row")
                                     div( class="col-sm-12 col-lg-6")
                                         div(class="form-group")
                                             label(for="firstname") Voornaam:
-                                            input(type="text" class="form-control" name="firstname" value=user.firstname required)
+                                            input(type="text" class="form-control" name="firstname" value=userInfo.firstname required)
                                         div(class="form-group")
                                             label(for="email") Emailadres:
-                                            input(type="email" class="form-control" name="email" value=user.email required)
+                                            input(type="email" class="form-control" name="email" value=userInfo.email required)
                                         div(class="form-group")
                                             label(for="birth_date") Geboortedatum: 
-                                            input(type="date" class="form-control" name="birth_date" value=user.birth_date required)
+                                            input(type="date" class="form-control" name="birth_date" value=userInfo.birth_date required)
                                         div(class="form-group")
                                             label(for="address") adres:
-                                            input(type="text" class="form-control" name="address" value=user.address required)
+                                            input(type="text" class="form-control" name="address" value=userInfo.address required)
                                         div(class="form-group")
                                             label(for="zip") Postcode
-                                            input(type="text" class="form-control" name="zip" value=user.zip required)
+                                            input(type="text" class="form-control" name="zip" value=userInfo.zip required)
 
                                     div( class="col-sm-12 col-lg-6")
                                         div(class="form-group")
                                             label(for="lastname") Achternaam:
-                                            input(type="text" class="form-control" name="lastname" value=user.lastname required)
+                                            input(type="text" class="form-control" name="lastname" value=userInfo.lastname required)
                                         div(class="form-group")
                                             label(for="employed_since") In dienst sinds: 
-                                            input(type="date" class="form-control" name="employed_since" value=user.employed_since required)
+                                            input(type="date" class="form-control" name="employed_since" value=userInfo.employed_since required)
                                         div(class="form-group")
                                             label(for="phone_number") Telefoonnummer: 
-                                            input(type="text" class="form-control" name="phone_number" value=user.phone_number required)
+                                            input(type="text" class="form-control" name="phone_number" value=userInfo.phone_number required)
                                         div(class="form-group")
                                             label(for="place") Woonplaats
-                                            input(type="text" class="form-control" name="place" value=user.place required)
+                                            input(type="text" class="form-control" name="place" value=userInfo.place required)
 
                                     div(class="col-sm-12")
                                         div(class="form-group")
