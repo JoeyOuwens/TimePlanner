@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
     if (req.session.user !== undefined)
         res.redirect('/dashboard/');
 
-    res.render('index', { error: false });
+    res.render('index', { error: false, hidenav: true });
 });
 
 /* GET offline page. */
