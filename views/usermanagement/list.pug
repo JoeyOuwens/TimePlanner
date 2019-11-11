@@ -23,19 +23,20 @@ block content
                                 th(scope="col")  
                     tbody
                         each user in users
-                            tr
-                                th(scope="col") #{user.firstname} #{user.lastname}
-                                th(scope="col") #{user.function}
-                                if(userInfo.role != "USER") 
-                                    th(scope="col") #{user.email}
-                                    th(scope="col") #{user.contract_hours}
-                                    th(scope="col") #{user.birth_date}
-                                    if(userInfo.role == "OWNER")                                    
-                                        th(scope="col") #{user.role}
-                                    th(scope="col")
-                                        a(href="user/edit/"+user.id) Aanpassen
-                                    th(scope="col") 
-                                        a(href="user/delete/"+user.id) Verwijder 
+                            if (!user.active && userInfo.role != "USER") || user.active
+                                tr
+                                    th(scope="col") #{user.firstname} #{user.middlename} #{user.lastname}
+                                    th(scope="col") #{user.function}
+                                    if(userInfo.role != "USER") 
+                                        th(scope="col") #{user.email}
+                                        th(scope="col") #{user.contract_hours}
+                                        th(scope="col") #{user.birth_date}
+                                        if(userInfo.role == "OWNER")                                    
+                                            th(scope="col") #{user.role}
+                                        th(scope="col")
+                                            a(href="user/edit/"+user.id) Aanpassen
+                                        th(scope="col") 
+                                            a(href="user/delete/"+user.id) Verwijder 
         
         if(userInfo.role != "USER") 
             a(class="text-right"  href="/usermanagement/create") Aanmaken

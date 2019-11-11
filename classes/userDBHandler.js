@@ -33,14 +33,15 @@ module.exports = {
             })
         return user
     },
-    insertUser: function (accountDetails, password) {
+    insertUser: async function (accountDetails, password) {
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-        return knex('users').insert([
+        return await knex('users').insert([
             {
                 password: password,
                 firstname: accountDetails.inputFname,
+                middlename: accountDetails.inputMname,
                 lastname: accountDetails.inputLname,
                 email: accountDetails.inputEmail,
                 employed_since: String(date),
@@ -51,10 +52,13 @@ module.exports = {
                 contract_hours: accountDetails.inputWorkHours,
                 phone_number: accountDetails.inputTelephone,
                 function: accountDetails.inputFunction,
-                role: accountDetails.inputRights
+                role: accountDetails.inputRights,
+                profile_image: '',
+                salary: 0.0,
+                active: true
             }]).then(function () {
                 return true
-            }).catch(function () {
+            }).catch(function () { 
                 return false
             })  
 

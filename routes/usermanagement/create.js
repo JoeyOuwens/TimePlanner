@@ -18,7 +18,7 @@ var userDBHandler = require('../../classes/userDBHandler')
         }
     }); 
 
-router.post('/', function (req, res) { 
+router.post('/',async function (req, res) { 
     console.log(req.body);
 
     var password = generatePassword(Math.floor(Math.random() * 10) + 8, false);
@@ -32,7 +32,7 @@ router.post('/', function (req, res) {
     accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, ''); 
     var failedFields = fieldValidation(accountDetails);
     if (failedFields.length == 0) {
-        if (userDBHandler.insertUser(accountDetails, password)) {
+        if (await userDBHandler.insertUser(accountDetails, password)) {
             emailHandler.sendNewAccountEmail(accountDetails.inputEmail, accountDetails.inputFname, password);
             handlePageStayCheck(req.body.checkPageStay, res)
         } else {

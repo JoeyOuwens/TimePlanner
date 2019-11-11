@@ -95,7 +95,6 @@
     </Content>
     <Content Include="routes\footer.js" />
     <Content Include="routes\index.js" />
-    <Content Include="routes\login.js" />
     <Content Include="routes\logout.js">
       <SubType>Code</SubType>
     </Content>
@@ -128,7 +127,6 @@
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
-    <Content Include="views\login.pug" />
     <Content Include="views\profile.pug" />
     <Content Include="views\profile\changesettings.pug">
       <SubType>Code</SubType>
@@ -140,9 +138,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\termsofuse.pug" />
-    <Content Include="views\users.pug">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="views\usermanagement\create.pug" />
     <Content Include="views\usermanagement\list.pug" />
   </ItemGroup>
