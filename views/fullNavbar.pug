@@ -1,0 +1,30 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-blue
+                    a.navbar-brand(href='/') 
+                        h1 TimePlanner 
+                    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+                        span.navbar-toggler-icon
+          
+                    .collapse.navbar-collapse(id='navbarSupportedContent')
+                        ul.navbar-nav.mr-auto
+                            li.nav-item
+                                a.nav-link(href='/') Home
+                            li.nav-item.dropdown
+                                a.nav-link.dropdown-toggle(id='navbarDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Roosters
+                                    .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                                        a.dropdown-item(href='#') Rooster
+                                        if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
+                                            a.dropdown-item(href='#') Rooster maken
+                                            a.dropdown-item(href='#') Beschikbaarheid
+                                        a.dropdown-item(href='#') Vervanging
+                                        a.dropdown-item(href='#') Ziek melden
+                                        a.dropdown-item(href='#') Vrij vragen
+                            if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
+                                li.nav-item
+                                    a.nav-link(href='/') Ziek meldingen
+                            if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
+                                li.nav-item
+                                    a.nav-link(href='/') Goedkeuren
+                            li.nav-item
+                                a.nav-link(href='/usermanagement/list') Medewerkers 
+                            li.nav-item
+                                a.nav-link(href='/profile') #{userInfo.firstname}

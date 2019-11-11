@@ -2,6 +2,8 @@
 var express = require('express');
 var router = express.Router();
 var login = require('../controller/authenticate/login');
+var validation = require('../classes/validation');
+var resetTokenHandler = require('../classes/resetToken');
 
 var User = require('../models/user');
 
@@ -30,8 +32,17 @@ router.post('/', async function (req, res, next) {
         
         res.redirect('/dashboard');
     } else {
-        res.render('index', { error: true });
+        res.render('index', { error: true});
     }
 });
 
-module.exports = router;
+
+router.post('/reset', function (req, res) {
+
+    var email = req.body.inputEmail
+    if (validation.email(email)) {
+        resetTokenHandler.generateFor(email)
+    }
+    res.redirect('/');
+});
+module.exports = router; 

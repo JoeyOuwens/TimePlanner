@@ -4,46 +4,48 @@ var emailHandler = require('../../classes/emailHandler');
 var generatePassword = require('password-generator');
 var validation = require('../../classes/validation');
 var router = express.Router();
+var userDBHandler = require('../../classes/userDBHandler')
 
+ 
 
-/* TEMP VARIABLES CHANGE WITH AN ACTUAL FUNCTION */
-var userHasPageAccess = true;  
-var userRights = "OWNER"; 
-var validationPassed = true; 
-var insertedIntoDB = true; 
-
-/* GET create user page. */
-if (userHasPageAccess) {
+/* GET create user page. */ 
     router.get('/', function (req, res) { 
-        res.render('usermanagement/create', { title: 'Nieuwe medewerker', userRights : userRights, newPage: true });
-    });
-} else {
-    router.get('/', function (req, res) {
+        if (req.session.user !== undefined && req.session.user.role != "USER"){
+            res.render('usermanagement/create', { title: 'Nieuwe medewerker', newPage: true });
+        } else {
+            
         return res.redirect('/');
-    });
-}
+        }
+    }); 
 
 router.post('/', function (req, res) { 
     console.log(req.body);
 
     var password = generatePassword(Math.floor(Math.random() * 10) + 8, false);
-    var accountDetails = req.body;
+    var accountDetails = req.body; 
+    if (req.session.user.role == "MANAGER") {
+        accountDetails.inputRights = "USER"
+    }
+
+    console.log(req.body);
 
     accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, ''); 
     var failedFields = fieldValidation(accountDetails);
-    if (failedFields.length === 0) {
-        if (insertedIntoDB) {
+    if (failedFields.length == 0) {
+        if (userDBHandler.insertUser(accountDetails, password)) {
             emailHandler.sendNewAccountEmail(accountDetails.inputEmail, accountDetails.inputFname, password);
-            handlePageStayCheck(req.body.checkPageStay,res)
-        }        
+            handlePageStayCheck(req.body.checkPageStay, res)
+        } else {
+            res.render('usermanagement/create', { title: 'Nieuwe medewerker', throwError: true, errorMessage: "Er is wat fout gegaan met een medewerker toevoegen, probeer opnieuw.", accountDetails: accountDetails });
+        }
     } else {
-        res.render('usermanagement/create', { title: 'Nieuwe medewerker', userRights: userRights, failedFields: failedFields, accountDetails: accountDetails });
+        res.render('usermanagement/create', { title: 'Nieuwe medewerker', throwError: true, errorMessage:"\u00C9\u00E9n of meerdere velden zijn onjuist ingevuld.", failedFields: failedFields, accountDetails: accountDetails });
     }        
 }); 
 
 function handlePageStayCheck(checkPageStay,res) {
     if (checkPageStay) {
-        return res.redirect('/usermanagement/create');
+        res.render('usermanagement/create', { title: 'Nieuwe medewerker',throwSuccess: true, newPage: true });
     } else {
         return res.redirect('/usermanagement/list');
     }
