@@ -63,6 +63,32 @@ module.exports = {
             })  
 
     },
+    activateUserById: function (userId) {
+        return knex('users')
+            .where({ id: userId })
+            .update({ active: true })
+            .then(function () {
+                return true
+            })
+            .catch(function (e) {
+                console.log(e)
+                return false
+            })
+    },
+
+
+    deactivateUserById: function (userId) {
+        return knex('users')
+            .where({ id: userId })
+            .update({ active: false })
+            .then(function () {
+                return true
+            })
+            .catch(function (e) {
+                console.log(e)
+                return false
+            })
+    },
 
     updateUserPasswordById: function (userId, password) {
         return knex('users')

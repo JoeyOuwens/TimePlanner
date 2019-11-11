@@ -20,6 +20,7 @@ const uuid = require('uuid/v4');
 var dashboard = require('./routes/dashboard');
 var profile = require('./routes/profile');
 var passwordreset = require('./routes/reset-password');
+var usermanagementedit = require('./routes/usermanagement/user');
 var logout = require('./routes/logout');
 
 var app = express();
@@ -62,6 +63,7 @@ app.use('/', routes);
 app.use('/login', login);  
 app.use('/usermanagement/list', users);
 app.use('/usermanagement/create', createuser);
+app.use('/usermanagement/user', usermanagementedit);
 app.use('/dashboard', dashboard);
 app.use('/profile', profile);
 app.use('/user/resetpassword', passwordreset);

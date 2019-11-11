@@ -103,6 +103,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\usermanagement\create.js" />
+    <Content Include="routes\usermanagement\user.js" />
     <Content Include="routes\usermanagement\list.js" />
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
