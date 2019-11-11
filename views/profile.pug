@@ -29,7 +29,7 @@ block content
                                     i( class="fa fa-home") 
                                     | Overzicht
                             li( class={active: page == 'changesettings'})
-                                a( href="/profile/changesettings/")
+                                a( href="/profile/changesettings")
                                     i( class="fa fa-user") 
                                     | Profiel wijzigen
                             li( class={active: page == 'tasks'})
@@ -37,93 +37,15 @@ block content
                                     i( class="fa fa-calendar") 
                                     | Rooster 
                             li( class={active: page == 'help'})
-                                a( href="/profile/help/")
+                                a( href="/profile/help")
                                     i( class="fa fa-info-circle")
                                     | Help 
                 div( class="col-md-6 col-lg-9")
                     div( class="profile-content") 
-                        if page == 'overview'
-                            div(class="row")
-                                div( class="col-sm-12 col-lg-6")
-                                    div(class="form-group")
-                                        label(for="email") Emailadres:
-                                        input(type="text" class="form-control" name="email" value=userInfo.email disabled)
-                                    div(class="form-group")
-                                        label(for="birth_date") Geboortedatum: 
-                                        input(type="date" class="form-control" name="birth_date" value=userInfo.birth_date disabled)
-                                    div(class="form-group")
-                                        label(for="address") adres:
-                                        input(type="text" class="form-control" name="address" value=userInfo.address disabled)
-                                    div(class="form-group")
-                                        label(for="zip") Postcode
-                                        input(type="text" class="form-control" name="zip" value=userInfo.zip disabled)
-                                    div(class="form-group")
-                                        label(for="place") Woonplaats
-                                        input(type="text" class="form-control" name="place" value=userInfo.place disabled)
-                                
-                                div( class="col-sm-12 col-lg-6")
-                                    div(class="form-group")
-                                        label(for="function") Functie: 
-                                        input(type="text" class="form-control" name="function" value=userInfo.function disabled)
-                                    div(class="form-group")
-                                        label(for="contract_hours") Contract uren:
-                                        input(type="text" class="form-control" name="contract_hours" value=userInfo.contract_hours disabled)
-                                    div(class="form-group")
-                                        label(for="employed_since") In dienst sinds: 
-                                        input(type="date" class="form-control" name="employed_since" value=userInfo.employed_since disabled)
-                                    div(class="form-group")
-                                        label(for="phone_number") Telefoonnummer: 
-                                        input(type="text" class="form-control" name="phone_number" value=userInfo.phone_number disabled)
-                        else if page == 'changesettings'
-                            #error
-                                if error
-                                    div(class="alert alert-danger")
-                                        p #{error}
-                                else if saved
-                                    div(class="alert alert-success")
-                                        p De wijzigingen zijn succesvol opgeslagen!
-                            form(class="form" method="POST")
-                                input(type="hidden" name="userid" value=userInfo.id)
-                                div(class="row")
-                                    div( class="col-sm-12 col-lg-6")
-                                        div(class="form-group")
-                                            label(for="firstname") Voornaam:
-                                            input(type="text" class="form-control" name="firstname" value=userInfo.firstname required)
-                                        div(class="form-group")
-                                            label(for="email") Emailadres:
-                                            input(type="email" class="form-control" name="email" value=userInfo.email required)
-                                        div(class="form-group")
-                                            label(for="birth_date") Geboortedatum: 
-                                            input(type="date" class="form-control" name="birth_date" value=userInfo.birth_date required)
-                                        div(class="form-group")
-                                            label(for="address") adres:
-                                            input(type="text" class="form-control" name="address" value=userInfo.address required)
-                                        div(class="form-group")
-                                            label(for="zip") Postcode
-                                            input(type="text" class="form-control" name="zip" value=userInfo.zip required)
-
-                                    div( class="col-sm-12 col-lg-6")
-                                        div(class="form-group")
-                                            label(for="lastname") Achternaam:
-                                            input(type="text" class="form-control" name="lastname" value=userInfo.lastname required)
-                                        div(class="form-group")
-                                            label(for="employed_since") In dienst sinds: 
-                                            input(type="date" class="form-control" name="employed_since" value=userInfo.employed_since required)
-                                        div(class="form-group")
-                                            label(for="phone_number") Telefoonnummer: 
-                                            input(type="text" class="form-control" name="phone_number" value=userInfo.phone_number required)
-                                        div(class="form-group")
-                                            label(for="place") Woonplaats
-                                            input(type="text" class="form-control" name="place" value=userInfo.place required)
-
-                                    div(class="col-sm-12")
-                                        div(class="form-group")
-                                            input(type="submit" class="btn-md btn btn-success" name="submit" value="Wijzigen")
-                            script.
-                                var failedValidation = [!{failedFields}]; 
-                                for (let i = 0; i < failedValidation.length; i++) {
-                                    console.log(failedValidation[i])
-                                    let element = document.querySelector('input[name="' + failedValidation[i] + '"');
-                                    console.log(element);
-                                    element.classList.add('is-invalid');
-                                }
+                        case page
+                            when "overview"
+                                include profile/overview
+                            when "changesettings"
+                                include profile/changesettings
+                            default
+                                include profile/overview
