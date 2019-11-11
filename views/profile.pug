@@ -12,6 +12,10 @@ block content
                     //SIDEBAR USERPIC
                     div( class="profile-userpic text-center")
                         img( src="https://via.placeholder.com/150" class="img-responsive" alt="")
+                    div( class="file btn btn-lg btn-primary" )
+                        input(type="file" name="file" onchange="readURL(this);") 
+                        | Upload
+                        img(id="profilepic" src="#" class="" alt="")
                     div( class="profile-usertitle")
                         div( class="profile-usertitle-name") #{userInfo.firstname} #{userInfo.lastname}
                         div( class="profile-usertitle-job") 
