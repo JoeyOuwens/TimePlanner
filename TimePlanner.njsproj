@@ -94,6 +94,10 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\index.js" />
+    <Content Include="routes\login.js" />
+    <Content Include="routes\logout.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\profile.js" />
     <Content Include="routes\reset-password.js">
       <SubType>Code</SubType>
@@ -123,6 +127,7 @@
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
+    <Content Include="views\login.pug" />
     <Content Include="views\profile.pug" />
     <Content Include="views\reset-password.pug">
       <SubType>Code</SubType>
