@@ -93,6 +93,7 @@
     <Content Include="routes\dashboard.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\footer.js" />
     <Content Include="routes\index.js" />
     <Content Include="routes\login.js" />
     <Content Include="routes\logout.js">
@@ -138,6 +139,7 @@
     <Content Include="views\reset-password.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\termsofuse.pug" />
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>
