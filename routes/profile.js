@@ -30,6 +30,7 @@ router.post('/changesettings/', async function (req, res, next) {
         await User.query().patchAndFetchById(id, accountDetails).skipUndefined();
         let user = await User.query().where('id', id).first();
         req.session.user = user;
+        res.locals.userInfo = user;
 
         saved = true;
    }
