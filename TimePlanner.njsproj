@@ -93,6 +93,7 @@
     <Content Include="routes\dashboard.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\footer.js" />
     <Content Include="routes\index.js" />
     <Content Include="routes\profile.js" />
     <Content Include="routes\reset-password.js">
@@ -128,6 +129,7 @@
     <Content Include="views\reset-password.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\termsofuse.pug" />
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>
@@ -139,6 +141,7 @@
     <Folder Include="migrations\" />
     <Folder Include="models\" />
     <Folder Include="db\" />
+    <Folder Include="node_modules\" />
     <Folder Include="routes\usermanagement\" />
     <Folder Include="seeds\" />
     <Folder Include="settings\" />
