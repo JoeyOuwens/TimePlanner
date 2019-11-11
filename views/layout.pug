@@ -10,7 +10,7 @@ html
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css")
         script(src='/service-worker-register.js')
     body
-        if hidenav === undefined || hidenav === false
+        if userInfo !== undefined 
             header
                 include fullNavbar
         else
@@ -19,12 +19,7 @@ html
 
         main(class="container") 
             br
-            div(class="row")
-                div(class="col-sm-12")
-                    div(class="card shadow p-3 mb-5")
-                        div(class="card-header")
-                            h2 #{title}
-                        block content
+            block content
 
         include footer
 

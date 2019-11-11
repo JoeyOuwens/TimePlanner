@@ -20,6 +20,7 @@ const uuid = require('uuid/v4');
 var dashboard = require('./routes/dashboard');
 var profile = require('./routes/profile');
 var passwordreset = require('./routes/reset-password');
+var logout = require('./routes/logout');
 
 var app = express();
 
@@ -27,24 +28,11 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-//app.use(session({
-//    genid: (req) => {
-//        console.log(req.sessionID);
-//        console.log(req.session);
-//        return uuid(); // use UUIDs for session IDs
-//    },
-//    secret: 'mySecretSession',
-//    resave: false,
-//    saveUninitialized: true,
-//    cookie: {
-//        secure: true,
-//        expires: 600000
-//    }
-//}));
-
 app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 } }));
+app.use(function (req, res, next) {
+    res.locals.userInfo = req.session.user;
+    next();
+});
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -59,6 +47,7 @@ app.use('/usermanagement/create', createuser);
 app.use('/dashboard', dashboard);
 app.use('/profile', profile);
 app.use('/user/resetpassword', passwordreset);
+app.use('/logout', logout);
 
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
@@ -66,11 +55,9 @@ app.use('/user/resetpassword', passwordreset);
 app.use((req, res, next) => {
     if (req.cookies.user_sid && !req.session.user) {
         res.clearCookie('user_sid');
-    }
+    } 
     next();
-});
-
-
+}); 
 // middleware function to check for logged-in users
 var sessionChecker = (req, res, next) => {
     if (req.session.user && req.cookies.user_sid) {

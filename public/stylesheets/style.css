@@ -18,6 +18,13 @@ body {
 .round-border-white-box {
     width: 100%;
 }
+termsofuse{
+    opacity:0.6;
+    color: white ;
+}
+div.terms {
+    font-size: 15px ;
+}
 
 .middle-image {
     display: block;
