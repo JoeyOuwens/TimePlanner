@@ -95,6 +95,10 @@
     </Content>
     <Content Include="routes\footer.js" />
     <Content Include="routes\index.js" />
+    <Content Include="routes\login.js" />
+    <Content Include="routes\logout.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\profile.js" />
     <Content Include="routes\reset-password.js">
       <SubType>Code</SubType>
@@ -145,9 +149,6 @@
     <Folder Include="routes\usermanagement\" />
     <Folder Include="seeds\" />
     <Folder Include="settings\" />
-    <Content Include="views\login2.pug">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>

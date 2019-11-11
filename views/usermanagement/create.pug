@@ -37,7 +37,7 @@ block content
                             label(for="inputWorkHours" class="col-form-label") Uren 
                             input(type="number" class="form-control" name="inputWorkHours" id="inputWorkHours" placeholder="Uren" value=newPage? "" :accountDetails.inputWorkHours required)
                             div(class="invalid-feedback") Werk uren zijn is onjuist.    
-                    if(userRights == "OWNER")
+                    if(userInfo.role == "OWNER")
                         div(class="col")
                             label(class="col-form-label" for="inputRights") Rechten 
                             select(class="form-control" name="inputRights" id="inputRights" required)

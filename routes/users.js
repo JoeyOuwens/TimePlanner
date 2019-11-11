@@ -32,7 +32,7 @@ router.post('/', async function (req, res, next) {
         
         res.redirect('/dashboard');
     } else {
-        res.render('index', { error: true, hidenav: true });
+        res.render('index', { error: true});
     }
 });
 
