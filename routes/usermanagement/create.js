@@ -6,17 +6,12 @@ var validation = require('../../classes/validation');
 var router = express.Router();
 var userDBHandler = require('../../classes/userDBHandler')
 
-
-/* TEMP VARIABLES CHANGE WITH AN ACTUAL FUNCTION */
-var userHasPageAccess = true;  
-var userRights = "MANAGER"; 
-var validationPassed = true; 
-var insertedIntoDB = true; 
+ 
 
 /* GET create user page. */ 
     router.get('/', function (req, res) { 
         if (req.session.user !== undefined && req.session.user.role != "USER"){
-            res.render('usermanagement/create', { title: 'Nieuwe medewerker', userRights : req.session.user.role, newPage: true });
+            res.render('usermanagement/create', { title: 'Nieuwe medewerker', newPage: true });
         } else {
             
         return res.redirect('/');
@@ -41,16 +36,16 @@ router.post('/', function (req, res) {
             emailHandler.sendNewAccountEmail(accountDetails.inputEmail, accountDetails.inputFname, password);
             handlePageStayCheck(req.body.checkPageStay, res)
         } else {
-            res.render('usermanagement/create', { title: 'Nieuwe medewerker', userRights: req.session.user.role, throwError: true, errorMessage: "Er is wat fout gegaan met een medewerker toevoegen, probeer opnieuw.", accountDetails: accountDetails });
+            res.render('usermanagement/create', { title: 'Nieuwe medewerker', throwError: true, errorMessage: "Er is wat fout gegaan met een medewerker toevoegen, probeer opnieuw.", accountDetails: accountDetails });
         }
     } else {
-        res.render('usermanagement/create', { title: 'Nieuwe medewerker', userRights: req.session.user.role, throwError: true, errorMessage:"\u00C9\u00E9n of meerdere velden zijn onjuist ingevuld.", failedFields: failedFields, accountDetails: accountDetails });
+        res.render('usermanagement/create', { title: 'Nieuwe medewerker', throwError: true, errorMessage:"\u00C9\u00E9n of meerdere velden zijn onjuist ingevuld.", failedFields: failedFields, accountDetails: accountDetails });
     }        
 }); 
 
 function handlePageStayCheck(checkPageStay,res) {
     if (checkPageStay) {
-        res.render('usermanagement/create', { title: 'Nieuwe medewerker',throwSuccess: true, userRights: req.session.user.role, newPage: true });
+        res.render('usermanagement/create', { title: 'Nieuwe medewerker',throwSuccess: true, newPage: true });
     } else {
         return res.redirect('/usermanagement/list');
     }

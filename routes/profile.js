@@ -7,11 +7,11 @@ const User = require('../models/User');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.render('profile', { user: req.session.user, page: 'overview' });
+    res.render('profile', { page: 'overview' });
 });
 
 router.get('/changesettings/', function (req, res, next) {
-    res.render('profile', { user: req.session.user, page: 'changesettings' });
+    res.render('profile', { page: 'changesettings' });
 
 });
 
@@ -30,20 +30,22 @@ router.post('/changesettings/', async function (req, res, next) {
         await User.query().patchAndFetchById(id, accountDetails).skipUndefined();
         let user = await User.query().where('id', id).first();
         req.session.user = user;
+        res.locals.userInfo = user;
 
         saved = true;
    }
 
-    res.render('profile', { user: req.session.user, page: 'changesettings', failedFields: failedFields, saved: saved });
+    res.render('profile', { page: 'changesettings', failedFields: failedFields, saved: saved });
 });
 
+
 router.get('/tasks/', function (req, res, next) {
-    res.render('profile', { user: req.session.user, page: 'tasks' });
+    res.render('profile', {  page: 'tasks' });
 
 });
 
 router.get('/help/', function (req, res, next) {
-    res.render('profile', { user: req.session.user, page: 'help' });
+    res.render('profile', {  page: 'help' });
 
 });
 
@@ -77,6 +79,22 @@ function fieldValidation(details) {
         failed.push("'lastname'");
     }
     return failed;
+}
+
+/*Profile picture*/
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#profilepic')
+                .attr('src', e.target.result)
+                .width(150)
+                .height(150);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 
 module.exports = router;

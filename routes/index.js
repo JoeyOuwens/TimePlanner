@@ -16,4 +16,5 @@ router.get('/offline.html', function (req, res) {
     res.sendFile('public/offline.html');
 });
 
+
 module.exports = router;

@@ -1,5 +1,16 @@
+html > body {
+    background-color: #efefef;
+}
+
+h1 {
+    color: white;
+    margin-right: 24px;
+}
+
+
+
 body {
-    background-color: #007bff47;
+    padding-bottom: 200px;
 }
 
 .form-signin {
@@ -10,9 +21,20 @@ body {
     background: #007bff47;
 }
 
+#profile-dropdown {
+    position: absolute;
+}
+
 /* make beautiful corners with white backgrounds */
 .round-border-white-box {
     width: 100%;
+}
+termsofuse{
+    opacity:0.6;
+    color: white ;
+}
+div.terms {
+    font-size: 15px ;
 }
 
 .middle-image {
@@ -86,37 +108,143 @@ footer {
     border-radius: 0 0 20px 20px;
 }
 
-/*.form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
+.nav li a, .nav li p, .nav li ul {
+    font-size: 1rem;
+    color: white;
+    font-weight: 700;
 }
 
-.form-signin .checkbox {
-    font-weight: 400;
+.nav li a:hover, .nav li p:hover, .nav li ul:hover {
+    color: #dedede;
 }
 
-.form-signin .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
-    padding: 10px;
+.lg-nav li a, .lg-nav li p, .lg-nav li ul, .lg-nav li i, .lg-nav li {
+    font-size: 3rem;
+    color: white;
+    font-weight: 700;
+    opacity: 1;
+}
+
+
+
+.nav .dropdown-item {
+    color: #343434;
+}
+
+.nav .dropdown-item:hover {
+    color: black;
+}
+
+.footer-nav .navbar ul {
+    flex-direction: row;
+}
+
+/***
+User Profile Sidebar by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+***/
+
+/* Profile container */
+.profile {
+    margin: 20px 0;
+}
+
+/* Profile sidebar */
+.profile-sidebar {
+    padding: 20px 0 10px 0;
+}
+
+.profile-userpic img, .profile-img {
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+
+.profile-usertitle {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-usertitle-name {
+    color: #5a7391;
     font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
 }
 
-    .form-signin .form-control:focus {
-        z-index: 2;
+.profile-usertitle-job {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+    .profile-userbuttons .btn {
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 6px 15px;
+        margin-right: 5px;
     }
 
-.form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+        .profile-userbuttons .btn:last-child {
+            margin-right: 0px;
+        }
+
+.profile-usermenu {
+    margin-top: 30px;
 }
+
+    .profile-usermenu ul li:last-child {
+        border-bottom: none;
+    }
+
+    .profile-usermenu ul li a {
+        color: #93a3b5;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+        .profile-usermenu ul li a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .profile-usermenu ul li a:hover {
+            color: #5b9bd1;
+        }
+
+    .profile-usermenu ul li.active a {
+        color: #5b9bd1;
+        border-left: 2px solid #5b9bd1;
+        padding-left: 5px;
+    }
+
+/* Profile Content */
+.profile-content {
+    padding: 20px;
+    background: #fff;
+    min-height: 460px;
+}
+
+/*
+ *   END OF: User Profile Sidebar by @keenthemes
+*/
 
 .form-signin input[type="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }*/
+
