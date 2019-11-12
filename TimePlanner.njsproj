@@ -143,6 +143,7 @@
     <Folder Include="migrations\" />
     <Folder Include="models\" />
     <Folder Include="db\" />
+    <Folder Include="node_modules\" />
     <Folder Include="routes\usermanagement\" />
     <Folder Include="seeds\" />
     <Folder Include="settings\" />
