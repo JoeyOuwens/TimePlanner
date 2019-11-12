@@ -1,53 +1,51 @@
 header(class="container-fluid bg-blue")
-    div(class="row")
-        div(class="col-sm-10")
-            div(class="row")
-                nav.navbar.navbar-expand-lg.navbar-dark
-                    div(class="col-sm-9 col-md-5")
-                        a.navbar-brand(href='/') 
-                            h1 TimePlanner
-                    div(class="col-sm-3 col-md-8 d-none d-md-block")
-                        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
-                            span.navbar-toggler-icon
+	div(class="row")
+		div(class="col-sm-12 col-md-4 col-lg-3")
+			a.navbar-brand(href='/') 
+				h1 TimePlanner
+		div(class="col-sm-12 col-md-6")
+			nav.navbar.navbar-expand-lg.nav.navbar-nav.d-none.d-md-block
+				button.navbar-toggler.bg-light(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+					span.navbar-toggler-icon
 
-                        .collapse.navbar-collapse(id='navbarSupportedContent')
-                            ul.navbar-nav.mr-auto
-                                li.nav-item
-                                    a.nav-link(href='/') Home
-                                li.nav-item.dropdown
-                                    a.nav-link.dropdown-toggle(id='navbarDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Roosters
-                                    div.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
-                                        a.dropdown-item(href='#') Rooster
-                                        if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
-                                            a.dropdown-item(href='#') Rooster maken
-                                            a.dropdown-item(href='#') Beschikbaarheid
-                                        a.dropdown-item(href='#') Vervanging
-                                        a.dropdown-item(href='#') Ziek melden
-                                        a.dropdown-item(href='#') Vrij vragen
-                                if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
-                                    li.nav-item
-                                        a.nav-link(href='/') Ziek meldingen
-                                if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
-                                    li.nav-item
-                                        a.nav-link(href='/') Goedkeuren
-                                li.nav-item
-                                    a.nav-link(href='/usermanagement/list') Medewerkers 
+				.collapse.navbar-collapse(id='navbarSupportedContent')
+					ul.navbar-nav.mr-auto
+						li.nav-item
+							a.nav-link(href='/') Home
+						li.nav-item.dropdown
+							a.nav-link.dropdown-toggle(id='navbarDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href='#') Roosters
+							div.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+								a.dropdown-item(href='#') Rooster
+								if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
+									a.dropdown-item(href='#') Rooster maken
+									a.dropdown-item(href='#') Beschikbaarheid
+								a.dropdown-item(href='#') Vervanging
+								a.dropdown-item(href='#') Ziek melden
+								a.dropdown-item(href='#') Vrij vragen
+						if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
+							li.nav-item
+								a.nav-link(href='/') Ziek meldingen
+						if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
+							li.nav-item
+								a.nav-link(href='/') Goedkeuren
+						li.nav-item
+							a.nav-link(href='/usermanagement/list') Medewerkers 
 
-        div(class="col-sm-2")
-            nav.navbar.navbar-expand-lg.navbar-dark
-                ul.navbar-nav.mr-auto
-                    li.nav-item.dropdown
-                        a.nav-link.dropdown-toggle(id='profileDropdown', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') 
-                            img( src="https://via.placeholder.com/150" class="img-responsive profile-img" width="48" height="48" alt="")
-                        div.dropdown-menu(aria-labelledby='profileDropdown')
-                            a.dropdown-item(href='/profile') #{userInfo.firstname}
-                            hr
-                            a.dropdown-item(href='/profile/') Profiel Overzicht
-                            a.dropdown-item(href='/profile/changesettings/') Profiel Wijzigen
-                            a.dropdown-item(href='/profile/tasks') Rooster
-                            hr
-                            a.dropdown-item(href='/profile/help') Help
-                    li.nav-item
-                        a.nav-link(href='/logout/') 
-                            h3 
-                                i(class="fas fa-sign-out-alt")
+		div(class="col-sm-12 col-md-2 col-lg-2")
+			nav.navbar.navbar-expand-lg.nav.navbar-nav
+				ul.navbar-nav.mr-auto
+					li.nav-item.dropdown
+						a.nav-link.dropdown-toggle(id='profileDropdown', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href="#") 
+							img( src="https://via.placeholder.com/150" class="img-responsive profile-img" width="48" height="48" alt="")
+						div#profile-dropdown.dropdown-menu(aria-labelledby='profileDropdown')
+							a.dropdown-item(href='/profile') #{userInfo.firstname}
+							hr
+							a.dropdown-item(href='/profile/') Profiel Overzicht
+							a.dropdown-item(href='/profile/changesettings/') Profiel Wijzigen
+							a.dropdown-item(href='/profile/tasks') Rooster
+							hr
+							a.dropdown-item(href='/profile/help') Help
+					li.nav-item
+						a.nav-link(href='/logout/') 
+							h3 
+								i(class="fas fa-sign-out-alt")
