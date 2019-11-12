@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var userDBHandler = require('../../classes/userDBHandler')
+var validation = require('../../classes/validation')
 
 
 /* GET page. */
@@ -34,10 +35,18 @@ router.get('/edit/:id', async function (req, res) {
 
 
 router.post('/edit/:id', async function (req, res) {
-    req.body.id = req.params.id
-    console.log(req.body);
-    userDBHandler.updateUser(req.body)
-    res.redirect('/usermanagement/list');
+    req.body.id = req.params.id 
+    req.body.zip = req.body.zip.replace(/\s/g, ''); 
+    var failedFields = fieldValidation(req.body);
+    if (failedFields.length == 0) {
+        if (userDBHandler.updateUser(req.body)) {
+            res.redirect('/usermanagement/list');
+        } else {
+            res.render('usermanagement/edit', { title: 'Aanpassen', throwError: true, errorMessage: "Er is wat fout gegaan met aanpassen, probeer opnieuw.", failedFields: failedFields, user: req.body });
+        }
+    } else {
+        res.render('usermanagement/edit', { title: 'Aanpassen', throwError: true, errorMessage: "\u00C9\u00E9n of meerdere velden zijn onjuist ingevuld.", failedFields: failedFields, user: req.body });
+    }
 });
 
 
@@ -53,3 +62,43 @@ async function allowedToChange(requestingUser, changingUserId) {
         return true
     }
 };
+
+
+function fieldValidation(details) {
+    var failed = [];
+    if (!validation.zipcode(details.zip)) {
+        failed.push("zip");
+    }
+    if (!validation.birthdate(details.birth_date)) {
+        failed.push("birth_date");
+    }
+    if (!validation.hours(details.contract_hours)) {
+        failed.push("contract_hours");
+    }
+    if (!validation.rights(details.role)) {
+        failed.push("role");
+    }
+    if (!validation.telephone(details.phone_number)) {
+        failed.push("phone_number");
+    }
+    if (!validation.email(details.email)) {
+        failed.push("email");
+    }
+    if (!validation.place(details.place)) {
+        failed.push("place");
+    }
+    if (!validation.address(details.address)) {
+        failed.push("address");
+    }
+    if (!validation.firstName(details.firstname)) {
+        failed.push("firstname");
+    }
+    if (!validation.middleName(details.middleName)) {
+        failed.push("middleName");
+    }
+    if (!validation.lastName(details.lastName)) {
+        failed.push("lastName");
+    }
+    return failed;
+
+}

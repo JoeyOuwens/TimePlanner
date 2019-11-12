@@ -114,9 +114,36 @@ module.exports = {
     },
 
 
-    updateUser: function (accountDetails) {
-
-        mapValuesToUser(accountDetails)
+    updateUser: async function (accountDetails) {
+        var accountDetails = await mapValuesToUser(accountDetails)
+        return knex('users')
+            .where({ id: accountDetails.id })
+            .update({
+                password: accountDetails.password,
+                firstname: accountDetails.firstname,
+                middlename: accountDetails.middlename,
+                lastname: accountDetails.lastname,
+                email: accountDetails.email,
+                employed_since: accountDetails.employed_since,
+                birth_date: accountDetails.birth_date,
+                address: accountDetails.address,
+                zip: accountDetails.zip,
+                place: accountDetails.place,
+                contract_hours: accountDetails.contract_hours,
+                phone_number: accountDetails.phone_number,
+                function: accountDetails.function,
+                role: accountDetails.role,
+                profile_image: accountDetails.profile_image,
+                salary: accountDetails.salary,
+                active: accountDetails.active
+            })
+            .then(function () {
+                return true
+            })
+            .catch(function (e) {
+                console.log(e)
+                return false
+            })   
 
     },
 
@@ -149,41 +176,13 @@ function fixBirthdate(birthdate) {
     return fixedBirthdate
 };
 
+//Checks if given accountDetails has values missing from initial user obj, then maps old ones to newer one if abscent.
 async function  mapValuesToUser(accountDetails) {
-    var user = await getUserById(accountDetails.id);
-    user.forEach(function (element) {
-        console.log(element)
-    });
-};
-
-function updateUserById() {
-
-    return knex('users')
-        .where({ id: accountDetails.id })
-        .update({
-            password: accountDetails.password,
-            firstname: accountDetails.firstname,
-            middlename: accountDetails.middlename,
-            lastname: accountDetails.lastname,
-            email: accountDetails.email,
-            employed_since: accountDetails.employed_since,
-            birth_date: accountDetails.birth_date,
-            address: accountDetails.address,
-            zip: accountDetails.zip,
-            place: accountDetails.place,
-            contract_hours: accountDetails.contract_hours,
-            phone_number: accountDetails.phone_number,
-            function: accountDetails.function,
-            role: accountDetails.role,
-            profile_image: accountDetails.profile_image,
-            salary: accountDetails.salary,
-            active: accountDetails.active
-        })
-        .then(function () {
-            return true
-        })
-        .catch(function (e) {
-            console.log(e)
-            return false
-        })  
-}
+    var user = await module.exports.getUserById(accountDetails.id); 
+    for (var attributeName in user[0]) {
+        if (accountDetails[attributeName] === undefined) {
+            accountDetails[attributeName] = user[0][attributeName]
+        }
+    }
+    return accountDetails
+}; 
