@@ -39,9 +39,9 @@ router.post('/', async function (req, res, next) {
 
 router.post('/reset', function (req, res) {
 
-    var email = req.body.inputEmail
+    var email = req.body.inputEmail;
     if (validation.email(email)) {
-        resetTokenHandler.generateFor(email)
+        resetTokenHandler.generateFor(email);
     }
     res.redirect('/');
 });

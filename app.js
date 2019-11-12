@@ -28,30 +28,12 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-//app.use(session({
-//    genid: (req) => {
-//        console.log(req.sessionID);
-//        console.log(req.session);
-//        return uuid(); // use UUIDs for session IDs
-//    },
-//    secret: 'mySecretSession',
-//    resave: false,
-//    saveUninitialized: true,
-//    cookie: {
-//        secure: true,
-//        expires: 600000
-//    }
-//}));
-
-
-
 app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 } }));
 app.use(function (req, res, next) {
     res.locals.userInfo = req.session.user;
     next();
-})
+});
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -1,5 +1,16 @@
+html > body {
+    background-color: #efefef;
+}
+
+h1 {
+    color: white;
+    margin-right: 24px;
+}
+
+
+
 body {
-    background-color: #007bff47;
+    padding-bottom: 200px;
 }
 
 .form-signin {
@@ -8,6 +19,10 @@ body {
     border: 1px solid #dedede;
     border-radius: 8px;
     background: #007bff47;
+}
+
+#profile-dropdown {
+    position: absolute;
 }
 
 /* make beautiful corners with white backgrounds */
@@ -93,50 +108,42 @@ footer {
     border-radius: 0 0 20px 20px;
 }
 
-/*.form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
+.nav li a, .nav li p, .nav li ul {
+    font-size: 1rem;
+    color: white;
+    font-weight: 700;
 }
 
-.form-signin .checkbox {
-    font-weight: 400;
+.nav li a:hover, .nav li p:hover, .nav li ul:hover {
+    color: #dedede;
 }
 
-.form-signin .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
-    padding: 10px;
-    font-size: 16px;
+.lg-nav li a, .lg-nav li p, .lg-nav li ul, .lg-nav li i, .lg-nav li {
+    font-size: 3rem;
+    color: white;
+    font-weight: 700;
+    opacity: 1;
 }
 
-    .form-signin .form-control:focus {
-        z-index: 2;
-    }
 
-.form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+
+.nav .dropdown-item {
+    color: #343434;
 }
 
-.form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}*/
+.nav .dropdown-item:hover {
+    color: black;
+}
+
+.footer-nav .navbar ul {
+    flex-direction: row;
+}
 
 /***
 User Profile Sidebar by @keenthemes
 A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
 Licensed under MIT
 ***/
-
-body {
-    background: #F1F3FA;
-}
 
 /* Profile container */
 .profile {
@@ -146,10 +153,9 @@ body {
 /* Profile sidebar */
 .profile-sidebar {
     padding: 20px 0 10px 0;
-/*    background: #fff; */
 }
 
-.profile-userpic img {
+.profile-userpic img, .profile-img {
     float: none;
     margin: 0 auto;
     width: 50%;
@@ -184,46 +190,46 @@ body {
     margin-top: 10px;
 }
 
-.profile-userbuttons .btn {
-    text-transform: uppercase;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 6px 15px;
-    margin-right: 5px;
-}
+    .profile-userbuttons .btn {
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 6px 15px;
+        margin-right: 5px;
+    }
 
-.profile-userbuttons .btn:last-child {
-    margin-right: 0px;
-}
+        .profile-userbuttons .btn:last-child {
+            margin-right: 0px;
+        }
 
 .profile-usermenu {
     margin-top: 30px;
 }
 
-.profile-usermenu ul li:last-child {
-    border-bottom: none;
-}
+    .profile-usermenu ul li:last-child {
+        border-bottom: none;
+    }
 
-.profile-usermenu ul li a {
-    color: #93a3b5;
-    font-size: 14px;
-    font-weight: 400;
-}
+    .profile-usermenu ul li a {
+        color: #93a3b5;
+        font-size: 14px;
+        font-weight: 400;
+    }
 
-.profile-usermenu ul li a i {
-    margin-right: 8px;
-    font-size: 14px;
-}
+        .profile-usermenu ul li a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
 
-.profile-usermenu ul li a:hover {
-    color: #5b9bd1;
-}
+        .profile-usermenu ul li a:hover {
+            color: #5b9bd1;
+        }
 
-.profile-usermenu ul li.active a {
-    color: #5b9bd1;
-    border-left: 2px solid #5b9bd1;
-    padding-left: 5px;
-}
+    .profile-usermenu ul li.active a {
+        color: #5b9bd1;
+        border-left: 2px solid #5b9bd1;
+        padding-left: 5px;
+    }
 
 /* Profile Content */
 .profile-content {
@@ -232,15 +238,13 @@ body {
     min-height: 460px;
 }
 
-div {
-    position: relative;
-    overflow: hidden;
-}
+/*
+ *   END OF: User Profile Sidebar by @keenthemes
+*/
 
-input {
-    position: absolute;
-    font-size: 50px;
-    opacity: 0;
-    right: 0;
-    top: 0;
-}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}*/
+
