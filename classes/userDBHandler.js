@@ -11,6 +11,29 @@ module.exports = {
         return users
     },
 
+    getUserById: async function (id) {
+        var user = await knex.select()
+            .from("users")
+            .where("id", id)
+            .then(function (data) {
+                data[0].birth_date = fixBirthdate(data[0].birth_date);
+                return data
+            }).catch(function () {
+                return [];
+            })
+        return user
+    },
+    getUserRoleById: async function (id) {
+        var user = await knex.select("role")
+            .from("users")
+            .where("id", id)
+            .then(function (data) {
+                return data
+            }).catch(function () {
+                return [];
+            })
+        return user
+    },
     getUserByEmail: async function (email) {
         var user = await knex.select()
             .from("users")
@@ -90,6 +113,13 @@ module.exports = {
             })
     },
 
+
+    updateUser: function (accountDetails) {
+
+        mapValuesToUser(accountDetails)
+
+    },
+
     updateUserPasswordById: function (userId, password) {
         return knex('users')
             .where({ id: userId })
@@ -103,3 +133,57 @@ module.exports = {
             })  
     }
 };
+
+function fixBirthdate(birthdate) {
+    var fixedBirthdate = ''
+    birthdate.split('-').forEach(function (element) {
+        if (element.length == 1){
+            element = '-0' + element
+        }
+        else if (element.length == 2) {
+            element = '-' + element
+        } ;
+        fixedBirthdate = fixedBirthdate + element 
+    });
+    
+    return fixedBirthdate
+};
+
+async function  mapValuesToUser(accountDetails) {
+    var user = await getUserById(accountDetails.id);
+    user.forEach(function (element) {
+        console.log(element)
+    });
+};
+
+function updateUserById() {
+
+    return knex('users')
+        .where({ id: accountDetails.id })
+        .update({
+            password: accountDetails.password,
+            firstname: accountDetails.firstname,
+            middlename: accountDetails.middlename,
+            lastname: accountDetails.lastname,
+            email: accountDetails.email,
+            employed_since: accountDetails.employed_since,
+            birth_date: accountDetails.birth_date,
+            address: accountDetails.address,
+            zip: accountDetails.zip,
+            place: accountDetails.place,
+            contract_hours: accountDetails.contract_hours,
+            phone_number: accountDetails.phone_number,
+            function: accountDetails.function,
+            role: accountDetails.role,
+            profile_image: accountDetails.profile_image,
+            salary: accountDetails.salary,
+            active: accountDetails.active
+        })
+        .then(function () {
+            return true
+        })
+        .catch(function (e) {
+            console.log(e)
+            return false
+        })  
+}
