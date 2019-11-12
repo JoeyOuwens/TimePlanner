@@ -17,7 +17,7 @@ header(class="container-fluid bg-blue")
 							div.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
 								a.dropdown-item(href='/rooster/') Rooster
 								if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
-									a.dropdown-item(href='#') Rooster maken
+									a.dropdown-item(href='/rooster/add-user/') Rooster maken
 									a.dropdown-item(href='#') Beschikbaarheid
 								a.dropdown-item(href='#') Vervanging
 								a.dropdown-item(href='#') Ziek melden
