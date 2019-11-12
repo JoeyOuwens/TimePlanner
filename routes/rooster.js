@@ -9,10 +9,16 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/add-user', async function (req, res, next) {
+    if (req.session.user.role === 'USER')
+        res.redirect('/rooster/');
+
     res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await userDBHandler.getAllUsers() });
 });
 
 router.post('/add-user', async function (req, res, next) {
+    if (req.session.user.role === 'USER') 
+        res.redirect('/rooster/');
+
     await knex('timetable_items').insert([
         {
             user: req.body.user,
