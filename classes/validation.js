@@ -1,95 +1,95 @@
 module.exports = {
     zipcode: function (str) {
-        if (str.length != 6) {
-            return false
+        if (str.length !== 6) {
+            return false;
         } else if (isZipcodeFormat(str)) {
-            return true
+            return true;
         } else {
-            return false
+            return false;
         }
     },
 
     telephone: function (str) {
         if (containsAlpha(str)) {
-            return false
+            return false;
         } else {
-            return true
+            return true;
         }
     },
 
     birthdate: function (str) {
-        if (str.length != 10) {
+        if (str.length !== 10) {
             return false
         } else if (isBirthDateFormat(str)) {
-            return true
+            return true;
         } else {
-            return false
+            return false;
         }
     },
 
     rights: function (str) {
-        if (str == "MANAGER" || str == "USER") {
-            return true
+        if (str === "MANAGER" || str === "USER") {
+            return true;
         } else {
-            return false
+            return false;
         }
     },
 
     hours: function (str) {
         if (isNumeric(str)) {
             if (str.length > 2) {
-                return false
+                return false;
             } else {
-                return true
+                return true;
             }
         }
         else {
-            return false
+            return false;
         }
     },
 
     email: function (str) {
-        return isEmailAddress(str)
+        return isEmailAddress(str);
     },
 
     firstName: function (str) {
-        return isAlphaWithSpaces(str)
+        return isAlphaWithSpaces(str);
     },
 
     lastName: function (str) {
-        return isLastName(str)
+        return isLastName(str);
     },
 
     middleName: function (str) {
-        if (str != "") {
-            return isAlphaWithSpaces(str)
+        if (str !== "") {
+            return isAlphaWithSpaces(str);
         }
         else {
-            return true
+            return true;
         }
     },
 
 
     place: function (str) {
-        return isPlaceName(str)
+        return isPlaceName(str);
     },
 
 
     address: function (str) {
-        return isAddress(str)
+        return isAddress(str);
     }
 };
 
 function containsAlpha(str) {
-    return /^[a-zA-Z]+/.test(str);
+    return /[a-zA-Z]+/.test(str);
 }
 
 function isLastName(str) {
-    return /^[a-zA-Z- ]+$/.test(str);
+    return /[a-zA-Z- ]+$/.test(str);
 }
 
 function isPlaceName(str) {
-    return /^[a-zA-Z -]+$/.test(str);
+    return /[a-zA-Z -]+$/.test(str);
 }
 
 function isAddress(str) {
@@ -97,15 +97,15 @@ function isAddress(str) {
 }
 
 function isAlphaWithSpaces(str) {
-    return /^[a-zA-Z ]+$/.test(str);
+    return /[a-zA-Z ]+$/.test(str);
 }
 
 function isAlphaNoSpaces(str) {
-    return /^[a-zA-Z]+$/.test(str);
+    return /[a-zA-Z]+$/.test(str);
 }
 
 function isNumeric(str) {
-    return /^\d*$/.test(str);
+    return /\d*$/.test(str);
 }
 
 function removeSpaces(str) {
@@ -119,7 +119,7 @@ function isZipcodeFormat(str) {
 
 //YYYY-MM-DD
 function isBirthDateFormat(str) {
-    return /^\d{4}(\-)([0][0-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1]$)/.test(str)
+    return /^\d{4}(\-)([0][0-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1]$)/.test(str);
 }
 
 
