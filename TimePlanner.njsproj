@@ -103,6 +103,9 @@
     <Content Include="routes\reset-password.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\rooster.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\usermanagement\create.js" />
     <Content Include="routes\usermanagement\list.js" />
     <Content Include="routes\users.js" />
@@ -137,6 +140,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\reset-password.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\rooster.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\termsofuse.pug" />
