@@ -145,10 +145,6 @@ A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themefores
 Licensed under MIT
 ***/
 
-body {
-    background: #F1F3FA;
-}
-
 /* Profile container */
 .profile {
     margin: 20px 0;
@@ -157,7 +153,6 @@ body {
 /* Profile sidebar */
 .profile-sidebar {
     padding: 20px 0 10px 0;
-    /*    background: #fff; */
 }
 
 .profile-userpic img, .profile-img {
@@ -246,3 +241,10 @@ body {
 /*
  *   END OF: User Profile Sidebar by @keenthemes
 */
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}*/
+
