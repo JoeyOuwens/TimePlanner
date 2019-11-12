@@ -12,7 +12,7 @@ var cookieSession = require('cookie-session');
 //const client = redis.createClient();
 
 var routes = require('./routes/index');
-var login = require('./routes/users');
+var login = require('./routes/login');
 var users = require('./routes/usermanagement/list');
 var createuser = require('./routes/usermanagement/create');
 var session = require('express-session');
@@ -23,6 +23,15 @@ var passwordreset = require('./routes/reset-password');
 var logout = require('./routes/logout');
 
 var app = express();
+
+// middleware function to check for logged-in users
+var sessionChecker = (req, res, next) => {
+    if (req.session.user === undefined) {
+        res.redirect('/');
+    } else {
+        next();
+    }
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,12 +51,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);  
 app.use('/login', login);  
-app.use('/usermanagement/list', users);
-app.use('/usermanagement/create', createuser);
-app.use('/dashboard', dashboard);
-app.use('/profile', profile);
-app.use('/user/resetpassword', passwordreset);
-app.use('/logout', logout);
+app.use('/usermanagement/list', sessionChecker, users);
+app.use('/usermanagement/create', sessionChecker, createuser);
+app.use('/dashboard', sessionChecker, dashboard);
+app.use('/profile', sessionChecker, profile);
+app.use('/user/resetpassword', sessionChecker, passwordreset);
+app.use('/logout', sessionChecker, logout);
 
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
@@ -58,15 +67,6 @@ app.use((req, res, next) => {
     } 
     next();
 }); 
-// middleware function to check for logged-in users
-var sessionChecker = (req, res, next) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.redirect('/dashboard');
-    } else {
-        next();
-    }
-};
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
