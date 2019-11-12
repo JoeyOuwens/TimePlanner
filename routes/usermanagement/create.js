@@ -10,7 +10,7 @@ var userDBHandler = require('../../classes/userDBHandler')
 
 /* GET create user page. */ 
     router.get('/', function (req, res) { 
-        if (req.session.user !== undefined && req.session.user.role != "USER"){
+        if (req.session.user.role !== "USER"){
             res.render('usermanagement/create', { title: 'Nieuwe medewerker', newPage: true });
         } else {
             
@@ -19,22 +19,18 @@ var userDBHandler = require('../../classes/userDBHandler')
     }); 
 
 router.post('/', function (req, res) { 
-    console.log(req.body);
-
     var password = generatePassword(Math.floor(Math.random() * 10) + 8, false);
     var accountDetails = req.body; 
-    if (req.session.user.role == "MANAGER") {
-        accountDetails.inputRights = "USER"
+    if (req.session.user.role === "MANAGER") {
+        accountDetails.inputRights = "USER";
     }
-
-    console.log(req.body);
 
     accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, ''); 
     var failedFields = fieldValidation(accountDetails);
-    if (failedFields.length == 0) {
+    if (failedFields.length === 0) {
         if (userDBHandler.insertUser(accountDetails, password)) {
             emailHandler.sendNewAccountEmail(accountDetails.inputEmail, accountDetails.inputFname, password);
-            handlePageStayCheck(req.body.checkPageStay, res)
+            handlePageStayCheck(req.body.checkPageStay, res);
         } else {
             res.render('usermanagement/create', { title: 'Nieuwe medewerker', throwError: true, errorMessage: "Er is wat fout gegaan met een medewerker toevoegen, probeer opnieuw.", accountDetails: accountDetails });
         }
