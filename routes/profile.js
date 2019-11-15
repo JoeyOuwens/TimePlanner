@@ -3,6 +3,7 @@ var express = require('express');
 var validation = require('../classes/validation');
 var router = express.Router();
 var path = require('path');
+var fs = require('fs');
 
 const multer = require('multer');
 const User = require('../models/User');
@@ -53,7 +54,7 @@ const upload = multer({
         checkFileType(file, cb);
     }
 }).single('myImage');
-
+ 
 // Check File Type
 async function checkFileType(file, cb) {
     // Allowed ext
@@ -86,6 +87,12 @@ router.post('/upload', function (req, res) {
                 });
             } else {
                 User.query().findById(req.session.user.id).patch({ profile_image: `uploads/${req.file.filename}` }).then(function () {
+                    if (req.session.user.profile_image != '') { 
+                        fs.unlink(`public/${req.session.user.profile_image}`, function (err) {
+                            if (err) throw err; 
+                            console.log('File deleted!');
+                        }); 
+                    }
                     req.session.user.profile_image = `uploads/${req.file.filename}`
                     res.render('profile', {
                         msg: 'File Uploaded!',
