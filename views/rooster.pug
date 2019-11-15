@@ -18,6 +18,7 @@ block content
         var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'timeGrid' ],
             defaultView: 'timeGridWeek',
+            allDaySlot: false,
             events: !{timeTable}
         });
 
