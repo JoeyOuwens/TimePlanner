@@ -45,8 +45,6 @@ app.set('view engine', 'pug');
 //    }
 //}));
 
-
-
 app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 } }));
 app.use(function (req, res, next) {
     res.locals.userInfo = req.session.user;
@@ -85,7 +83,6 @@ var sessionChecker = (req, res, next) => {
     }
 };
 
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -97,7 +94,6 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
