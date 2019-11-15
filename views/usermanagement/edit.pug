@@ -36,7 +36,11 @@ block content
                     div(class="col")
                             label(for="contract_hours" class="col-form-label") Uren 
                             input(type="number" class="form-control" name="contract_hours" id="contract_hours" placeholder="Uren" value=user.contract_hours required)
-                            div(class="invalid-feedback") Werk uren zijn is onjuist.    
+                            div(class="invalid-feedback") Werk uren zijn is onjuist.
+                    div(class="col")
+                            label(for="salary" class="col-form-label") Uur loon
+                            input(type="number" class="form-control" name="salary" id="salary" placeholder="Uur loon" value=user.salary required)
+                            div(class="invalid-feedback") Uurloon is onjuist.
                     if(userInfo.role == "OWNER")
                         div(class="col")
                             label(class="col-form-label" for="role") Rechten  
@@ -49,6 +53,10 @@ block content
                                     option(selected value="MANAGER") Manager
                             div(class="invalid-feedback") Rechten zijn onjuist.    
                 div( class="form-group row")      
+                    div(class="col")
+                        label(for="employed_since" class=" col-form-label") Datum van in dienst treding  
+                        input(type="date" class="form-control" name="employed_since" id="employed_since" placeholder="Datum van in dienst treding"  value=user.employed_since required)
+                        div(class="invalid-feedback") Datum is onjuist.
                     div(class="col")
                         label(for="birth_date" class=" col-form-label") Geboortedatum  
                         input(type="date" class="form-control" name="birth_date" id="birth_date" placeholder="Geboortedatum"  value=user.birth_date required)

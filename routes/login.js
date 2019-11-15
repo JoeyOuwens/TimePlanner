@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
 /* Login user */
 
 router.post('/', async function (req, res, next) {
-    const username = req.body.username;
+    const username = req.body.username.toLowerCase();
     const password = req.body.password;
     let loginResult = await login(username, password);
 

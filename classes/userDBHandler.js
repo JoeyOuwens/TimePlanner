@@ -16,7 +16,8 @@ module.exports = {
             .from("users")
             .where("id", id)
             .then(function (data) {
-                data[0].birth_date = fixBirthdate(data[0].birth_date);
+                data[0].birth_date = fixDate(data[0].birth_date);
+                data[0].employed_since = fixDate(data[0].employed_since);
                 return data
             }).catch(function () {
                 return [];
@@ -66,7 +67,7 @@ module.exports = {
                 firstname: accountDetails.inputFname,
                 middlename: accountDetails.inputMname,
                 lastname: accountDetails.inputLname,
-                email: accountDetails.inputEmail,
+                email: accountDetails.inputEmail.toLowerCase(),
                 employed_since: String(date),
                 birth_date: accountDetails.inputDOB,
                 address: accountDetails.inputAddress,
@@ -77,7 +78,7 @@ module.exports = {
                 function: accountDetails.inputFunction,
                 role: accountDetails.inputRights,
                 profile_image: '',
-                salary: 0.0,
+                salary: accountDetails.inputSalary,
                 active: true
             }]).then(function () {
                 return true
@@ -161,19 +162,19 @@ module.exports = {
     }
 };
 
-function fixBirthdate(birthdate) {
-    var fixedBirthdate = ''
-    birthdate.split('-').forEach(function (element) {
+function fixDate(date) {
+    var fixDate = ''
+    date.split('-').forEach(function (element) {
         if (element.length == 1){
             element = '-0' + element
         }
         else if (element.length == 2) {
             element = '-' + element
         } ;
-        fixedBirthdate = fixedBirthdate + element 
+        fixDate = fixDate + element 
     });
     
-    return fixedBirthdate
+    return fixDate
 };
 
 //Checks if given accountDetails has values missing from initial user obj, then maps old ones to newer one if abscent.

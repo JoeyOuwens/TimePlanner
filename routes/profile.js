@@ -31,10 +31,10 @@ router.post('/changesettings/', async function (req, res, next) {
         let user = await User.query().where('id', id).first();
         req.session.user = user;
         res.locals.userInfo = user;
-
+        
         saved = true;
    }
-
+    
     res.render('profile', { page: 'changesettings', failedFields: failedFields, saved: saved });
 });
 

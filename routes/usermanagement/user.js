@@ -72,6 +72,9 @@ function fieldValidation(details) {
     if (!validation.birthdate(details.birth_date)) {
         failed.push("birth_date");
     }
+    if (!validation.birthdate(details.employed_since)) {
+        failed.push("employed_since");
+    }
     if (!validation.hours(details.contract_hours)) {
         failed.push("contract_hours");
     }
