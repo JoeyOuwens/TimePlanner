@@ -8,15 +8,15 @@ var validation = require('../../classes/validation')
 /* GET page. */
 router.get('/delete/:id',  async function (req, res) {
     if (req.session.user.role == 'OWNER' || req.session.user.role == 'MANAGER') { 
-        if (allowedToChange(req.session.user, req.params.id)){
+        if (await allowedToChange(req.session.user, req.params.id)){
             userDBHandler.deactivateUserById(req.params.id);
         }
     }
     res.redirect('/usermanagement/list');
 
 });
-router.get('/activate/:id', function (req, res) {
-    if (allowedToChange(req.session.user, req.params.id)) {
+router.get('/activate/:id', async function (req, res) {
+    if (await allowedToChange(req.session.user, req.params.id)) {
         userDBHandler.activateUserById(req.params.id);
     }
     res.redirect('/usermanagement/list');
@@ -57,7 +57,7 @@ module.exports = router;
 async function allowedToChange(requestingUser, changingUserId) {
     var changingUser = await userDBHandler.getUserById(changingUserId)
     if ((requestingUser.role == 'MANAGER' && changingUser[0].role == "OWNER") || (requestingUser.role == 'MANAGER' && changingUser[0].role == "MANAGER") || (requestingUser.id == changingUser[0].id)) {
-    return false
+        return false
     } else {
         return true
     }

@@ -36,8 +36,7 @@ block content
                                             th(scope="col" style=activeStyle) #{user.role}
                                         th(scope="col")
                                             if((user.role == "OWNER") || (userInfo.role == "MANAGER" && user.role == "MANAGER"))
-                                                a( href="user/edit/"+user.id)
-                                                    button(type="button" class="btn btn-warning btn-sm" disabled) Aanpassen
+                                                button(type="button" class="btn btn-warning btn-sm" disabled) Aanpassen
                                             else
                                                 a( href="user/edit/"+user.id)
                                                     button(type="button" class="btn btn-warning btn-sm") Aanpassen
