@@ -10,90 +10,89 @@ body {
     background: #007bff47;
 }
 
-/* make beautiful corners with white backgrounds */
-.round-border-white-box {
-    width: 100%;
-}
-termsofuse{
-    opacity:0.6;
-    color: white ;
-}
-div.terms {
-    font-size: 15px ;
-}
-
-.middle-image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 8px;
-    background: #fff;
-    border-radius: 8px;
-    border: 1px solid #dedede;
-}
-
-.font-weight-normal {
-    font-weight: 400 !important;
-    font-family: monospace;
-}
-
-label {
-    display: inline-block;
-    margin-bottom: .5rem;
-    font-family: monospace;
-}
-
-
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-.bg-blue {
-    background-color: #007bff !important;
-}
-
-
-.footer {
-    position: center;
-    width: 100%;
-    background-color: #007bff;
-    color: white;
-    text-align: justify;
-    box-shadow: 0px 0px 4px #000000;
-    border-radius: 8px 8px 0 0;
-}
-
-    .footer li {
-        display: inline;
-        padding: 2px;
-        margin-bottom: 2px;
-        opacity: 0.5;
+    /* make beautiful corners with white backgrounds */
+    .round-border-white-box {
+        width: 100%;
     }
 
-    .footer a {
+
+    div.terms {
+        font-size: 15px;
+    }
+
+    .middle-image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 8px;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #dedede;
+    }
+
+    .font-weight-normal {
+        font-weight: 400 !important;
+        font-family: monospace;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: .5rem;
+        font-family: monospace;
+    }
+
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .bg-blue {
+        background-color: #007bff !important;
+    }
+
+
+    .footer {
+        position: center;
+        width: 100%;
+        background-color: #007bff;
         color: white;
+        text-align: justify;
+        box-shadow: 0px 0px 4px #000000;
+        border-radius: 8px 8px 0 0;
     }
 
-    .footer p {
-        margin-bottom: 0;
-        opacity: 0.5;
+        .footer li {
+            display: inline;
+            padding: 2px;
+            margin-bottom: 2px;
+            opacity: 0.5;
+        }
+
+        .footer a {
+            color: white;
+        }
+
+        .footer p {
+            margin-bottom: 0;
+            opacity: 0.5;
+        }
+
+    .header {
+        padding: 10px;
+        text-align: center;
+        font-size: 15px;
+        font: italic;
+        font-family: "Times New Roman", Times, serif;
+        background: #007bff;
+        color: white;
+        background-color: #007bff;
+        box-shadow: 0px 0px 4px #000000;
+        border-radius: 0 0 20px 20px;
     }
 
-.header{
-    padding: 10px;
-    text-align: center;
-    font-size: 15px;
-    font: italic;
-    font-family: "Times New Roman", Times, serif;
-    background: #007bff;
-    color: white;
-    background-color: #007bff;
-    box-shadow: 0px 0px 4px #000000;
-    border-radius: 0 0 20px 20px;
-}
-
-/*.form-signin {
+    /*.form-signin {
     width: 100%;
     max-width: 330px;
     padding: 15px;
@@ -127,3 +126,43 @@ footer {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }*/
+
+
+ /* Style inputs with type="text", select elements and textareas */
+.contact input[type=text], select, textarea {
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px; 
+    background-color: #007bff26;
+    margin-bottom: 16px; 
+    resize: vertical 
+}
+
+
+.contact input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    background-color: #007bff26;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    /* Add a background color and some padding around the form */
+    contact.container {
+        border-radius: 10px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+    button, input, optgroup, select, textarea {
+        margin: 0;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        background-color: white;
+    }
+}

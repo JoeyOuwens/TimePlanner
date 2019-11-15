@@ -37,6 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="public\javascript\contactHandler.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="classes\emailHandler.js" />
     <Content Include="classes\resetToken.js" />
     <Content Include="classes\resetTokenDBHandler.js">
@@ -90,6 +93,9 @@
     <Content Include="public\stylesheets\style.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\contact.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\dashboard.js">
       <SubType>Code</SubType>
     </Content>
@@ -97,6 +103,9 @@
     <Content Include="routes\index.js" />
     <Content Include="routes\login.js" />
     <Content Include="routes\logout.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\privacypolicy.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\profile.js" />
@@ -119,6 +128,7 @@
     <Content Include="tests\database.test.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\contact.pug" />
     <Content Include="views\dashboard.pug">
       <SubType>Code</SubType>
     </Content>
@@ -129,6 +139,9 @@
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
     <Content Include="views\login.pug" />
+    <Content Include="views\privacypolicy.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\profile.pug" />
     <Content Include="views\reset-password.pug">
       <SubType>Code</SubType>

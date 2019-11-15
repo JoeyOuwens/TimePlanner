@@ -3,14 +3,15 @@ var express = require('express');
 var router = express.Router();
 
 
-/*GET termsofuse page */
+
+
+
+/*GET privacypolicy page */
 router.get('/', function (req, res) {
     if (res.locals.userInfo === undefined)
-        res.render('termsofuse', { error: false, hidenav: true });
+        res.render('privacypolicy', { error: false, hidenav: true });
     else
-        res.render('termsofuse', { error: false});
+        res.render('privacypolicy', { error: false });
 });
-
-
 
 module.exports = router;
