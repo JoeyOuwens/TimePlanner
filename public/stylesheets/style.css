@@ -19,6 +19,10 @@ h1 {
     background-color: #6497b1 !important;
 }
 
+.row.card-row {
+    margin: -1.25rem;
+}
+
 .bg-primary *,
 .bg-secondary *,
 .bg-tertiary * {

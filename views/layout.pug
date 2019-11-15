@@ -1,18 +1,17 @@
 doctype html
 html
     head
-        title= title
+        title= title + ' | TimePlanner'
         meta( name="viewport" content="width=device-width, initial-scale=1")
-        link(rel='stylesheet', href='/stylesheets/main.css')
-        link(rel='stylesheet', href='/stylesheets/style.css')
         link(rel='manifest', href='/manifest.json')
         link(rel="shortcut icon", href="/images/favicon.ico", type="image/x-icon")
         link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css")
+        link(rel='stylesheet', href='/stylesheets/style.css')
         script(src='/service-worker-register.js')
     body
         if userInfo !== undefined 
-            header(class="bg-primary")
+            header
                 include fullNavbar
         else
             header
@@ -21,8 +20,9 @@ html
         main(class="container") 
             br
             div(class="card shadow")
-                div(class="card-header bg-secondary")
-                    h2 #{title}
+                if title !== undefined 
+                    div(class="card-header bg-secondary")
+                        h2 #{title}
                 div(class="card-body") 
                     block content
 
