@@ -10,21 +10,17 @@ block content
                             | Wachtwoord of gebruikersnaam onjuist, probeer opnieuw.
                 div(class="round-border-white-box")
                     img(src="/images/horecaplanner.svg" height="128px" class="middle-image" id="logo")
-                h2(class="mb-3 font-weight-normal text-center") Please sign in
+                h2(class="mb-3 font-weight-normal text-center") Login
 
                 div(class="form-group")
-                    label Email address
-                    input(type="email" name="username" id="inputEmail" class="form-control" placeholder="Email address" required autofocus)
+                    label Emailadres
+                    input(type="email" name="username" id="inputEmail" class="form-control" placeholder="email@adres.nl" required autofocus)
                 div(class="form-group")
-                    label Password
-                    input(type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required)
-                div(class="form-check form-check-inline")
-                    input(class="form-check-input" type="checkbox" value="remember-me") 
-                    label(class="form-check-label")
-                       | Remember me
+                    label Wachtwoord
+                    input(type="password" name="password" id="inputPassword" class="form-control" placeholder="Wachtwoord" required)
                 div(class="form-group")
-                    input(class=['btn', 'btn-primary', 'form-control'] type="submit" value="Sign in")
-                a(href="#forgotten-password" data-toggle="modal" data-target="#forgotten-password") I forgot my password.
+                    input(class=['btn', 'btn-primary', 'form-control'] type="submit" value="Inloggen")
+                a(href="#forgotten-password" data-toggle="modal" data-target="#forgotten-password") Wachtwoord vergeten.
     
 
     div(class="modal fade" id="forgotten-password" tabindex="-1" role="dialog" aria-labelledby="forgotten-password" aria-hidden="true")
@@ -39,7 +35,7 @@ block content
                 form(method="POST" class="form-reset form" action="../login/reset/" id="resetPassword" )
                     p Voer hier onder je email adres in om je wachtwoord te resetten.
                     div(class="form-group")
-                        label(for="email-address" class="col-form-label") Email adres
+                        label(for="email-address" class="col-form-label") Emailadres
                         input(type="email" class="form-control" id="inputEmail"  name="inputEmail"  required)
                         br
                         button(type="submit" id="submit" class="btn btn-primary") Verstuur  

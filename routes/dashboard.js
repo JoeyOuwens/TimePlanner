@@ -47,7 +47,7 @@ router.get('/', async function (req, res, next) {
         }
     }
 
-    res.render('dashboard', { timetable_days: days });
+    res.render('dashboard', { timetable_days: days, title: 'Dashboard' });
 });
 
 module.exports = router;

@@ -22,6 +22,9 @@ exports.up = function (knex) {
                 t.string("profile_image");
                 t.boolean("active"); 
             });
+            return knex.schema.alterTable('users', t => { 
+                t.unique('email')
+            });
         }
         if (exists) {
             return knex.schema.alterTable('users', t => {
@@ -29,6 +32,7 @@ exports.up = function (knex) {
                 t.decimal('salary');
                 t.string('profile_image');
                 t.boolean('active');
+                t.unique('email')
             });
         }
     });

@@ -7,7 +7,27 @@ h1 {
     margin-right: 24px;
 }
 
+.bg-primary {
+    background-color: #03396c !important;
+}
 
+.bg-secondary {
+    background-color: #005b96 !important;
+}
+
+.bg-tertiary {
+    background-color: #6497b1 !important;
+}
+
+.row.card-row {
+    margin: -1.25rem;
+}
+
+.bg-primary *,
+.bg-secondary *,
+.bg-tertiary * {
+    color: white;
+}
 
 body {
     padding-bottom: 200px;
@@ -58,16 +78,11 @@ label {
     font-family: monospace;
 }
 
-
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
 }
-.bg-blue {
-    background-color: #007bff !important;
-}
-
 
 .footer {
     position: center;

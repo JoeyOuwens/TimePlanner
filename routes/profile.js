@@ -7,11 +7,11 @@ const User = require('../models/User');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.render('profile', { page: 'overview' });
+    res.render('profile', { title: 'Profiel Overzicht', page: 'overview' });
 });
 
 router.get('/changesettings/', function (req, res, next) {
-    res.render('profile', { page: 'changesettings' });
+    res.render('profile', { title: 'Profiel wijzigen', page: 'changesettings' });
 
 });
 
@@ -31,21 +31,21 @@ router.post('/changesettings/', async function (req, res, next) {
         let user = await User.query().where('id', id).first();
         req.session.user = user;
         res.locals.userInfo = user;
-
+        
         saved = true;
    }
-
-    res.render('profile', { page: 'changesettings', failedFields: failedFields, saved: saved });
+    
+    res.render('profile', { title: 'Profiel wijzigen', page: 'changesettings', failedFields: failedFields, saved: saved });
 });
 
 
 router.get('/tasks/', function (req, res, next) {
-    res.render('profile', {  page: 'tasks' });
+    res.render('profile', { title: 'Rooster gegevens',  page: 'tasks' });
 
 });
 
 router.get('/help/', function (req, res, next) {
-    res.render('profile', {  page: 'help' });
+    res.render('profile', { title: 'Help',  page: 'help' });
 
 });
 
