@@ -1,7 +1,7 @@
 const knex = require('../../db/knex');
 
 var login = async function (email, password) {
-    if (await knex('users').where({ email: email }).where({ password: password }).first() !== undefined) {
+    if (await knex('users').where({ email: email }).where({ password: password }).where({active: true}).first() !== undefined) {
         return true;
     }
     else {

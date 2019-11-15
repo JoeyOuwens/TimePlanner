@@ -54,6 +54,7 @@
     <Content Include="migrations\20191031182050_token.js" />
     <Content Include="migrations\20191031184830_token.js" />
     <Content Include="migrations\20191031184923_token.js" />
+    <Content Include="migrations\20191111120618_users.js" />
     <Content Include="models\token.js">
       <SubType>Code</SubType>
     </Content>
@@ -103,6 +104,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\usermanagement\create.js" />
+    <Content Include="routes\usermanagement\user.js" />
     <Content Include="routes\usermanagement\list.js" />
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
@@ -127,7 +129,6 @@
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
-    <Content Include="views\login.pug" />
     <Content Include="views\profile.pug" />
     <Content Include="views\profile\changesettings.pug">
       <SubType>Code</SubType>
@@ -139,10 +140,10 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\termsofuse.pug" />
-    <Content Include="views\users.pug">
+    <Content Include="views\usermanagement\create.pug" />
+    <Content Include="views\usermanagement\edit.pug">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\usermanagement\create.pug" />
     <Content Include="views\usermanagement\list.pug" />
   </ItemGroup>
   <ItemGroup>
