@@ -1,7 +1,51 @@
 extends layout
 
 block content
-    div.text-center
-        div(class="form-signin")
-            div.text-center
-                p Welcome #{userInfo.firstname} #{userInfo.lastname}!
+    br
+    div(class="card shadow")
+        div(class="card-header")
+            h2 Dashboard
+        div(class="card-body")
+            div(class="row no-gutter")
+                div( class="col-sm-12 col-md-6 col-lg-4")
+                    div(class="card shadow dashboard-timetable")
+                        div(class="card-header")
+                            h3 Rooster
+                                i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
+                        div(class="card-body")
+                            each day in timetable_days
+                                div(class="row no-gutter timetable-item")
+                                    div( class="col-sm-12")
+                                        case day.day_count
+                                            when 0
+                                                h4 Vandaag
+                                            when 1
+                                                h4 Morgen
+                                            when 2
+                                                h4 Overmorgen
+                                            default
+                                                h4 #{day.day_name}
+                                        if day.day_items.length > 0
+                                            each rooster_item in day.day_items
+                                                p #{rooster_item.begin_time} - #{rooster_item.end_time}
+                                        else
+                                            p Nuffin'
+                div( class="col-sm-12 col-md-6 col-lg-5")
+                    div(class="card shadow dashboard-timetable")
+                        div(class="card-header")
+                            h3 Notificaties 
+                                i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
+                        div(class="card-body")
+                div( class="col-sm-12 col-md-6 col-lg-3")
+                    div(class="card shadow dashboard-timetable")
+                        div(class="card-header")
+                            h3 Nieuwste medewerkers
+                                i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
+                        div(class="card-body")
+            br
+            div(class="row")
+                div( class="col-sm-12")
+                    div(class="card shadow dashboard-timetable")
+                        div(class="card-header")
+                            h3 Widget editor
+                        div(class="card-body")

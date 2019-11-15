@@ -246,5 +246,19 @@ Licensed under MIT
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-}*/
+}
 
+
+.dashboard-timetable .timetable-item {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+}
+
+
+.dashboard-timetable .timetable-item:not(:last-child) { 
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-timetable .timetable-item:not(:first-child) {
+    padding-top: 16px;
+}
