@@ -12,7 +12,7 @@ var cookieSession = require('cookie-session');
 //const client = redis.createClient();
 
 var routes = require('./routes/index');
-var login = require('./routes/users');
+var login = require('./routes/login');
 var users = require('./routes/usermanagement/list');
 var createuser = require('./routes/usermanagement/create');
 var session = require('express-session');
@@ -20,40 +20,30 @@ const uuid = require('uuid/v4');
 var dashboard = require('./routes/dashboard');
 var profile = require('./routes/profile');
 var passwordreset = require('./routes/reset-password');
+var usermanagementedit = require('./routes/usermanagement/user');
 var logout = require('./routes/logout');
-var termsofuse = require('./routes/footer');
-var contactpage = require('./routes/contact');
-var privacypolicy = require('./routes/privacypolicy')
+
 var app = express();
+
+// middleware function to check for logged-in users
+var sessionChecker = (req, res, next) => {
+    if (req.session.user === undefined) {
+        res.redirect('/');
+    } else {
+        next();
+    }
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-//app.use(session({
-//    genid: (req) => {
-//        console.log(req.sessionID);
-//        console.log(req.session);
-//        return uuid(); // use UUIDs for session IDs
-//    },
-//    secret: 'mySecretSession',
-//    resave: false,
-//    saveUninitialized: true,
-//    cookie: {
-//        secure: true,
-//        expires: 600000
-//    }
-//}));
-
-
-
 app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 } }));
 app.use(function (req, res, next) {
     res.locals.userInfo = req.session.user;
     next();
-})
+});
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -62,15 +52,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);  
 app.use('/login', login);  
-app.use('/usermanagement/list', users);
-app.use('/usermanagement/create', createuser);
-app.use('/dashboard', dashboard);
-app.use('/profile', profile);
-app.use('/user/resetpassword', passwordreset);
-app.use('/logout', logout);
-app.use('/termsofuse', termsofuse);
-app.use('/contact', contactpage);
-app.use('/privacypolicy', privacypolicy);
+app.use('/usermanagement/list', sessionChecker, users);
+app.use('/usermanagement/create', sessionChecker, createuser);
+app.use('/usermanagement/user',sessionChecker, usermanagementedit);
+app.use('/dashboard', sessionChecker, dashboard);
+app.use('/profile', sessionChecker, profile);
+app.use('/user/resetpassword', sessionChecker, passwordreset);
+app.use('/logout', sessionChecker, logout);
+
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
@@ -80,15 +69,6 @@ app.use((req, res, next) => {
     } 
     next();
 }); 
-// middleware function to check for logged-in users
-var sessionChecker = (req, res, next) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.redirect('/dashboard');
-    } else {
-        next();
-    }
-};
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

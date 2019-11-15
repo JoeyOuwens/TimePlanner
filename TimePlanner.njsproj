@@ -37,9 +37,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="public\javascript\contactHandler.js">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="classes\emailHandler.js" />
     <Content Include="classes\resetToken.js" />
     <Content Include="classes\resetTokenDBHandler.js">
@@ -57,6 +54,7 @@
     <Content Include="migrations\20191031182050_token.js" />
     <Content Include="migrations\20191031184830_token.js" />
     <Content Include="migrations\20191031184923_token.js" />
+    <Content Include="migrations\20191111120618_users.js" />
     <Content Include="models\token.js">
       <SubType>Code</SubType>
     </Content>
@@ -93,19 +91,12 @@
     <Content Include="public\stylesheets\style.css">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="routes\contact.js">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="routes\dashboard.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\footer.js" />
     <Content Include="routes\index.js" />
-    <Content Include="routes\login.js" />
     <Content Include="routes\logout.js">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="routes\privacypolicy.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\profile.js" />
@@ -113,6 +104,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\usermanagement\create.js" />
+    <Content Include="routes\usermanagement\user.js" />
     <Content Include="routes\usermanagement\list.js" />
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
@@ -128,7 +120,6 @@
     <Content Include="tests\database.test.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\contact.pug" />
     <Content Include="views\dashboard.pug">
       <SubType>Code</SubType>
     </Content>
@@ -138,19 +129,21 @@
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
-    <Content Include="views\login.pug" />
-    <Content Include="views\privacypolicy.pug">
+    <Content Include="views\profile.pug" />
+    <Content Include="views\profile\changesettings.pug">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\profile.pug" />
+    <Content Include="views\profile\overview.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\reset-password.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\termsofuse.pug" />
-    <Content Include="views\users.pug">
+    <Content Include="views\usermanagement\create.pug" />
+    <Content Include="views\usermanagement\edit.pug">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\usermanagement\create.pug" />
     <Content Include="views\usermanagement\list.pug" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +158,7 @@
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>
+    <Folder Include="views\profile\" />
     <Folder Include="views\usermanagement\" />
   </ItemGroup>
   <ItemGroup>
