@@ -1,19 +1,39 @@
 
 block footer
-    link(rel='stylesheet', href='../stylesheets/style.css')
-    footer
-        div(class="container footer")
-            div(class = "row")
-                div(class="col-sm-12 col-md-9 ")
-                    ul(class = "row")
-                        li(class = "col-sm-2")
-                            a(href="/termsofuse") Terms of use
-                        li(class = "col-sm-2")
-                            a(href="/privacypolicy") Privacy policy
-                        li(class = "col-sm-2")
-                            a(href="/contact") Contact
+	link(rel='stylesheet', href='../stylesheets/style.css')
+	footer
+		div(class="container footer")
 
-                div(class="col-sm-12 col-md-3 text-right")
-                    p
-                        | Team 3 <br> 
-                        | &copy; 2019, All Rights Reserved
+			if userInfo === undefined
+				div(class = "row")
+					div(class="col-sm-12 col-md-9")
+						ul(class = "row")
+							li(class = "col-sm-2")
+								a(href="/testpage") Terms of use
+							li(class = "col-sm-2")
+								a(href="/testpage") Privacy policy
+							li(class = "col-sm-2")
+								a(href="/testpage") Contact
+
+					div(class="col-sm-12 col-md-3 text-right")
+						p
+							| Team 3 <br> 
+							| &copy; 2019, All Rights Reserved
+
+			if userInfo !== undefined
+				div(class = "row footer-nav")
+					div(class="col-sm-12 d-block d-md-none")
+						nav.navbar.navbar-expand-lg.navbar-nav.lg-nav
+							ul.navbar-nav.ml-auto.mr-auto
+								li.nav-item
+									h3
+										a.nav-link(href='/dashboard') 
+											i(class="fas fa-home")
+								li.nav-item
+									h3
+										a.nav-link(href='/rooster') 
+											i(class="fas fa-calendar")
+								li.nav-item
+									h3
+										a.nav-link(href='/profile') 
+											i(class="fas fa-user")
