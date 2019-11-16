@@ -264,4 +264,19 @@ Licensed under MIT
 }
 
 
+.greeting-message {
+    position: fixed;
+    top: 1rem;
+    right: 0;
+    transition: all 2s ease-in-out;
+}
 
+    .greeting-message.hidden {
+        transition: all 2s ease-in-out;
+        right: -100%;
+    }
+
+    .greeting-message > .alert {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }

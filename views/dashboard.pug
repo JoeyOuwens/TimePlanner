@@ -4,4 +4,13 @@ block content
     div.text-center
         div(class="form-signin")
             div.text-center
-                p Welcome #{userInfo.firstname} #{userInfo.lastname}!
+                p 
+
+
+    if log_in_redirect !== undefined
+        div(class="greeting-message js--greeting-message hidden")
+            div(class="alert alert-success")
+                p Goedendag #{userInfo.firstname} #{userInfo.middlename} #{userInfo.lastname}!
+            script.
+                    setTimeout(function(){ document.querySelector('.js--greeting-message').classList.remove('hidden') }, 60);
+                    setTimeout(function(){ document.querySelector('.js--greeting-message').classList.add('hidden') }, 4000);
