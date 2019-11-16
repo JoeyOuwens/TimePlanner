@@ -6,6 +6,8 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
+    var context = { title: 'Dashboard' };
+
     const week_day_name = ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"];
     var begin_date = new Date();
     begin_date.setHours(0, 0, 0, 0);
@@ -47,7 +49,14 @@ router.get('/', async function (req, res, next) {
         }
     }
 
-    res.render('dashboard', { timetable_days: days, title: 'Dashboard' });
+    context.timetable_days = days;
+
+    if (req.session.logged_in !== undefined) {
+        delete req.session.logged_in;
+        context.log_in_redirect = true;
+    }
+
+    res.render('dashboard', context);
 });
 
 module.exports = router;

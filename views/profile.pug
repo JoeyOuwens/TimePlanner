@@ -1,63 +1,54 @@
 extends layout
 
 block content
-    div(class="row card-row no-gutter")
-        div( class="col-md-6 col-lg-3", style="background:yellow;")
-            div( class="profile-sidebar")
-            //SIDEBAR USERPIC
-            div( class="profile-userpic text-center")
-                img(id="profilepic" src="#" class="img-responsive" alt="")
-                div( class="file btn btn-lg btn-primary" )
-                    input(type="file" name="file" onchange="readURL(this);") 
-                    | Upload
-                        
-            div( class="profile-usertitle")
-                div( class="profile-usertitle-name") #{userInfo.firstname} #{userInfo.lastname}
-                div( class="profile-usertitle-job") 
-                    case userInfo.role 
-                        when "MANAGER"
-                            | Manager
-                        when "OWNER"
-                            | Beheerder
-                        default
-                            | Gebruiker
-            div( class="profile-usermenu")
-                ul( class="list-unstyled")
-                    li( class={active: page == 'overview'})
-                        a( href="/profile/")
-                            i( class="fa fa-home") 
-                            | Overzicht
-                    li( class={active: page == 'changesettings'})
-                        a( href="/profile/changesettings")
-                            i( class="fa fa-user") 
-                            | Profiel wijzigen
-                    li( class={active: page == 'tasks'})
-                        a( href="/profile/tasks")
-                            i( class="fa fa-calendar") 
-                            | Rooster 
-                    li( class={active: page == 'help'})
-                        a( href="/profile/help")
-                            i( class="fa fa-info-circle")
-                            | Help 
-        div( class="col-md-6 col-lg-9")
-            div( class="profile-content") 
-                case page
-                    when "overview"
-                        include profile/overview
-                    when "changesettings"
-                        include profile/changesettings
-                    default
-                        include profile/overview
-            script.
-                function readURL(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-                    reader.onload = function (e) {
-                    $('#profilepic')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(150);
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                        }
-                    }
+
+            div(class="row no-gutter")
+                div( class="col-md-6 col-lg-3", style="background:#E8E576;")
+                    div( class="profile-sidebar")
+                    //SIDEBAR USERPIC
+                    div( class="profile-userpic text-center")
+                        img(id="profilepic" src='/'+userInfo.profile_image class="img-responsive" alt="")
+                        case page
+                            when "changesettings"
+                                form(action="/profile/upload" method="POST" enctype="multipart/form-data") 
+                                    div(class="file btn btn-sm btn-primary")
+                                        label(for="filebrowser") Wijzig profielfoto
+                                        input(name="myImage" style="display: none;" id="filebrowser" type="file" class="custom-file-input"  onchange="this.form.submit()") 
+                                        
+                    div( class="profile-usertitle")
+                        div( class="profile-usertitle-name") #{userInfo.firstname} #{userInfo.lastname}
+                        div( class="profile-usertitle-job") 
+                            case userInfo.role 
+                                when "MANAGER"
+                                    | Manager
+                                when "OWNER"
+                                    | Beheerder
+                                default
+                                    | Gebruiker
+                    div( class="profile-usermenu")
+                        ul( class="list-unstyled")
+                            li( class={active: page == 'overview'})
+                                a( href="/profile/")
+                                    i( class="fa fa-home") 
+                                    | Overzicht
+                            li( class={active: page == 'changesettings'})
+                                a( href="/profile/changesettings")
+                                    i( class="fa fa-user") 
+                                    | Profiel wijzigen
+                            li( class={active: page == 'tasks'})
+                                a( href="/profile/tasks")
+                                    i( class="fa fa-calendar") 
+                                    | Rooster 
+                            li( class={active: page == 'help'})
+                                a( href="/profile/help")
+                                    i( class="fa fa-info-circle")
+                                    | Help 
+                div( class="col-md-6 col-lg-9")
+                    div( class="profile-content") 
+                        case page
+                            when "overview"
+                                include profile/overview
+                            when "changesettings"
+                                include profile/changesettings
+                            default
+                                include profile/overview

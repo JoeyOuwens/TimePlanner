@@ -2,7 +2,10 @@
 var express = require('express');
 var validation = require('../classes/validation');
 var router = express.Router();
+var path = require('path');
+var fs = require('fs');
 
+const multer = require('multer');
 const User = require('../models/User');
 
 /* GET users listing. */
@@ -38,6 +41,78 @@ router.post('/changesettings/', async function (req, res, next) {
     res.render('profile', { title: 'Profiel wijzigen', page: 'changesettings', failedFields: failedFields, saved: saved });
 });
 
+// Set The Storage Engine
+const storage = multer.diskStorage({
+    destination: './public/uploads/',
+    filename: async function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+// Init Upload Function with Multer
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 1000000 },
+    fileFilter: async function (req, file, cb) {
+        checkFileType(file, cb);
+    }
+}).single('myImage');
+ 
+// Check File Type
+async function checkFileType(file, cb) {
+    // Allowed ext
+    const filetypes = /jpeg|jpg|png|gif/;
+    // Check ext
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    // Check mime
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb('Error: Images Only!');
+    }
+}
+
+//Post function
+router.post('/upload', function (req, res) { 
+   upload(req, res, (err) => {
+        if (err) {
+            res.render('profile', {
+                page: 'changesettings',
+                msg: err    
+            });
+        } else {
+            if (req.file == undefined) {
+                res.render('profile', {
+                    page: 'changesettings',
+                    msg: 'Error: No File Selected!'
+                });
+            } else {
+                User.query().findById(req.session.user.id).patch({ profile_image: `uploads/${req.file.filename}` }).then(function () {
+                    if (req.session.user.profile_image != '') { 
+                        fs.unlink(`public/${req.session.user.profile_image}`, function (err) {
+                            if (err) throw err; 
+                            console.log('File deleted!');
+                        }); 
+                    }
+                    req.session.user.profile_image = `uploads/${req.file.filename}`
+                    res.locals.userInfo.profile_image  = `uploads/${req.file.filename}`
+                    res.render('profile', {
+                        msg: 'File Uploaded!',
+                        page: 'changesettings'
+                    });
+                }).catch(function (e) {
+                    console.log(e)
+                    res.render('profile', {
+                        msg: 'File Uploaded!',
+                        page: 'changesettings'
+                    });
+                });
+            }
+        }
+    });
+});
 
 router.get('/tasks/', function (req, res, next) {
     res.render('profile', { title: 'Rooster gegevens',  page: 'tasks' });
@@ -79,22 +154,6 @@ function fieldValidation(details) {
         failed.push("'lastname'");
     }
     return failed;
-}
-
-/*Profile picture*/
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#profilepic')
-                .attr('src', e.target.result)
-                .width(150)
-                .height(150);
-        };
-
-        reader.readAsDataURL(input.files[0]);
-    }
 }
 
 module.exports = router;
