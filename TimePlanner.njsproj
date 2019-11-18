@@ -99,8 +99,14 @@
     <Content Include="routes\logout.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\pivacypolicy.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\profile.js" />
     <Content Include="routes\reset-password.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\termsofuse.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\usermanagement\create.js" />
