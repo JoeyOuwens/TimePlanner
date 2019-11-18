@@ -35,7 +35,7 @@ block content
                     div(class="invalid-feedback") Werk uren zijn is onjuist.
             div(class="col")
                     label(for="salary" class="col-form-label") Uur loon
-                    input(type="number" class="form-control" name="salary" id="salary" placeholder="Uur loon" value=user.salary required)
+                    input(type="number" class="form-control" name="salary" step=".01" id="salary" placeholder="Uur loon" value=user.salary required)
                     div(class="invalid-feedback") Uurloon is onjuist.
             if(userInfo.role == "OWNER")
                 div(class="col")
