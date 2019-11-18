@@ -69,10 +69,10 @@ function fieldValidation(details) {
     if (!validation.zipcode(details.zip)) {
         failed.push("zip");
     }
-    if (!validation.birthdate(details.birth_date)) {
+    if (!validation.date(details.birth_date)) {
         failed.push("birth_date");
     }
-    if (!validation.birthdate(details.employed_since)) {
+    if (!validation.date(details.employed_since)) {
         failed.push("employed_since");
     }
     if (!validation.hours(details.contract_hours)) {

@@ -132,9 +132,6 @@ function fieldValidation(details) {
     if (!validation.zipcode(details.zip)) {
         failed.push("'zip'");
     }
-    if (!validation.birthdate(details.birth_date)) {
-        failed.push("'birth_date'");
-    }
     if (!validation.telephone(details.phone_number)) {
         failed.push("'phone_number'");
     }
