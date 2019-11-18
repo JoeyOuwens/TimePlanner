@@ -153,6 +153,18 @@ footer {
 .footer-nav .navbar ul {
     flex-direction: row;
 }
+/**Profile picture Navbar**/
+.profile-userpic img, .profile-img {
+    float: none;
+    margin: 0 auto;
+    /*height: 50%;*/
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+}
 
 /***
 User Profile Sidebar by @keenthemes
@@ -170,15 +182,19 @@ Licensed under MIT
     padding: 20px 0 10px 0;
 }
 
-.profile-userpic img, .profile-img {
+.profile-userpic img, .profile-img2 {
     float: none;
     margin: 0 auto;
-    width: 50%;
-    height: 50%;
+    /*height: 50%;*/
     -webkit-border-radius: 50% !important;
     -moz-border-radius: 50% !important;
     border-radius: 50% !important;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
 }
+
+
 
 .profile-usertitle {
     text-align: center;
@@ -262,6 +278,9 @@ Licensed under MIT
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+
+
 
 
 
