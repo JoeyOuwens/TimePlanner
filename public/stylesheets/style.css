@@ -293,3 +293,8 @@ Licensed under MIT
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
+
+
+.fc-time-grid-event.fc-event.fc-start.fc-end * {
+    color: white;
+}
