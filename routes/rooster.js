@@ -14,7 +14,8 @@ router.get('/', async function (req, res, next) {
     }
 
     res.render('rooster',
-        {
+        {   
+            title: 'Rooster',
             timeTable: JSON.stringify(timetable_list)
         });
 });
