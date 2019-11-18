@@ -96,6 +96,7 @@
     </Content>
     <Content Include="routes\footer.js" />
     <Content Include="routes\index.js" />
+    <Content Include="routes\login.js" />
     <Content Include="routes\logout.js">
       <SubType>Code</SubType>
     </Content>
