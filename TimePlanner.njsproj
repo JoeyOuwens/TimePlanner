@@ -91,6 +91,7 @@
     <Content Include="public\stylesheets\style.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\contact.js" />
     <Content Include="routes\dashboard.js">
       <SubType>Code</SubType>
     </Content>
@@ -100,8 +101,12 @@
     <Content Include="routes\logout.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\privacypolicy.js" />
     <Content Include="routes\profile.js" />
     <Content Include="routes\reset-password.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\rooster.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\usermanagement\create.js" />
@@ -138,6 +143,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\reset-password.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\rooster.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\termsofuse.pug" />

@@ -279,6 +279,19 @@ Licensed under MIT
     border-top-right-radius: 0;
 }
 
+.dashboard-timetable .timetable-item {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+}
+
+
+.dashboard-timetable .timetable-item:not(:last-child) { 
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-timetable .timetable-item:not(:first-child) {
+    padding-top: 16px;
+}
 
 .greeting-message {
     position: fixed;
@@ -296,3 +309,8 @@ Licensed under MIT
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
+
+
+.fc-time-grid-event.fc-event.fc-start.fc-end * {
+    color: white;
+}

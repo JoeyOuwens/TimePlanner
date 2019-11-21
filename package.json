@@ -37,6 +37,7 @@
     "redis": "^2.8.0",
     "serve-favicon": "^2.3.0",
     "sqlite3": "^4.1.0",
+    "tui-calendar": "^1.12.7",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
