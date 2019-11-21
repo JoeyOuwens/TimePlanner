@@ -90,7 +90,7 @@ router.post('/upload', function (req, res) {
                 });
             } else {
                 User.query().findById(req.session.user.id).patch({ profile_image: `uploads/${req.file.filename}` }).then(function () {
-                    if (req.session.user.profile_image != '') { 
+                    if (!((req.session.user.profile_image == "") || (req.session.user.profile_image == "images/default_profileimage.jpg")) ) { 
                         fs.unlink(`public/${req.session.user.profile_image}`, function (err) {
                             if (err) throw err; 
                             console.log('File deleted!');
@@ -131,9 +131,6 @@ function fieldValidation(details) {
     }
     if (!validation.zipcode(details.zip)) {
         failed.push("'zip'");
-    }
-    if (!validation.birthdate(details.birth_date)) {
-        failed.push("'birth_date'");
     }
     if (!validation.telephone(details.phone_number)) {
         failed.push("'phone_number'");

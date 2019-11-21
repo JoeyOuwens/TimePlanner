@@ -17,10 +17,10 @@ module.exports = {
         }
     },
 
-    birthdate: function (str) {
+    date: function (str) {
         if (str.length !== 10) {
             return false
-        } else if (isBirthDateFormat(str)) {
+        } else if (isDateFormat(str)) {
             return true;
         } else {
             return false;
@@ -118,7 +118,7 @@ function isZipcodeFormat(str) {
 }
 
 //YYYY-MM-DD
-function isBirthDateFormat(str) {
+function isDateFormat(str) {
     return /^\d{4}(\-)([0][0-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1]$)/.test(str);
 }
 

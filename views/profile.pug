@@ -2,19 +2,18 @@ extends layout
 
 block content
 
-    div(class="row no-gutter card-row")
+    div(class="row no-gutter")
         div( class="col-md-6 col-lg-3", style="background:#E8E576;")
             div( class="profile-sidebar")
             //SIDEBAR USERPIC
             div( class="profile-userpic text-center")
-                img(id="profilepic" src='/'+userInfo.profile_image class="img-responsive" alt="")
+                img(id="profilepic" src='/'+userInfo.profile_image class="img-responsive profile-img2" alt="")
                 case page
                     when "changesettings"
                         form(action="/profile/upload" method="POST" enctype="multipart/form-data") 
                             div(class="file btn btn-sm btn-primary")
                                 label(for="filebrowser") Wijzig profielfoto
-                                input(name="myImage" style="display: none;" id="filebrowser" type="file" class="custom-file-input"  onchange="this.form.submit()") 
-                                        
+                                input(name="myImage" style="display: none;" id="filebrowser" type="file" class="custom-file-input"  onchange="this.form.submit()")                        
             div( class="profile-usertitle")
                 div( class="profile-usertitle-name") #{userInfo.firstname} #{userInfo.lastname}
                 div( class="profile-usertitle-job") 

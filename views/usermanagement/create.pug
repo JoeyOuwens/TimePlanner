@@ -33,8 +33,8 @@ block content
                     input(type="number" class="form-control" name="inputWorkHours" id="inputWorkHours" placeholder="Uren" value=newPage? "" :accountDetails.inputWorkHours required)
                     div(class="invalid-feedback") Werk uren zijn onjuist.                    
             div(class="col")
-                    label(for="inputSalary" class="col-form-label") Uren 
-                    input(type="number" class="form-control" name="inputSalary" id="inputSalary" placeholder="Salaris" value=newPage? "" :accountDetails.inputSalary required)
+                    label(for="inputSalary" class="col-form-label") Uur loon 
+                    input(type="number" class="form-control" name="inputSalary" id="inputSalary" placeholder="Uur loon" step=".01" value=newPage? "" :accountDetails.inputSalary required)
                     div(class="invalid-feedback") Salaris is onjuist.     
             if(userInfo.role == "OWNER")
                 div(class="col")
