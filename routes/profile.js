@@ -52,11 +52,11 @@ const storage = multer.diskStorage({
 // Init Upload Function with Multer
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 1000000 },
+    limits: { fileSize: 10*1000*1000 },
     fileFilter: async function (req, file, cb) {
         checkFileType(file, cb);
     }
-}).single('myImage');
+}).single('ProfileImage');
  
 // Check File Type
 async function checkFileType(file, cb) {
@@ -70,23 +70,24 @@ async function checkFileType(file, cb) {
     if (mimetype && extname) {
         return cb(null, true);
     } else {
-        cb('Error: Images Only!');
+        cb('Alleen foto bestanden!');
     }
 }
 
 //Post function
 router.post('/upload', function (req, res) { 
    upload(req, res, (err) => {
-        if (err) {
+       if (err) {
+           if (err == "MulterError: File too large") { err = "Foto is te groot! Max 10 MB."} 
             res.render('profile', {
                 page: 'changesettings',
-                msg: err    
+                error: err    
             });
         } else {
             if (req.file == undefined) {
                 res.render('profile', {
                     page: 'changesettings',
-                    msg: 'Error: No File Selected!'
+                    error: 'Geen foto geselecteerd.'
                 });
             } else {
                 User.query().findById(req.session.user.id).patch({ profile_image: `uploads/${req.file.filename}` }).then(function () {
@@ -105,7 +106,7 @@ router.post('/upload', function (req, res) {
                 }).catch(function (e) {
                     console.log(e)
                     res.render('profile', {
-                        msg: 'File Uploaded!',
+                        error: 'Er ging wat fout,probeer later opnieuw.',
                         page: 'changesettings'
                     });
                 });
@@ -121,6 +122,12 @@ router.get('/tasks/', function (req, res, next) {
 
 router.get('/help/', function (req, res, next) {
     res.render('profile', { title: 'Help',  page: 'help' });
+
+});
+
+
+router.get('/upload/', function (req, res, next) {
+    res.redirect('/profile/changesettings');
 
 });
 

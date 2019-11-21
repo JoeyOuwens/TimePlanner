@@ -13,7 +13,7 @@ block content
                         form(action="/profile/upload" method="POST" enctype="multipart/form-data") 
                             div(class="file btn btn-sm btn-primary")
                                 label(for="filebrowser") Wijzig profielfoto
-                                input(name="myImage" style="display: none;" id="filebrowser" type="file" class="custom-file-input"  onchange="this.form.submit()")                        
+                                input(name="ProfileImage" style="display: none;" id="filebrowser" type="file" class="custom-file-input"  onchange="this.form.submit()")                        
             div( class="profile-usertitle")
                 div( class="profile-usertitle-name") #{userInfo.firstname} #{userInfo.lastname}
                 div( class="profile-usertitle-job") 
