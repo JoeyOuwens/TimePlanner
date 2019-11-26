@@ -55,9 +55,12 @@
     <Content Include="migrations\20191031184830_token.js" />
     <Content Include="migrations\20191031184923_token.js" />
     <Content Include="migrations\20191111120618_users.js" />
+    <Content Include="migrations\20191112120838_timetable_items.js" />
+    <Content Include="migrations\20191126184845_availability.js" />
     <Content Include="models\token.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="models\availability.js" />
     <Content Include="models\user.js">
       <SubType>Code</SubType>
     </Content>
@@ -76,6 +79,9 @@
     <Content Include="node_modules\images\tile310x310.png" />
     <Content Include="node_modules\images\tile70x70.png" />
     <Content Include="node_modules\images\_head.html" />
+    <Content Include="public\javascript\availabilityValidation.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\service-worker-register.js">
       <SubType>Code</SubType>
     </Content>
@@ -102,7 +108,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\privacypolicy.js" />
-    <Content Include="routes\availbility.js" />
+    <Content Include="routes\availability.js" />
     <Content Include="routes\profile.js" />
     <Content Include="routes\reset-password.js">
       <SubType>Code</SubType>

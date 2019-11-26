@@ -23,6 +23,7 @@ var passwordreset = require('./routes/reset-password');
 var usermanagementedit = require('./routes/usermanagement/user');
 var logout = require('./routes/logout');
 var rooster = require('./routes/rooster');
+var availability = require('./routes/availability');
 
 var app = express();
 
@@ -61,6 +62,7 @@ app.use('/dashboard', sessionChecker, dashboard);
 app.use('/profile', sessionChecker, profile);
 app.use('/user/resetpassword', sessionChecker, passwordreset);
 app.use('/logout', sessionChecker, logout);
+app.use('/availability', sessionChecker, availability);
 
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
