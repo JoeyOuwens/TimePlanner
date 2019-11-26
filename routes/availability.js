@@ -6,15 +6,13 @@ var knex = require('../db/knex');
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
+     
+    var availability = await retrieveAvailability(req.session.user.id) 
+    availability = checkIfUndefinedThenMapDefaultData(availability)
+    removeUnusedValues(availability)   
 
-    //Fulltime = vanaf 34 https://www.minimumloon.nl/fulltime-werken/ 
-    if (req.session.user.contract_hours > 34) {
-        var pageTitle = "Voorkeuren";
-    } else {
-        var pageTitle = "Beschikbaarheid"
-    }
-    var availability = await retrieveAvailability(req.session.user.id);
-    console.log(availability)
+    var pageTitle = changePageTitleAccordingToContractHours(req, pageTitle);
+    
     res.render('rooster/availability', { title: pageTitle, availability: availability });
 });
 
@@ -28,49 +26,72 @@ router.post('/', async function (req, res, next) {
 
 module.exports = router;
 
-async function retrieveAvailability(userId) {
-    var rows = await getAllAvailabilityRows(userId);
-    if (rows > 0) { 
-        return rows 
-    } else { 
-        return rows
+function changePageTitleAccordingToContractHours(req, pageTitle) {
+
+    //Fulltime = vanaf 34 https://www.minimumloon.nl/fulltime-werken/
+    if (req.session.user.contract_hours > 34) {
+         pageTitle = "Voorkeuren";
+    } else {
+         pageTitle = "Beschikbaarheid"
     }
+    return pageTitle
 }
 
-async function handleAvailabilityUpdate(req) {  
+function getDefaultData() {
+    return { "monday": "", "tuesday": "", "wednesday": "", "thursday": "", "friday": "", "saturday": "", "sunday": "" } 
+}
 
-            var exists = await rowExists(req.session.user.id, key)
-            if (exists) {
-                console.log("update")
-                await updateAvailability(req.session.user.id, key,req.body[key])
 
-            } else {
-                console.log("insert")
-                await insertAvailability(req.session.user.id, key, req.body[key])
-            
-        }
-    });
+function checkIfUndefinedThenMapDefaultData(availability){
+    if (availability == undefined) {
+        return getDefaultData()
+    }
+    return availability;
+}
+async function retrieveAvailability(userId) {
+    return await getAvailability(userId).then(function (row) {
+        return row[0]
+    })
+    .catch(function (e) {
+        console.log(e)
+        return [];
+        }) 
+}
+
+function removeUnusedValues(availability) {
+    if (availability.id != undefined) { 
+        delete availability.id
+    }
+    if (availability.userId != undefined) {
+        delete availability.userId 
+    }
     
 }
 
-function isValidDay(possibleDay) {
-    var daysInWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-    var isValid = false;
-    daysInWeek.forEach(function (day) {
-        if (possibleDay == day) {
-            console.log(day)
-            isValid = true;
-        }
-    })
-    return isValid;
+async function handleAvailabilityUpdate(req) {  
+    var exists = await rowExists(req.session.user.id)
+    if (exists) {
+        console.log(req.body)
+        await updateAvailability(req.session.user.id, req.body)
+        
+    } else {
+        await insertAvailability(req.session.user.id, req.body)
+    }  
+
+    
 }
 
-async function updateAvailability(userId, day, info) {
+async function updateAvailability(userId, info) {
     return knex('availability')
-        .where({ userId: userId})
-        .andWhere({ day: day })
+        .where({ userId: userId}) 
         .update({
-           info: info
+            monday: info.monday,
+            tuesday: info.tuesday,
+            wednesday: info.wednesday,
+            thursday: info.thursday,
+            friday: info.friday,
+            saturday: info.saturday,
+            sunday: info.sunday
         })
         .then(function () {
             return true
@@ -81,32 +102,16 @@ async function updateAvailability(userId, day, info) {
         })   
 }
 
-async function getAllAvailabilityRows(userId) {
+
+async function getAvailability(userId) {
     var row = await knex.select()
         .from("availability")
-        .where("userId", userId) 
+        .where("userId", userId)
         .then(function (data) {
+           
             return data
         }).catch(function (e) {
-            console.log(e)
-            return [];
-        })
-    return row;
-}
-
-
-async function getAvailabilityRow(userId, day) {
-    var row = await knex.select("id")
-        .from("availability")
-        .where("userId", userId)
-        .andWhere('day', day)
-        .then(function (data) {
-            console.log("row found")
-
-            console.log(data)
-            return data
-        }).catch(function () {
-            console.log("NODATA", day,userId) 
+            console.log("e") 
             return [];
         })
     return row;
@@ -114,28 +119,29 @@ async function getAvailabilityRow(userId, day) {
 
 
 async function rowExists(userId,day) {
-    console.log("exist check")
-    var row = await getAvailabilityRow(userId, day);
+    var row = await getAvailability(userId, day);
     if (row.length > 0) {
 
-        console.log("exist true")
         return true
     } else {
 
-        console.log("exist false")
         return false
     }
 }
 
-async function insertAvailability(userId, day, info) {
+async function insertAvailability(userId, info) {
     return await knex('availability').insert([
         {
             userId: userId,
-            day: day,
-            info: info,
+            monday: info.monday,
+            tuesday: info.tuesday,
+            wednesday: info.wednesday,
+            thursday: info.thursday,
+            friday: info.friday,
+            saturday: info.saturday,
+            sunday: info.sunday
 
         }]).then(function () {
-            console.log("inserted")
             return true
         }).catch(function (e) {
             console.log(e)

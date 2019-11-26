@@ -15,9 +15,13 @@ block content
                             th(class="col-xs-1" scope="col") Zondag
                     tbody
                         tr 
-                        each val in availability
+                        each day in availability
                             td
-                                label #{val.info} 
+                                if(day == "")
+                                    label Niet 
+                                else
+                                    label #{day} 
+                                    
                              
     br
          
@@ -37,9 +41,20 @@ block content
                                 th(class="col-xs-1" scope="col") Zaterdag
                                 th(class="col-xs-1" scope="col") Zondag
                         tbody
-                            tr 
-                            each val in availability 
+                            tr  
                                 td 
-                                    input(type="text" name=val.day placeholder="--:-- - --:--" value=val.info class=" form-control input-sm")    
+                                    input(type="text" name="monday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.monday)    
+                                td 
+                                    input(type="text" name="tuesday"  placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.tuesday)       
+                                td 
+                                    input(type="text" name="wednesday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.wednesday)   
+                                td 
+                                    input(type="text" name="thursday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.thursday)       
+                                td 
+                                    input(type="text" name="friday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.friday)   
+                                td 
+                                    input(type="text" name="saturday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.saturday)   
+                                td
+                                    input(type="text" name="sunday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.sunday)
                         
                     input(type="submit" class="float-right btn btn-primary btn-sm" value="Geef door")  
