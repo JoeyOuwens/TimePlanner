@@ -1,0 +1,46 @@
+﻿#error
+    if error
+        div(class="alert alert-danger")
+            p #{error}
+    else if saved
+        div(class="alert alert-success")
+            p De wijzigingen zijn succesvol opgeslagen!
+form(class="form" method="POST")
+    input(type="hidden" name="userid" value=userInfo.id)
+    div(class="row")
+        div( class="col-sm-12 col-lg-6")
+            div(class="form-group")
+                label(for="firstname") Voornaam:
+                input(type="text" class="form-control" name="firstname" value=userInfo.firstname required)
+            div(class="form-group")
+                label(for="email") Emailadres:
+                input(type="email" class="form-control" name="email" value=userInfo.email required)
+            div(class="form-group")
+                label(for="address") adres:
+                input(type="text" class="form-control" name="address" value=userInfo.address required)
+            div(class="form-group")
+                label(for="zip") Postcode
+                input(type="text" class="form-control" name="zip" value=userInfo.zip required)
+
+        div( class="col-sm-12 col-lg-6")
+            div(class="form-group")
+                label(for="lastname") Achternaam:
+                input(type="text" class="form-control" name="lastname" value=userInfo.lastname required)
+            div(class="form-group")
+                label(for="phone_number") Telefoonnummer: 
+                input(type="text" class="form-control" name="phone_number" value=userInfo.phone_number required)
+            div(class="form-group")
+                label(for="place") Woonplaats
+                input(type="text" class="form-control" name="place" value=userInfo.place required)
+
+        div(class="col-sm-12")
+            div(class="form-group")
+                input(type="submit" class="btn-md btn btn-success" name="submit" value="Wijzigen")
+script.
+    var failedValidation = [!{failedFields}]; 
+    for (let i = 0; i < failedValidation.length; i++) {
+        console.log(failedValidation[i])
+        let element = document.querySelector('input[name="' + failedValidation[i] + '"');
+        console.log(element);
+        element.classList.add('is-invalid');
+    }

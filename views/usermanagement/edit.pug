@@ -1,0 +1,87 @@
+﻿extends ../layout
+
+block content
+    if(throwError) 
+        div(class="alert alert-danger alert-dismissible fade show" role="alert") #{errorMessage}
+            button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                i(class="fa fa-times")
+    if(throwSuccess)
+        div(class="alert alert-success alert-dismissible fade show" role="alert") Medewerker is toegevoegd.
+            button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                i(class="fa fa-times")
+
+    form(method='POST' action='/usermanagement/user/edit/'+user.id)  
+        div( class="form-group row")
+            div(class="col")
+                label(for="firstname" class="col-form-label") Voornaam                         
+                input(type="text" class="form-control" name="firstname" id="firstname" placeholder="Voornaam" value=user.firstname required)
+            div(class="col")
+                label(for="middlename" class=" col-form-label") Tussenvoegsel                         
+                input(type="text" class="form-control"  name="middlename" id="middlename" placeholder="Tussenvoegsel"  value=user.middlename)
+            div(class="col")
+                label(for="lastname" class=" col-form-label") Achternaam                         
+                input(type="text" class="form-control"  name="lastname" id="lastname" placeholder="Achternaam"  value=user.lastname required)
+            div(class="col")
+                label(for="email" class="col-form-label") Email 
+                input(type="email" class="form-control " name="email" id="email" placeholder="Email" value=user.email required)
+                div(class="invalid-feedback") Email is onjuist.    
+        div(class="form-group row")
+            div(class="col")
+                    label(for="function" class="col-form-label") Functie 
+                    input(type="text" class="form-control" name="function" id="function" placeholder="Functie" value=user.function required)    
+            div(class="col")
+                    label(for="contract_hours" class="col-form-label") Uren 
+                    input(type="number" class="form-control" name="contract_hours" id="contract_hours" placeholder="Uren" value=user.contract_hours required)
+                    div(class="invalid-feedback") Werk uren zijn is onjuist.
+            div(class="col")
+                    label(for="salary" class="col-form-label") Uur loon
+                    input(type="number" class="form-control" name="salary" step=".01" id="salary" placeholder="Uur loon" value=user.salary required)
+                    div(class="invalid-feedback") Uurloon is onjuist.
+            if(userInfo.role == "OWNER")
+                div(class="col")
+                    label(class="col-form-label" for="role") Rechten  
+                    select(class="form-control" name="role" id="role" required)
+                        if(user.role == "USER")
+                            option(selected value="USER") Medewerker
+                            option( value="MANAGER") Manager
+                        if(user.role == "MANAGER")                               
+                            option( value="USER") Medewerker
+                            option(selected value="MANAGER") Manager
+                    div(class="invalid-feedback") Rechten zijn onjuist.    
+        div( class="form-group row")      
+            div(class="col")
+                label(for="employed_since" class=" col-form-label") Datum van in dienst treding  
+                input(type="date" class="form-control" name="employed_since" id="employed_since" placeholder="Datum van in dienst treding"  value=user.employed_since required)
+                div(class="invalid-feedback") Datum is onjuist.
+            div(class="col")
+                label(for="birth_date" class=" col-form-label") Geboortedatum  
+                input(type="date" class="form-control" name="birth_date" id="birth_date" placeholder="Geboortedatum"  value=user.birth_date required)
+                div(class="invalid-feedback") Geboortedatum is onjuist.
+            div(class="col")
+                label(for="phone_number" class="col-form-label") Telefoon nummer
+                input(type="tel" class="form-control"  name="phone_number" id="phone_number" placeholder="Telefoon nummer" value=user.phone_number required)
+                div(class="invalid-feedback") Telefoon nummer is onjuist.
+        div(class="form-group row")  
+            div(class="col")
+                label(for="address" class="col-form-label") Adres  
+                input(type="text" class="form-control"  name="address"  id="address" placeholder="Adres" value=user.address required)  
+            div(class="col")
+                label(for="zip" class="col-form-label") Postcode 
+                input(type="text" class="form-control"  name="zip" id="zip" placeholder="Postcode" value=user.zip required)
+                div(class="invalid-feedback") Postcode is onjuist.
+            div(class="col")
+                label(for="place" class="col-form-label") Plaats  
+                input(type="text" class="form-control"  name="place" id="place" placeholder="Plaats" value=user.place required)
+        div(class="form-group row")  
+            div(class="col")
+                button(type="submit"  class=" btn btn-warning") Aanpassen
+
+    script.
+        var failedValidation = !{JSON.stringify(failedFields)}; 
+        if(failedValidation != null){ 
+            for (let i = 0; i < failedValidation.length; i++) {
+                document.getElementById(failedValidation[i]).classList.add('is-invalid');
+            }
+       }
+
+                                              
