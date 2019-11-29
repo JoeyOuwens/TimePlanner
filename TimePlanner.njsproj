@@ -91,14 +91,17 @@
     <Content Include="public\stylesheets\style.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\contact.js" />
     <Content Include="routes\dashboard.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\footer.js" />
     <Content Include="routes\index.js" />
+    <Content Include="routes\login.js" />
     <Content Include="routes\logout.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\privacypolicy.js" />
     <Content Include="routes\profile.js" />
     <Content Include="routes\reset-password.js">
       <SubType>Code</SubType>
