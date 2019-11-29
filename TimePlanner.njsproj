@@ -37,6 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="classes\availabilityHandler.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="classes\emailHandler.js" />
     <Content Include="classes\resetToken.js" />
     <Content Include="classes\resetTokenDBHandler.js">
