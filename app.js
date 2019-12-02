@@ -24,6 +24,8 @@ var usermanagementedit = require('./routes/usermanagement/user');
 var logout = require('./routes/logout');
 var termsofuse = require('./routes/termsofuse');
 var privacypolicy = require('./routes/pivacypolicy');
+var rooster = require('./routes/rooster');
+
 
 var app = express();
 
@@ -56,7 +58,8 @@ app.use('/', routes);
 app.use('/login', login);  
 app.use('/usermanagement/list', sessionChecker, users);
 app.use('/usermanagement/create', sessionChecker, createuser);
-app.use('/usermanagement/user',sessionChecker, usermanagementedit);
+app.use('/usermanagement/user', sessionChecker, usermanagementedit);
+app.use('/rooster', sessionChecker, rooster);
 app.use('/dashboard', sessionChecker, dashboard);
 app.use('/profile', sessionChecker, profile);
 app.use('/user/resetpassword', sessionChecker, passwordreset);
@@ -85,7 +88,6 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {

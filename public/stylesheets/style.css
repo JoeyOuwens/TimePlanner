@@ -7,7 +7,27 @@ h1 {
     margin-right: 24px;
 }
 
+.bg-primary {
+    background-color: #03396c !important;
+}
 
+.bg-secondary {
+    background-color: #005b96 !important;
+}
+
+.bg-tertiary {
+    background-color: #6497b1 !important;
+}
+
+.row.card-row {
+    margin: -1.25rem;
+}
+
+.bg-primary *,
+.bg-secondary *,
+.bg-tertiary * {
+    color: white;
+}
 
 body {
     padding-bottom: 200px;
@@ -58,16 +78,11 @@ label {
     font-family: monospace;
 }
 
-
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
 }
-.bg-blue {
-    background-color: #007bff !important;
-}
-
 
 .footer {
     position: center;
@@ -138,6 +153,18 @@ footer {
 .footer-nav .navbar ul {
     flex-direction: row;
 }
+/**Profile picture Navbar**/
+.profile-userpic img, .profile-img {
+    float: none;
+    margin: 0 auto;
+    /*height: 50%;*/
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+}
 
 /***
 User Profile Sidebar by @keenthemes
@@ -155,15 +182,19 @@ Licensed under MIT
     padding: 20px 0 10px 0;
 }
 
-.profile-userpic img, .profile-img {
+.profile-userpic img, .profile-img2 {
     float: none;
     margin: 0 auto;
-    width: 50%;
-    height: 50%;
+    /*height: 50%;*/
     -webkit-border-radius: 50% !important;
     -moz-border-radius: 50% !important;
     border-radius: 50% !important;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
 }
+
+
 
 .profile-usertitle {
     text-align: center;
@@ -246,5 +277,40 @@ Licensed under MIT
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-}*/
+}
 
+.dashboard-timetable .timetable-item {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+}
+
+
+.dashboard-timetable .timetable-item:not(:last-child) { 
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-timetable .timetable-item:not(:first-child) {
+    padding-top: 16px;
+}
+
+.greeting-message {
+    position: fixed;
+    top: 1rem;
+    right: 0;
+    transition: all 2s ease-in-out;
+}
+
+    .greeting-message.hidden {
+        transition: all 2s ease-in-out;
+        right: -100%;
+    }
+
+    .greeting-message > .alert {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+
+.fc-time-grid-event.fc-event.fc-start.fc-end * {
+    color: white;
+}

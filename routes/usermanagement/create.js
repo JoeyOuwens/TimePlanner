@@ -52,7 +52,7 @@ function fieldValidation(details) {
     if (!validation.zipcode(details.inputZipcode)) {
         failed.push("inputZipcode");
     }
-    if (!validation.birthdate(details.inputDOB)) {
+    if (!validation.date(details.inputDOB)) {
         failed.push("inputDOB");
     }
     if (!validation.hours(details.inputWorkHours)) {

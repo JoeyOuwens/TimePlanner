@@ -1,80 +1,79 @@
 extends ../layout
 
 block content
-    br 
     if(throwError) 
         div(class="alert alert-danger alert-dismissible fade show" role="alert") #{errorMessage}
             button(type="button" class="close" data-dismiss="alert" aria-label="Close")
-                span(aria-hidden="true") &times;
+                i(class="fa fa-times")
     if(throwSuccess)
         div(class="alert alert-success alert-dismissible fade show" role="alert") Medewerker is toegevoegd.
             button(type="button" class="close" data-dismiss="alert" aria-label="Close")
-                span(aria-hidden="true") &times;
-    div(class="card  shadow p-3 mb-5")
-        div(class="card-header")
-            h2 #{title}
-        div(class="card-body") 
-            form(method='POST' action='/usermanagement/create') 
-                div( class="form-group row")
-                    div(class="col")
-                        label(for="inputFname" class="col-form-label") Voornaam                         
-                        input(type="text" class="form-control" name="inputFname" id="inputFname" placeholder="Voornaam" value=newPage? "" :accountDetails.inputFname required)
-                    div(class="col")
-                        label(for="inputMname" class=" col-form-label") Tussenvoegsel                         
-                        input(type="text" class="form-control"  name="inputMname" id="inputMname" placeholder="Tussenvoegsel"  value=newPage? "" :accountDetails.inputMname)
-                    div(class="col")
-                        label(for="inputLname" class=" col-form-label") Achternaam                         
-                        input(type="text" class="form-control"  name="inputLname" id="inputLname" placeholder="Achternaam"  value=newPage? "" :accountDetails.inputLname required)
-                    div(class="col")
-                        label(for="inputEmail" class="col-form-label") Email 
-                        input(type="email" class="form-control " name="inputEmail" id="inputEmail" placeholder="Email" value=newPage? "" :accountDetails.inputEmail required)
-                        div(class="invalid-feedback") Email is onjuist.    
-                div(class="form-group row")
-                    div(class="col")
-                            label(for="inputFunction" class="col-form-label") Functie 
-                            input(type="text" class="form-control" name="inputFunction" id="inputFunction" placeholder="Functie" value=newPage? "" :accountDetails.inputFunction required)    
-                    div(class="col")
-                            label(for="inputWorkHours" class="col-form-label") Uren 
-                            input(type="number" class="form-control" name="inputWorkHours" id="inputWorkHours" placeholder="Uren" value=newPage? "" :accountDetails.inputWorkHours required)
-                            div(class="invalid-feedback") Werk uren zijn is onjuist.    
-                    if(userInfo.role == "OWNER")
-                        div(class="col")
-                            label(class="col-form-label" for="inputRights") Rechten 
-                            select(class="form-control" name="inputRights" id="inputRights" required)
-                                option(selected value="USER") Medewerker
-                                option(value="MANAGER") Manager 
-                            div(class="invalid-feedback") Rechten zijn onjuist.    
-                div( class="form-group row")                         
-                    div(class="col")
-                        label(for="inputDOB" class=" col-form-label") Geboortedatum  
-                        input(type="date" class="form-control" name="inputDOB" id="inputDOB" placeholder="Geboortedatum"  value=newPage? "" :accountDetails.inputDOB required)
-                        div(class="invalid-feedback") Geboortedatum is onjuist.
-                    div(class="col")
-                        label(for="inputTelephone" class="col-form-label") Telefoon nummer
-                        input(type="tel" class="form-control"  name="inputTelephone" id="inputTelephone" placeholder="Telefoon nummer" value=newPage? "" :accountDetails.inputTelephone required)
-                        div(class="invalid-feedback") Telefoon nummer is onjuist.
-                div(class="form-group row")  
-                    div(class="col")
-                        label(for="inputAddress" class="col-form-label") Adres  
-                        input(type="text" class="form-control"  name="inputAddress"  id="inputAddress" placeholder="Adres" value=newPage? "" :accountDetails.inputAddress required)  
-                    div(class="col")
-                        label(for="inputZipcode" class="col-form-label") Postcode 
-                        input(type="text" class="form-control"  name="inputZipcode" id="inputZipcode" placeholder="Postcode" value=newPage?"":accountDetails.inputZipcode required)
-                        div(class="invalid-feedback") Postcode is onjuist.
-                    div(class="col")
-                        label(for="inputPlace" class="col-form-label") Plaats  
-                        input(type="text" class="form-control"  name="inputPlace" id="inputPlace" placeholder="Plaats" value=newPage? "" :accountDetails.inputPlace required)  
-                div(class="form-group row float-right")       
-                    div(class="col custom-control custom-switch") 
-                        if(newPage? false :!accountDetails.checkPageStay)
-                            input(type="checkbox" class="custom-control-input" name="checkPageStay" id="checkPageStay")                        
-                        else
-                            input(type="checkbox" class="custom-control-input " name="checkPageStay" id="checkPageStay" checked)                    
+                i(class="fa fa-times")
+    form(method='POST' action='/usermanagement/create') 
+        div( class="form-group row")
+            div(class="col")
+                label(for="inputFname" class="col-form-label") Voornaam                         
+                input(type="text" class="form-control" name="inputFname" id="inputFname" placeholder="Voornaam" value=newPage? "" :accountDetails.inputFname required)
+            div(class="col")
+                label(for="inputMname" class=" col-form-label") Tussenvoegsel                         
+                input(type="text" class="form-control"  name="inputMname" id="inputMname" placeholder="Tussenvoegsel"  value=newPage? "" :accountDetails.inputMname)
+            div(class="col")
+                label(for="inputLname" class=" col-form-label") Achternaam                         
+                input(type="text" class="form-control"  name="inputLname" id="inputLname" placeholder="Achternaam"  value=newPage? "" :accountDetails.inputLname required)
+            div(class="col")
+                label(for="inputEmail" class="col-form-label") Email 
+                input(type="email" class="form-control " name="inputEmail" id="inputEmail" placeholder="Email" value=newPage? "" :accountDetails.inputEmail required)
+                div(class="invalid-feedback") Email is onjuist.    
+        div(class="form-group row")
+            div(class="col")
+                    label(for="inputFunction" class="col-form-label") Functie 
+                    input(type="text" class="form-control" name="inputFunction" id="inputFunction" placeholder="Functie" value=newPage? "" :accountDetails.inputFunction required)    
+            div(class="col")
+                    label(for="inputWorkHours" class="col-form-label") Uren 
+                    input(type="number" class="form-control" name="inputWorkHours" id="inputWorkHours" placeholder="Uren" value=newPage? "" :accountDetails.inputWorkHours required)
+                    div(class="invalid-feedback") Werk uren zijn onjuist.                    
+            div(class="col")
+                    label(for="inputSalary" class="col-form-label") Uur loon 
+                    input(type="number" class="form-control" name="inputSalary" id="inputSalary" placeholder="Uur loon" step=".01" value=newPage? "" :accountDetails.inputSalary required)
+                    div(class="invalid-feedback") Salaris is onjuist.     
+            if(userInfo.role == "OWNER")
+                div(class="col")
+                    label(class="col-form-label" for="inputRights") Rechten 
+                    select(class="form-control" name="inputRights" id="inputRights" required)
+                        option(selected value="USER") Medewerker
+                        option(value="MANAGER") Manager 
+                    div(class="invalid-feedback") Rechten zijn onjuist.    
+        div( class="form-group row")                         
+            div(class="col")
+                label(for="inputDOB" class=" col-form-label") Geboortedatum  
+                input(type="date" class="form-control" name="inputDOB" id="inputDOB" placeholder="Geboortedatum"  value=newPage? "" :accountDetails.inputDOB required)
+                div(class="invalid-feedback") Geboortedatum is onjuist.
+            div(class="col")
+                label(for="inputTelephone" class="col-form-label") Telefoon nummer
+                input(type="tel" class="form-control"  name="inputTelephone" id="inputTelephone" placeholder="Telefoon nummer" value=newPage? "" :accountDetails.inputTelephone required)
+                div(class="invalid-feedback") Telefoon nummer is onjuist.
+        div(class="form-group row")  
+            div(class="col")
+                label(for="inputAddress" class="col-form-label") Adres  
+                input(type="text" class="form-control"  name="inputAddress"  id="inputAddress" placeholder="Adres" value=newPage? "" :accountDetails.inputAddress required)  
+            div(class="col")
+                label(for="inputZipcode" class="col-form-label") Postcode 
+                input(type="text" class="form-control"  name="inputZipcode" id="inputZipcode" placeholder="Postcode" value=newPage?"":accountDetails.inputZipcode required)
+                div(class="invalid-feedback") Postcode is onjuist.
+            div(class="col")
+                label(for="inputPlace" class="col-form-label") Plaats  
+                input(type="text" class="form-control"  name="inputPlace" id="inputPlace" placeholder="Plaats" value=newPage? "" :accountDetails.inputPlace required)  
+        div(class="form-group row float-right")       
+            div(class="col custom-control custom-switch") 
+                if(newPage? false :!accountDetails.checkPageStay)
+                    input(type="checkbox" class="custom-control-input" name="checkPageStay" id="checkPageStay")                        
+                else
+                    input(type="checkbox" class="custom-control-input " name="checkPageStay" id="checkPageStay" checked)                    
                             
-                        label(for="checkPageStay" class="custom-control-label ") Op pagina blijven    
+                label(for="checkPageStay" class="custom-control-label ") Op pagina blijven    
                         
-                    div(class="col")
-                        button(type="submit"  class=" btn btn-success") Cre&#235;er
+            div(class="col")
+                button(type="submit"  class=" btn btn-success") Cre&#235;er
 
     script.
         var failedValidation = !{JSON.stringify(failedFields)}; 
@@ -82,6 +81,6 @@ block content
             for (let i = 0; i < failedValidation.length; i++) {
                 document.getElementById(failedValidation[i]).classList.add('is-invalid');
             }
-       }
+        }
 
                                               

@@ -15,13 +15,17 @@ router.get('/', function (req, res, next) {
 /* Login user */
 
 router.post('/', async function (req, res, next) {
-    const username = req.body.username;
+    const username = req.body.username.toLowerCase();
     const password = req.body.password;
     let loginResult = await login(username, password);
 
     if (loginResult) {
         if (req.session.user === undefined) {
             req.session.user = await User.query().where('email', username).first();
+            req.session.logged_in = true;
+            if (req.session.user.profile_image == "") {
+                req.session.user.profile_image =  "images/default_profileimage.jpg"
+            }
         }
         
         res.redirect('/dashboard');

@@ -27,7 +27,7 @@ router.get('/activate/:id', async function (req, res) {
 router.get('/edit/:id', async function (req, res) {
     if (await allowedToChange(req.session.user, req.params.id)) {
         var user = await userDBHandler.getUserById(req.params.id)
-        res.render('usermanagement/edit', { title: 'Aanpassen', user: user[0] });
+        res.render('usermanagement/edit', { title: `Aanpassen - ${user[0].firstname} ${user[0].middlename}  ${user[0].lastname}`, user: user[0] });
     } else {
         res.redirect('/usermanagement/list');
     }
@@ -69,8 +69,11 @@ function fieldValidation(details) {
     if (!validation.zipcode(details.zip)) {
         failed.push("zip");
     }
-    if (!validation.birthdate(details.birth_date)) {
+    if (!validation.date(details.birth_date)) {
         failed.push("birth_date");
+    }
+    if (!validation.date(details.employed_since)) {
+        failed.push("employed_since");
     }
     if (!validation.hours(details.contract_hours)) {
         failed.push("contract_hours");
