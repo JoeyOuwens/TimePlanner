@@ -104,13 +104,16 @@ async function updateToDB(info) {
             return false
         })
 };
-
+//select explanation: users.id overides dayoffrequest.id due to both using id. 'dayoffrequest.id as id' writes the initial dayoffrequest id back.
 async function retreiveAllFromDB() {
-    return await knex.select()
+    return await knex.select(['dayoffrequests.*', 'users.*', 'dayoffrequests.id as id'] )
         .from("dayoffrequests") 
-        .then(function (data) {
+        .join('users', { 'userId': 'users.id' })
+        .then(function (data) {  
             return changeStatusCodeToDutch(data);
-        }).catch(function () {
+        }).catch(function (e) {
+            console.log(e)
+
             return [];
         }) 
 };
@@ -118,8 +121,9 @@ async function retreiveAllFromDB() {
 
 
 async function retreiveByIdFromDB(id) {
-    return await knex.select()
+    return await knex.select(['dayoffrequests.*', 'users.*', 'dayoffrequests.id as id'])
         .from("dayoffrequests")
+        .join('users', { 'userId': 'users.id' })
         .where("id", id)
         .then(function (data) {
             return changeStatusCodeToDutch(data);
@@ -130,8 +134,9 @@ async function retreiveByIdFromDB(id) {
 
 
 async function retreiveByUserIdFromDB(userId) {
-    return await knex.select()
+    return await knex.select(['dayoffrequests.*', 'users.*', 'dayoffrequests.id as id'])
         .from("dayoffrequests")
+        .join('users', { 'userId': 'users.id' })
         .where("userId", userId)
         .then(function (data) {
             return changeStatusCodeToDutch(data);
