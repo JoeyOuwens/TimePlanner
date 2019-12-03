@@ -23,6 +23,7 @@ var passwordreset = require('./routes/reset-password');
 var usermanagementedit = require('./routes/usermanagement/user');
 var logout = require('./routes/logout');
 var rooster = require('./routes/rooster');
+var requestdayoff = require('./routes/requestdayoff');
 
 var app = express();
 
@@ -59,6 +60,7 @@ app.use('/usermanagement/user', sessionChecker, usermanagementedit);
 app.use('/rooster', sessionChecker, rooster);
 app.use('/dashboard', sessionChecker, dashboard);
 app.use('/profile', sessionChecker, profile);
+app.use('/requestdayoff', sessionChecker, requestdayoff);
 app.use('/user/resetpassword', sessionChecker, passwordreset);
 app.use('/logout', sessionChecker, logout);
 
