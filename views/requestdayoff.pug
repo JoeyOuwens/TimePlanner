@@ -34,9 +34,9 @@ block content
                                                 th(scope="col" style=activeStyle)  #{request.reason}
                                                 th(scope="col" style=activeStyle)  #{request.status}
                                                 th(scope="col" style=activeStyle)  #{request.status_comment} 
-                                    else
-                                        tr
-                                            th(scope="col" style=activeStyle) Geen aanvragen bekend
+                                        else
+                                            tr
+                                                th(scope="col" style=activeStyle) Geen aanvragen bekend
                                     
 
 
@@ -86,7 +86,7 @@ block content
                             handleBeginDateGreaterThanEndDate(); 
                         }
                         else {
-                            onInvalidInput(element,"Foutieve datum formaat dd-mm-yyyy of yyyy-mm-dd");                         
+                            onInvalidInput(element,"Datum ver in de toekomst of foutieve datum formaat alleen dd-mm-yyyy of yyyy-mm-dd");                         
                         } 
                     } 
                 }
@@ -102,7 +102,7 @@ block content
                 function checkDateFormat(element){ 
                     var date = $('#' + element).val();
                     //  yyyy-mm-dd & dd-mm-yyyy   max 2099 as year.                
-                    if (/^[2][0][0-9][0-9](\-)([0][0-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1]$)/.test(date) || /^[0-2][0-9]|[3][0-1]-([0][0-9]|[1][0-2])-((19|20)\d{2})/.test(date)){
+                    if (/^(([1][9])|([2][0]))[0-9][0-9](\-)([0][0-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1]$)/.test(date) || /^([0-2][0-9]|[3][0-1])(\-)([0][0-9]|[1][0-2])(\-)((19|20)\d{2})/.test(date)){
                         return true;
                     }
                     else{
