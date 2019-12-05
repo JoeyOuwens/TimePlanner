@@ -6,6 +6,7 @@ exports.up = function (knex) {
                 t.increments('id');
                 t.string('password');
                 t.string('firstname');
+                t.string('middlename');
                 t.string('lastname');
                 t.string('email');
                 t.date('employed_since');
@@ -14,10 +15,25 @@ exports.up = function (knex) {
                 t.string('zip');
                 t.string('place');
                 t.integer('contract_hours');
-                t.boolean('firsttime');
+                t.decimal('salary')
                 t.string('phone_number');
                 t.string("function");
                 t.string("role");
+                t.string("profile_image");
+                t.boolean("active"); 
+                t.boolean("firsttime");
+            });
+            return knex.schema.alterTable('users', t => { 
+                t.unique('email')
+            });
+        }
+        if (exists) {
+            return knex.schema.alterTable('users', t => {
+                t.string('middlename');
+                t.decimal('salary');
+                t.string('profile_image');
+                t.boolean('active');
+                t.unique('email')
             });
         }
     });

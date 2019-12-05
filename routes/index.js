@@ -7,13 +7,14 @@ router.get('/', function (req, res, next) {
     /* Redirect user to another page when he/she is logged in */
     if (req.session.user !== undefined)
         res.redirect('/dashboard/');
-
-    res.render('index', { error: false });
+    else
+        res.render('index');
 });
 
 /* GET offline page. */
 router.get('/offline.html', function (req, res) {
     res.sendFile('public/offline.html');
 });
+
 
 module.exports = router;

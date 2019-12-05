@@ -1,18 +1,61 @@
-/*body {
-    background-color: #f5f5f5;
-}*/
+html > body {
+    background-color: #efefef;
+}
+
+
+h1 {
+    color: white;
+    margin-right: 24px;
+}
+
+.bg-primary {
+    background-color: #03396c !important;
+}
+
+.bg-secondary {
+    background-color: #005b96 !important;
+}
+
+.bg-tertiary {
+    background-color: #6497b1 !important;
+}
+
+.row.card-row {
+    margin: -1.25rem;
+}
+
+.bg-primary *,
+.bg-secondary *,
+.bg-tertiary * {
+    color: white;
+}
+
+body {
+    padding-bottom: 200px;
+}
 
 .form-signin {
     padding: 15px;
     margin: 20px;
     border: 1px solid #dedede;
     border-radius: 8px;
-    background: #efefef;
+    background: #007bff47;
+}
+
+#profile-dropdown {
+    position: absolute;
 }
 
 /* make beautiful corners with white backgrounds */
 .round-border-white-box {
     width: 100%;
+}
+termsofuse{
+    opacity:0.6;
+    color: white ;
+}
+div.terms {
+    font-size: 15px ;
 }
 
 .middle-image {
@@ -25,51 +68,110 @@
     border: 1px solid #dedede;
 }
 
+.font-weight-normal {
+    font-weight: 400 !important;
+    font-family: monospace;
+}
 
-/*.form-signin {
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    font-family: monospace;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
 }
 
-.form-signin .checkbox {
-    font-weight: 400;
+.footer {
+    position: center;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    text-align: justify;
+    box-shadow: 0px 0px 4px #000000;
+    border-radius: 8px 8px 0 0;
 }
 
-.form-signin .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
-    padding: 10px;
-    font-size: 16px;
-}
-
-    .form-signin .form-control:focus {
-        z-index: 2;
+    .footer li {
+        display: inline;
+        padding: 2px;
+        margin-bottom: 2px;
+        opacity: 0.5;
     }
 
-.form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+    .footer a {
+        color: white;
+    }
+
+    .footer p {
+        margin-bottom: 0;
+        opacity: 0.5;
+    }
+
+.header{
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    font: italic;
+    font-family: "Times New Roman", Times, serif;
+    background: #007bff;
+    color: white;
+    background-color: #007bff;
+    box-shadow: 0px 0px 4px #000000;
+    border-radius: 0 0 20px 20px;
 }
 
-.form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}*/
+.nav li a, .nav li p, .nav li ul {
+    font-size: 1rem;
+    color: white;
+    font-weight: 700;
+}
+
+.nav li a:hover, .nav li p:hover, .nav li ul:hover {
+    color: #dedede;
+}
+
+.lg-nav li a, .lg-nav li p, .lg-nav li ul, .lg-nav li i, .lg-nav li {
+    font-size: 3rem;
+    color: white;
+    font-weight: 700;
+    opacity: 1;
+}
+
+
+
+.nav .dropdown-item {
+    color: #343434;
+}
+
+.nav .dropdown-item:hover {
+    color: black;
+}
+
+.footer-nav .navbar ul {
+    flex-direction: row;
+}
+/**Profile picture Navbar**/
+.profile-userpic img, .profile-img {
+    float: none;
+    margin: 0 auto;
+    /*height: 50%;*/
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+}
 
 /***
 User Profile Sidebar by @keenthemes
 A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
 Licensed under MIT
 ***/
-
-body {
-    background: #F1F3FA;
-}
 
 /* Profile container */
 .profile {
@@ -79,18 +181,21 @@ body {
 /* Profile sidebar */
 .profile-sidebar {
     padding: 20px 0 10px 0;
-/*    background: #fff; */
 }
 
-.profile-userpic img {
+.profile-userpic img, .profile-img2 {
     float: none;
     margin: 0 auto;
-    width: 50%;
-    height: 50%;
+    /*height: 50%;*/
     -webkit-border-radius: 50% !important;
     -moz-border-radius: 50% !important;
     border-radius: 50% !important;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
 }
+
+
 
 .profile-usertitle {
     text-align: center;
@@ -117,46 +222,46 @@ body {
     margin-top: 10px;
 }
 
-.profile-userbuttons .btn {
-    text-transform: uppercase;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 6px 15px;
-    margin-right: 5px;
-}
+    .profile-userbuttons .btn {
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 6px 15px;
+        margin-right: 5px;
+    }
 
-.profile-userbuttons .btn:last-child {
-    margin-right: 0px;
-}
+        .profile-userbuttons .btn:last-child {
+            margin-right: 0px;
+        }
 
 .profile-usermenu {
     margin-top: 30px;
 }
 
-.profile-usermenu ul li:last-child {
-    border-bottom: none;
-}
+    .profile-usermenu ul li:last-child {
+        border-bottom: none;
+    }
 
-.profile-usermenu ul li a {
-    color: #93a3b5;
-    font-size: 14px;
-    font-weight: 400;
-}
+    .profile-usermenu ul li a {
+        color: #93a3b5;
+        font-size: 14px;
+        font-weight: 400;
+    }
 
-.profile-usermenu ul li a i {
-    margin-right: 8px;
-    font-size: 14px;
-}
+        .profile-usermenu ul li a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
 
-.profile-usermenu ul li a:hover {
-    color: #5b9bd1;
-}
+        .profile-usermenu ul li a:hover {
+            color: #5b9bd1;
+        }
 
-.profile-usermenu ul li.active a {
-    color: #5b9bd1;
-    border-left: 2px solid #5b9bd1;
-    padding-left: 5px;
-}
+    .profile-usermenu ul li.active a {
+        color: #5b9bd1;
+        border-left: 2px solid #5b9bd1;
+        padding-left: 5px;
+    }
 
 /* Profile Content */
 .profile-content {
@@ -164,3 +269,113 @@ body {
     background: #fff;
     min-height: 460px;
 }
+
+/*
+ *   END OF: User Profile Sidebar by @keenthemes
+*/
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.dashboard-timetable .timetable-item {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+}
+
+
+.dashboard-timetable .timetable-item:not(:last-child) { 
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-timetable .timetable-item:not(:first-child) {
+    padding-top: 16px;
+}
+
+.greeting-message {
+    position: fixed;
+    top: 1rem;
+    right: 0;
+    transition: all 2s ease-in-out;
+}
+
+    .greeting-message.hidden {
+        transition: all 2s ease-in-out;
+        right: -100%;
+    }
+
+    .greeting-message > .alert {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+
+.fc-time-grid-event.fc-event.fc-start.fc-end * {
+    color: white;
+}
+
+/* Popup box BEGIN */
+.hover_bkgr_fricc {
+    background: rgba(0,0,0,.4);
+    cursor: pointer;
+    display: none;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+}
+
+    .hover_bkgr_fricc .helper {
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+
+    .hover_bkgr_fricc > div {
+        background-color: #fff;
+        box-shadow: 10px 10px 60px #555;
+        display: inline-block;
+        height: auto;
+        max-width: 551px;
+        min-height: 100px;
+        vertical-align: middle;
+        width: 60%;
+        position: relative;
+        border-radius: 8px;
+        padding: 15px 5%;
+    }
+
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+    .popupCloseButton:hover {
+        background-color: #ccc;
+    }
+
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+/* Popup box BEGIN */

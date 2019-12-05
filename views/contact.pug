@@ -1,0 +1,54 @@
+extends layout
+
+block content
+    h2 Contact
+    p This page is used to send messages to the company behind this web application <br>
+    b Note that the message WON'T be send to you employer. <br>
+    p Please use this contact form to share any feedback on the application; this may be regarding bugs, or just an idea to improve. <br>
+    .container
+          .row
+            .col-md-12
+              form#contact
+                form(name="contact" action="/public/javascript/contactHandler.js" method="POST")
+                    .form-group.center-block
+                      label(for='inputName') Name
+                      input#inputName.form-control.contact-input(type='text' placeholder='Name' name='name')
+                    .form-group.center-block
+                      label(for='inputEmail') Email
+                      input#inputEmail.form-control.contact-input(type='email' placeholder='Email' name='email')
+                    .form-group.center-block
+                      label(for='inputMessage') Message
+                      textarea#inputMessage.form-control.contact-input(rows='3' placeholder='Your Message' name='message')
+                      button#email-submit-btn.btn.btn-default(type='submit' value='Send' onclick = "function()")
+                        | Submit
+                    span
+
+  script.
+        var $ = require('jquery');
+
+        (function () {
+            $(document).ready(function () {
+                return $('#contact-form').submit(function (e) {
+                    var email, message,   name;
+                    name = document.getElementById('inputName');
+                    email = document.getElementById('inputEmail');
+                    message = document.getElementById('inputMessage');
+                    if (!name.value || !email.value || !message.value) {
+                        alertify.error('Please check your entries');
+                        return false;
+                    } else {
+                        $.ajax({
+                            method: 'POST',
+                            url: '//https://formspree.io/mknnvlgd',
+                            data: $('#contact-form').serialize(),
+                            datatype: 'json'
+                        });
+
+                        e.preventDefault();
+                        $(this).get(0).reset();
+                        return alertify.success('Message sent');
+                    }
+                });
+            });
+
+        }).call(this);

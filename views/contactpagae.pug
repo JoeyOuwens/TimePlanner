@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    head
+      title Contact
+      h2 Contact form
+      p Note that this page is to send a message to the makers behind the application<br>
+      p The message will <b>NOT</b> be send to the employer
+
+      link(rel='stylesheet', href='../stylesheets/style.css')
+      script(type="text/javascript" src="jquery-3.3.1.js")
+      script(src="javascript/sendForm.js")
+           
+    .container
+      .main
+        form#form.form_class(method="post" name="form")
+          label Name :
+          input#name(type='text' name='name' placeholder='Name')
+          label Email :
+          input#email(type='text' name='email' placeholder='Email')
+          label Message :
+          input#message(type='text' name= 'message' placeholder = 'Message')
+          input#btn_id(type='button' name='submit_id' value='Submit' onclick = 'submit_by_id()')
+
+
+          
+

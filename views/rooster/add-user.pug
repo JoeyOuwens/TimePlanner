@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+	if success !== undefined && success === true
+		p(class="alert alert-success").
+			De gebruiker is succesvol ingeroosterd!
+	form(class="form" method="POST")
+		div(class="input-group")
+			label Gebruiker 
+				select(class="form-control" name="user")
+					each user in user_list
+						option(value=user.id) #{user.firstname} #{user.lastname}
+		div(class="input-group")
+			label Begin datum en tijd
+				input(class="form-control" type="datetime-local" name="begin_date")
+		div(class="input-group")
+			label Eind datum en tijd
+				input(class="form-control" type="datetime-local" name="end_date")
+		div(class="input-group")
+			label Commentaar
+				textarea(class="form-control" name="comment")
+		div(class="input-group")
+			div(class="col custom-control custom-switch") 
+				input(type="checkbox" class="custom-control-input " name="stay_on_page" id="stay_on_page" checked)                    
+				label(class="custom-control-label" for="stay_on_page") Op pagina blijven
+		div(class="input-group")
+			input(type="submit" class="btn btn-success" value="Aanmaken")
