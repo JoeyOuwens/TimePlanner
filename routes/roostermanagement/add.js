@@ -1,5 +1,6 @@
 'use strict';
 var userDBHandler = require('../../classes/userDBHandler');
+var knex = require('../../db/knex');
 
 class Add {
     
