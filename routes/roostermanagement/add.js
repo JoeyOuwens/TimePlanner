@@ -15,6 +15,11 @@ class Add {
         if (req.session.user.role === 'USER')
             res.redirect('/rooster/');
 
+        if (req.body.begin_date >= req.body.end_date) {
+            res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await userDBHandler.getAllUsers(), user: req.body, error: "Begintijd mag niet later zijn dan eindtijd", success: false });
+            return;
+        }
+
         await knex('timetable_items').insert([
             {
                 user: req.body.user,
