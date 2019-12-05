@@ -3,16 +3,17 @@ var express = require('express');
 var router = express.Router();
 var dayoffRequestHandler = require('../classes/dayoffRequestHandler')
 var validation = require('../classes/validation')
-
+var EVALUATING_STATUS_CODE = "In afwachting"
 
 /*GET page */
 router.get('/', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
         var dayoffRequests = await dayoffRequestHandler.retreiveAll();
         isDateCreatedLessThenAWeek(dayoffRequests);
+        dayoffRequests.sort((a) => (a.week_left) ? -1 : 1).sort((a, b) => (a.creation_date < b.creation_date) ? -1 : 1).sort((a) => (a.status == EVALUATING_STATUS_CODE) ? -1 : 1)
         changeDateToString(dayoffRequests);
         console.log(dayoffRequests)
-        res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests });
+        res.render('approve', { title: 'Goedkeuren', dayoffRequests:dayoffRequests});
     } else {
 
         res.redirect('/dashboard');
@@ -60,9 +61,11 @@ function isDateCreatedLessThenAWeek(dayoffRequests) {
     var one_week = 7 * 24 * 60 * 60 * 1000;
     var date_of_today = new Date();
     dayoffRequests.forEach(function (request) {
-        var creation_date = new Date(request.creation_date);
-        var difference = date_of_today - creation_date
+        if (request.status == EVALUATING_STATUS_CODE) {
+            var creation_date = new Date(request.creation_date);
+            var difference = date_of_today - creation_date
             difference > one_week ? request.week_left = true : request.week_left = false
+        }
     })
 
 }
