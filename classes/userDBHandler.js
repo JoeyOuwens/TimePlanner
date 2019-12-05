@@ -79,7 +79,8 @@ module.exports = {
                 role: accountDetails.inputRights,
                 profile_image: '',
                 salary: accountDetails.inputSalary,
-                active: true
+                active: true,
+                firsttime: true
             }]).then(function () {
                 return true
             }).catch(function () { 
