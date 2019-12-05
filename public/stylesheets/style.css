@@ -314,3 +314,7 @@ Licensed under MIT
 .fc-time-grid-event.fc-event.fc-start.fc-end * {
     color: white;
 }
+
+.fc-event:hover {
+    cursor: pointer;
+}
