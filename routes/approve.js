@@ -7,10 +7,31 @@ var validation = require('../classes/validation')
 
 /*GET page */
 router.get('/', async function (req, res) {
-    var dayoffRequests = await dayoffRequestHandler.retreiveAll(); 
-    changeDateToString(dayoffRequests);
-    res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests });
+    if (isUserOwnerOrManager(req.session.user.role)) {
+        var dayoffRequests = await dayoffRequestHandler.retreiveAll();
+        changeDateToString(dayoffRequests);
+        res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests });
+    } else {
+
+        res.redirect('/dashboard');
+    }
+
 }); 
+
+router.post('/dayoffrequest', async function (req, res) { 
+    if (isUserOwnerOrManager(req.session.user.role)) {
+        await dayoffRequestHandler.updateStatus(req.body);
+        res.redirect('/');
+    }
+}); 
+
+function isUserOwnerOrManager(role) {
+    if (role == "OWNER" || role == "MANAGER") {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 module.exports = router;
 
