@@ -2,7 +2,7 @@
 var express = require('express');
 var knexjs = require('../db/knex');
 var router = express.Router();
-
+var $ = require('jquery');
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
