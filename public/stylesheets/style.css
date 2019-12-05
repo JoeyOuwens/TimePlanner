@@ -316,6 +316,10 @@ Licensed under MIT
     color: white;
 }
 
+.fc-event:hover {
+    cursor: pointer;
+}
+
 /* Popup box BEGIN */
 .hover_bkgr_fricc {
     background: rgba(0,0,0,.4);

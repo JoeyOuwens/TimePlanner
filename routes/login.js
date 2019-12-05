@@ -23,8 +23,8 @@ router.post('/', async function (req, res, next) {
         if (req.session.user === undefined) {
             req.session.user = await User.query().where('email', username).first();
             req.session.logged_in = true;
-            if (req.session.user.profile_image == "") {
-                req.session.user.profile_image =  "images/default_profileimage.jpg"
+            if (req.session.user.profile_image === "") {
+                req.session.user.profile_image = "images/default_profileimage.jpg";
             }
         }
         
