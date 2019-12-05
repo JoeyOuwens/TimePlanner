@@ -101,8 +101,8 @@ block content
 
                 function checkDateFormat(element){ 
                     var date = $('#' + element).val();
-                    // dd-mm-yyyy & yyyy-mm-dd                    
-                    if (/^\d{4}(\-)([0][0-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1]$)/.test(date) || /^((0|1)\d{1})-((0|1|2)\d{1})-((19|20)\d{2})/.test(date)){
+                    //  yyyy-mm-dd & dd-mm-yyyy   max 2099 as year.                
+                    if (/^[2][0][0-9][0-9](\-)([0][0-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1]$)/.test(date) || /^[0-2][0-9]|[3][0-1]-([0][0-9]|[1][0-2])-((19|20)\d{2}).test(date)){
                         return true;
                     }
                     else{

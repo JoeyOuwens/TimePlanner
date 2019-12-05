@@ -56,7 +56,7 @@ function flipDateFormat(date) {
 
 
 function checkAndChangeDateFormat(date){
-    if (/^((0|1)\d{1})-((0|1|2)\d{1})-((19|20)\d{2})/.test(date)) {
+    if (/^[0-2][0-9]|[3][0-1]-([0][0-9]|[1][0-2])-((19|20)\d{2})/.test(date)) {
         date = flipDateFormat(date); 
     }
     return date;

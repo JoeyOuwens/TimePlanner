@@ -9,7 +9,9 @@ var validation = require('../classes/validation')
 router.get('/', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
         var dayoffRequests = await dayoffRequestHandler.retreiveAll();
+        isDateCreatedLessThenAWeek(dayoffRequests);
         changeDateToString(dayoffRequests);
+        console.log(dayoffRequests)
         res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests });
     } else {
 
@@ -52,6 +54,17 @@ function changeDateToString(data) {
         request.till = flipDateFormat(fixDate(new Date(request.till).toLocaleDateString()));
     }
     return data;
+}
+
+function isDateCreatedLessThenAWeek(dayoffRequests) {
+    var one_week = 7 * 24 * 60 * 60 * 1000;
+    var date_of_today = new Date();
+    dayoffRequests.forEach(function (request) {
+        var creation_date = new Date(request.creation_date);
+        var difference = date_of_today - creation_date
+            difference > one_week ? request.week_left = true : request.week_left = false
+    })
+
 }
 
 // Adds a zero when one is abscent.
