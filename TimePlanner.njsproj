@@ -76,6 +76,9 @@
     <Content Include="node_modules\images\tile310x310.png" />
     <Content Include="node_modules\images\tile70x70.png" />
     <Content Include="node_modules\images\_head.html" />
+    <Content Include="public\javascript\modal.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\javascript\sendForm.js">
       <SubType>Code</SubType>
     </Content>
