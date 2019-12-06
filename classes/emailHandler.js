@@ -57,6 +57,23 @@ module.exports = {
                 console.log('Email sent: ' + info.response);
             }
         });
+    },
+        sendMessageToDevs: function (name,email,message) {
+            var emailText = `<h2>Bericht </h2> <p>Door  ${name} -  ${email} <p> ${message}`
+        var mailOptions = {
+            from: `"${mailSettings.general.senderName}" <${mailSettings.transporter.auth.user}>`,
+            to: mailSettings.transporter.auth.user,
+            subject: 'Bericht van contact pagina.',
+            html: emailText
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
     }
 };
 

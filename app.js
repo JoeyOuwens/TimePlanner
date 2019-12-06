@@ -10,7 +10,7 @@ var cookieSession = require('cookie-session');
 
 //const redis = require('redis');
 //const client = redis.createClient();
-var contact = require('./routes/contactpageroute')
+var contact = require('./routes/contactpage')
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/usermanagement/list');
@@ -23,7 +23,7 @@ var passwordreset = require('./routes/reset-password');
 var usermanagementedit = require('./routes/usermanagement/user');
 var logout = require('./routes/logout');
 var termsofuse = require('./routes/termsofuse');
-var privacypolicy = require('./routes/pivacypolicy');
+var privacypolicy = require('./routes/privacypolicy');
 var rooster = require('./routes/rooster'); 
 var availability = require('./routes/availability'); 
 var requestdayoff = require('./routes/requestdayoff');
