@@ -2,7 +2,6 @@ html > body {
     background-color: #efefef;
 }
 
-
 h1 {
     color: white;
     margin-right: 24px;
@@ -18,6 +17,15 @@ h1 {
 
 .bg-tertiary {
     background-color: #6497b1 !important;
+}
+
+
+.thead-tertiary {
+    background-color: #6497b1 !important;
+    border-color: #6497b1 !important;
+    border-top: 2px solid  #6497b1de !important;
+    border-bottom: 2px solid #6497b1de !important;
+    color: white;
 }
 
 .row.card-row {
@@ -382,4 +390,3 @@ Licensed under MIT
     display: inline-block;
     font-weight: bold;
 }
-/* Popup box BEGIN */

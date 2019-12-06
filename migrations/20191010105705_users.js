@@ -24,15 +24,6 @@ exports.up = function (knex) {
                 t.unique('email');
             });
         }
-        if (exists) {
-            return knex.schema.alterTable('users', t => {
-                t.string('middlename');
-                t.decimal('salary');
-                t.string('profile_image');
-                t.boolean('active');
-                t.unique('email');
-            });
-        }
     });
 };
 

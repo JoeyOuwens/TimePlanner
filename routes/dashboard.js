@@ -2,20 +2,19 @@
 var express = require('express');
 var knexjs = require('../db/knex');
 var router = express.Router();
-var $ = require('jquery');
+
 
 /* GET upcomming work scedule for the user, along with other important functionalities. */
 router.get('/', async function (req, res, next) {
     var context = { title: 'Dashboard' };
 
-    context.timetable_days = get_scedule_for_user(req.session.user.id);
+    context.timetable_days = await get_scedule_for_user(req.session.user.id);
 
     /* Check if the user has been redirected after a login, if so, show a greeting/message */
     if (req.session.logged_in !== undefined) {
         delete req.session.logged_in;
         context.log_in_redirect = true;
-    }
-
+    } 
     res.render('dashboard', context);
 });
 

@@ -35,3 +35,38 @@ block content
                     label(class="custom-control-label" for="stay_on_page") Op pagina blijven
         div(class="input-group")
             input(type="submit" class="btn btn-success" value="Aanmaken")
+    br
+     
+    div(class="table-responsive ")  
+            table(class="table table-sm")
+                thead(class="thead-tertiary")
+                    tr
+                        th(class="col-xs-1" scope="col" colspan="10") Beschikbaarheid
+                    tr
+                        th(class="col-xs-1" scope="col" colspan="3") Naam
+                        th(class="col-xs-1" scope="col") Maandag
+                        th(class="col-xs-1" scope="col") Dinsdag 
+                        th(class="col-xs-1" scope="col") Woensdag 
+                        th(class="col-xs-1" scope="col") Donderdag
+                        th(class="col-xs-1" scope="col") Vrijdag
+                        th(class="col-xs-1" scope="col") Zaterdag
+                        th(class="col-xs-1" scope="col") Zondag
+                tbody 
+                    each item in availability
+                        tr  
+                            td(colspan="3")
+                                label #{item.firstname} #{item.middlename} #{item.lastname}
+                            td
+                                label #{item.monday == ""? "Niet": item.monday}
+                            td
+                                label #{item.tuesday == ""? "Niet": item.tuesday}
+                            td
+                                label #{item.wednesday == ""? "Niet": item.wednesday}
+                            td
+                                label #{item.thursday == ""? "Niet": item.thursday}
+                            td
+                                label #{item.friday == ""? "Niet": item.friday}
+                            td
+                                label #{item.saturday == ""? "Niet": item.saturday}
+                            td
+                                label #{item.sunday == ""? "Niet": item.sunday} 
