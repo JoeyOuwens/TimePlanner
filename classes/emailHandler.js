@@ -62,7 +62,7 @@ module.exports = {
             var emailText = `<h2>Bericht </h2> <p>Door  ${name} -  ${email} <p> ${message}`
         var mailOptions = {
             from: `"${mailSettings.general.senderName}" <${mailSettings.transporter.auth.user}>`,
-            to: mailSettings.transporter.auth.user,
+            to: 'ourFakeDevEmailAddress@group3.dev',
             subject: 'Bericht van contact pagina.',
             html: emailText
         };
