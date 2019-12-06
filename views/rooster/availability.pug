@@ -1,0 +1,60 @@
+﻿extends ../layout
+
+block content
+    div(class="card shadow") 
+        div(class="table-responsive ")  
+                table(class="table table-sm")
+                    thead(class="thead-tertiary")
+                        tr
+                            th(class="col-xs-1" scope="col") Maandag
+                            th(class="col-xs-1" scope="col") Dinsdag 
+                            th(class="col-xs-1" scope="col") Woensdag 
+                            th(class="col-xs-1" scope="col") Donderdag
+                            th(class="col-xs-1" scope="col") Vrijdag
+                            th(class="col-xs-1" scope="col") Zaterdag
+                            th(class="col-xs-1" scope="col") Zondag
+                    tbody
+                        tr 
+                        each day in availability
+                            td
+                                if(day == "")
+                                    label Niet 
+                                else
+                                    label #{day} 
+                                    
+                             
+    br
+         
+
+    
+    div(class="card shadow")   
+            div(class="table-responsive ")  
+                form(method='POST' action='/availability')
+                    table(class="table table-sm") 
+                        thead(class="thead-tertiary")
+                            tr
+                                th(class="col-xs-1" scope="col") Maandag
+                                th(class="col-xs-1" scope="col") Dinsdag 
+                                th(class="col-xs-1" scope="col") Woensdag 
+                                th(class="col-xs-1" scope="col") Donderdag
+                                th(class="col-xs-1" scope="col") Vrijdag
+                                th(class="col-xs-1" scope="col") Zaterdag
+                                th(class="col-xs-1" scope="col") Zondag
+                        tbody
+                            tr  
+                                td 
+                                    input(type="text" name="monday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.monday)    
+                                td 
+                                    input(type="text" name="tuesday"  placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.tuesday)       
+                                td 
+                                    input(type="text" name="wednesday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.wednesday)   
+                                td 
+                                    input(type="text" name="thursday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.thursday)       
+                                td 
+                                    input(type="text" name="friday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.friday)   
+                                td 
+                                    input(type="text" name="saturday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.saturday)   
+                                td
+                                    input(type="text" name="sunday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.sunday)
+                        
+                    input(type="submit" class="float-right btn btn-primary btn-sm" value="Geef door")  
