@@ -1,14 +1,15 @@
 'use strict';
 var userDBHandler = require('../../classes/userDBHandler');
 var knex = require('../../db/knex');
+var availabilityHandler = require('../../classes/availabilityHandler');  
 
 class Add {
     
     static async get(req, res, next) {
         if (req.session.user.role === 'USER')
             res.redirect('/rooster/');
-
-        res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await userDBHandler.getAllUsers() });
+         
+        res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await userDBHandler.getAllUsers(), availability: await availabilityHandler.retreiveAll() });
     }
 
     static async post(req, res, next) {
@@ -16,7 +17,7 @@ class Add {
             res.redirect('/rooster/');
 
         if (req.body.begin_date >= req.body.end_date) {
-            res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await userDBHandler.getAllUsers(), user: req.body, error: "Begintijd mag niet later zijn dan eindtijd", success: false });
+            res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await userDBHandler.getAllUsers(), availability: await availabilityHandler.retreiveAll(), user: req.body, error: "Begintijd mag niet later zijn dan eindtijd", success: false });
             return;
         }
 

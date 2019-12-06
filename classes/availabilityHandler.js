@@ -8,9 +8,11 @@ module.exports = {
 
     update: async function (req) {
         await handleAvailabilityUpdate(req)
-    }
-    
+    },
 
+    retreiveAll: async function () {
+        return await getAllAvailabilities();
+    }
 }
 
 
@@ -94,7 +96,18 @@ async function getAvailability(userId) {
         })
     return row;
 }
-
+async function getAllAvailabilities() {
+    var row = await knex.select("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "users.firstname", "users.middlename","users.lastname")
+        .from("availability")  
+        .join('users', { 'userId': 'users.id' })
+        .then(function (data) { 
+            return data
+        }).catch(function (e) {
+            console.log("e")
+            return [];
+        })
+    return row;
+}
 
 async function rowExists(userId, day) {
     var row = await getAvailability(userId, day);
