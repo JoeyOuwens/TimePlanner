@@ -28,12 +28,12 @@ describe('Check user', () => {
         //});
 
 
-        const total = await knex('users').count('id as CNT');
+        const total = await knex('users').where({ email: "09619@hr.nl" }).count('id as CNT');
 
         expect(total[0].CNT).toBe(1);
     });
 
-    it('edit user x.', async () => {
+    it('edit user email of first user.', async () => {
 
         await knex('users').where({ email: "09619@hr.nl" }).update({ email: "0961988@hr.nl"});
 
@@ -41,6 +41,13 @@ describe('Check user', () => {
 
         expect(user.email).toBe("0961988@hr.nl");
 
+    });
+
+    it('get full name of the first user', async () => {
+        const user = await User.query().first();
+
+        expect(user.getFullName()).toBe("Elon Musk");
+        return "test";
     });
 
     it('delete all users.', async () => {
