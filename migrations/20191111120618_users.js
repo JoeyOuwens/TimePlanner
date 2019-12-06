@@ -21,7 +21,6 @@ exports.up = function (knex) {
                 t.string("role");
                 t.string("profile_image");
                 t.boolean("active"); 
-                t.boolean("firsttime");
             });
             return knex.schema.alterTable('users', t => { 
                 t.unique('email')

@@ -14,7 +14,7 @@ exports.up = function (knex) {
                 t.string('zip');
                 t.string('place');
                 t.integer('contract_hours');
-                t.boolean('firsttime');
+                
                 t.string('phone_number');
                 t.string("function");
                 t.string("role");
