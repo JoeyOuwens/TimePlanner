@@ -30,4 +30,33 @@ function Modal() {
             }
         }
 
-}
+    }
+
+
+    #myModal.modal
+        .modal - content
+    span.close & times;
+    p#popuptext Welkom bij TimePlanner, HET systeem om werktijden bij te houden
+    p(class= "far fa-arrow-alt-circle-right" id = 'next')
+    #myModal2.modal
+        .modal - content
+    span.close & times;
+    p#popuptext.
+    Bovenin  is de navigatie balk.Deze word gebruikt om vrij te vragen,
+        vervanging te regelen, het profiel in te zien, of om de roosters te bekijken.
+            p(class= "far fa-arrow-alt-circle-right" id = 'next2')
+    #myModal3.modal
+        .modal - content
+    span.close & times;
+    p#popuptext.
+    Bij het klikken op home kom je op de homepage terecht,
+        hier zie je je rooster voor aankomende week, notificaties, en de nieuwste medewerkers
+    p(class= "far fa-arrow-alt-circle-right" id = 'next3')
+    #myModal4.modal
+        .modal - content
+    span.close & times;
+    p#popuptext.
+    Tenslotte zie je naast het hint icoon ook en logout icoon, hiermee word je naar het inlogscherm gebracht.
+    Vanaf het inlogscherm kan je de Privacy Policy en de Terms of use lezen.Ook kan je hier je wachtwoord resetten en
+    bericht sturen naar de developers van deze applicatie
+    p(class= "far fa-times-circle" id = 'next4')

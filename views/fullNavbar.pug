@@ -1,132 +1,61 @@
-header(class="container-fluid bg-primary")
-    div(class="row")
-        div(class="col-sm-12 col-md-4 col-lg-3")
-            a.navbar-brand(href='/') 
+header(class="container-fluid bg-primary") 
+    div(class="row") 
+        div(class="col-sm-12 col-md-4 col-lg-3") 
+            a.navbar-brand(href='/')  
                 h1 TimePlanner
-        div(class="col-sm-12 col-md-6")
+        div(class="col-sm-12 col-md-6") 
             nav.navbar.navbar-expand-lg.nav.navbar-nav.d-none.d-md-block
-                button.navbar-toggler.bg-light(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+                button.navbar-toggler.bg-light(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation') 
                     span.navbar-toggler-icon
 
-                .collapse.navbar-collapse(id='navbarSupportedContent')
+                .collapse.navbar-collapse(id='navbarSupportedContent') 
                     ul.navbar-nav.mr-auto
                         li.nav-item
-                            a.nav-link(href='/') Home
+                            a.nav-link(href='/')  Home
                         li.nav-item.dropdown
-                            a.nav-link.dropdown-toggle(id='navbarDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href='#') Roosters
-                            div.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
-                                a.dropdown-item(href='/rooster/') Rooster
+                            a.nav-link.dropdown-toggle(id='navbarDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href='#')  Roosters
+                            div.dropdown-menu(aria-labelledby='navbarDropdownMenuLink') 
+                                a.dropdown-item(href='/rooster/')  Rooster
                                 if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
-                                    a.dropdown-item(href='/rooster/add-user/') Rooster maken
-                                    a.dropdown-item(href='#') Beschikbaarheid
-                                a.dropdown-item(href='#') Vervanging
-                                a.dropdown-item(href='#') Ziek melden
-                                a.dropdown-item(href='#') Vrij vragen
+                                    a.dropdown-item(href='/rooster/add-user/')  Rooster maken
+                                    a.dropdown-item(href='#')  Beschikbaarheid
+                                a.dropdown-item(href='#')  Vervanging
+                                a.dropdown-item(href='#')  Ziek melden
+                                a.dropdown-item(href='#')  Vrij vragen
                         if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
                             li.nav-item
-                                a.nav-link(href='/') Ziek meldingen
+                                a.nav-link(href='/')  Ziek meldingen
                         if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
                             li.nav-item
-                                a.nav-link(href='/') Goedkeuren
+                                a.nav-link(href='/')  Goedkeuren
                         li.nav-item
-                            a.nav-link(href='/usermanagement/list') Medewerkers 
+                            a.nav-link(href='/usermanagement/list')  Medewerkers 
 
-        div(class="col-sm-12 col-md-2 col-lg-2")
+        div(class="col-sm-12 col-md-2 col-lg-2") 
             nav.navbar.navbar-expand-lg.nav.navbar-nav
                 ul.navbar-nav.mr-auto
                     li.nav-item.dropdown
-                        a.nav-link.dropdown-toggle(id='profileDropdown', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href="#") 
-                            img( src='/'+userInfo.profile_image class="img-responsive profile-img" alt="")
-                        div#profile-dropdown.dropdown-menu(aria-labelledby='profileDropdown')
-                            a.dropdown-item(href='/profile') #{userInfo.firstname}
+                        a.nav-link.dropdown-toggle(id='profileDropdown', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href="#")  
+                            img( src='/'+userInfo.profile_image class="img-responsive profile-img" alt="") 
+                        div#profile-dropdown.dropdown-menu(aria-labelledby='profileDropdown') 
+                            a.dropdown-item(href='/profile')  #{userInfo.firstname}
                             hr
-                            a.dropdown-item(href='/profile/') Profiel Overzicht
-                            a.dropdown-item(href='/profile/changesettings/') Profiel Wijzigen
-                            a.dropdown-item(href='/profile/tasks') Rooster
+                            a.dropdown-item(href='/profile/')  Profiel Overzicht
+                            a.dropdown-item(href='/profile/changesettings/')  Profiel Wijzigen
+                            a.dropdown-item(href='/profile/tasks')  Rooster
                             hr
-                            a.dropdown-item(href='/profile/help') Help
+                            a.dropdown-item(href='/profile/help')  Help
                     li.nav-item
-                        a.nav-link(href='/logout/') 
+                        a.nav-link(href='/logout/')  
                             h3 
-                                i(class="fas fa-sign-out-alt")
+                                i(class="fas fa-sign-out-alt") 
                     li.nav-item
-                        h3 
-                            i(class="far fa-question-circle" id='question')
-                                #myModal.modal
-                                    .modal-content
-                                        span.close &times;
-                                        p#popuptext Welkom bij TimePlanner, HET systeem om werktijden bij te houden
-                                        p(class="far fa-arrow-alt-circle-right" id='next')
-                                #myModal2.modal
-                                    .modal-content
-                                        span.close &times;
-                                        p#popuptext. 
-                                            Bovenin  is de navigatie balk. Deze word gebruikt om vrij te vragen, 
-                                            vervanging te regelen, het profiel in te zien, of om de roosters te bekijken.
-                                        p(class="far fa-arrow-alt-circle-right" id='next2')
-                                #myModal3.modal
-                                    .modal-content
-                                        span.close &times;
-                                        p#popuptext. 
-                                            Bij het klikken op home kom je op de homepage terecht, 
-                                            hier zie je je rooster voor aankomende week, notificaties, en de nieuwste medewerkers
-                                        p(class="far fa-arrow-alt-circle-right" id='next3')
-                                #myModal4.modal
-                                    .modal-content
-                                        span.close &times;
-                                        p#popuptext. 
-                                            Tenslotte zie je naast het hint icoon ook en logout icoon, hiermee word je naar het inlogscherm gebracht. 
-                                            Vanaf het inlogscherm kan je de Privacy Policy en de Terms of use lezen. Ook kan je hier je wachtwoord resetten en 
-                                            bericht sturen naar de developers van deze applicatie 
-                                        p(class="far fa-times-circle" id='next4')
-                                script.
-                                    var modal = document.getElementById("myModal");
-                                    var modal2 = document.getElementById("myModal2");
-                                    var modal3 = document.getElementById("myModal3");
-                                    var modal4 = document.getElementById("myModal4");
-                                    var icon = document.getElementById("question");
-                                    var span = document.getElementsByClassName("close")[0];
-                                    var next = document.getElementById("next");
-                                    var next2 = document.getElementById("next2");
-                                    var next3 = document.getElementById("next3");
-                                    var next4 = document.getElementById("next4");
-                                    // open model on icon click
-                                    icon.onclick = function() {
-                                    modal.style.display = "block";
-                                    }
-                                    //hint1
-                                    next.onclick = function(){
-                                    modal.style.display = "none"; 
-                                    modal2.style.display = "block";
-                                    }
-                                    //new hint 2
-                                    next2.onclick = function(){
-                                    modal2.style.display = "none"; 
-                                    modal3.style.display = "block";
-                                    }
-                                    //new hint 3
-                                    next3.onclick = function(){
-                                    modal3.style.display = "none"; 
-                                    modal4.style.display = "block";
-                                    }
-                                    //exit after hint 3
-                                    next4.onclick = function(){
-                                    modal4.style.display = "none";
+                        h3  
+                            a(data-toggle="modal" id="helpBtn" data-target="#myModal") 
+                                i(class="far fa-question-circle" id='question' ) 
 
-                                    }
-                                    // x button handler (close)
-                                    span.onclick = function() {
-                                    modal.style.display = "none";
-                                    modal2.style.display = "none"; 
-                                    modal3.style.display = "none"; 
-                                    modal4.style.display = "none";
-                                    }
-                                    // out of box click handler
-                                    window.onclick = function(event) {
-                                    if (event.target == modal) {
-                                        modal.style.display = "none";
-                                        modal2.style.display = "none"; 
-                                        modal3.style.display = "none"; 
-                                        modal4.style.display = "none";
-                                        }
-                                    }
+
+
+ 
+
+                                    

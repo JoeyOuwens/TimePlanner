@@ -274,6 +274,17 @@ Licensed under MIT
     opacity: .5;
 }
 
+
+.btn-primary {
+    color: #fff;
+    background-color: #6c757d;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #007bff;
+}
+
 .modal-content {
     left: 30%;
     right: 30%;
@@ -285,12 +296,13 @@ Licensed under MIT
     flex-direction: column;
     width: auto;
     pointer-events: auto;
-    background-color: #005b96;
+    background-color: #ffffff;
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.2);
     border-radius: .4rem;
     outline: 0;
 }
+
 
 /* Profile Content */
 .profile-content {
