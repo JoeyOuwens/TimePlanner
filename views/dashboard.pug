@@ -1,6 +1,37 @@
 extends layout
 
+
 block content
+    // Trigger/Open The Modal
+    button#myBtn Open Modal
+    // The Modal
+    #myModal.modal
+      // Modal content
+      .modal-content
+        span.close &times;
+        p Some text in the Modal..
+    script.
+      // Get the modal
+      var modal = document.getElementById("myModal");
+      // Get the button that opens the modal
+      var btn = document.getElementById("myBtn");
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+      // When the user clicks the button, open the modal
+      btn.onclick = function() {
+      modal.style.display = "block";
+      }
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+      modal.style.display = "none";
+      }
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        }
+      }
+
     div(class="row no-gutter")
         div( class="col-sm-12 col-md-6 col-lg-4")
             div(class="card shadow dashboard-timetable")
@@ -25,7 +56,7 @@ block content
                                         p #{rooster_item.begin_time} - #{rooster_item.end_time}
                                 else
                                     p Je bent niet ingeroosterd. 
-        div( class="col-sm-12 col-md-6 col-lg-5")
+        div(class="col-sm-12 col-md-6 col-lg-5")
             div(class="card shadow dashboard-timetable")
                 div(class="card-header bg-tertiary")
                     h3 Notificaties 
@@ -44,11 +75,12 @@ block content
                 div(class="card-header bg-tertiary")
                     h3 Widget editor
                 div(class="card-body")
-
     if log_in_redirect !== undefined
         div(class="greeting-message js--greeting-message hidden")
             div(class="alert alert-success")
                 p Goedendag #{userInfo.firstname} #{userInfo.middlename} #{userInfo.lastname}!
+        
+
             script.
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.remove('hidden') }, 60);
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.add('hidden') }, 4000);
