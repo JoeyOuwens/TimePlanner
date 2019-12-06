@@ -30,7 +30,7 @@ class Add {
             }]);
 
         if (req.body.stay_on_page === 'on')
-            res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await userDBHandler.getAllUsers(), success: true });
+            res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await userDBHandler.getAllUsers(), availability: await availabilityHandler.retreiveAll(), success: true });
         else
             res.redirect('/rooster/');
     }
