@@ -76,9 +76,6 @@
     <Content Include="node_modules\images\tile310x310.png" />
     <Content Include="node_modules\images\tile70x70.png" />
     <Content Include="node_modules\images\_head.html" />
-    <Content Include="public\javascript\modal.js">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="public\javascript\sendForm.js">
       <SubType>Code</SubType>
     </Content>
@@ -127,6 +124,7 @@
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="seeds\01_users.js" />
+    <Content Include="seeds\timetable_items.js" />
     <Content Include="settings\mailing.json" />
     <Content Include="tests\add_user.test.js" />
     <Content Include="tests\create-user-validation-unitTest.js">
