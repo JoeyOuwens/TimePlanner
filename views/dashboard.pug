@@ -1,6 +1,5 @@
 extends layout
 
-
 block content
     div(class="row no-gutter")
         div( class="col-sm-12 col-md-6 col-lg-4")
@@ -26,7 +25,7 @@ block content
                                         p #{rooster_item.begin_time} - #{rooster_item.end_time}
                                 else
                                     p Je bent niet ingeroosterd. 
-        div(class="col-sm-12 col-md-6 col-lg-5")
+        div( class="col-sm-12 col-md-6 col-lg-5")
             div(class="card shadow dashboard-timetable")
                 div(class="card-header bg-tertiary")
                     h3 Notificaties 
@@ -45,13 +44,11 @@ block content
                 div(class="card-header bg-tertiary")
                     h3 Widget editor
                 div(class="card-body")
+
     if log_in_redirect !== undefined
         div(class="greeting-message js--greeting-message hidden")
             div(class="alert alert-success")
                 p Goedendag #{userInfo.firstname} #{userInfo.middlename} #{userInfo.lastname}!
-        
-
             script.
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.remove('hidden') }, 60);
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.add('hidden') }, 4000);
-

@@ -2,7 +2,6 @@ html > body {
     background-color: #efefef;
 }
 
-
 h1 {
     color: white;
     margin-right: 24px;
@@ -18,6 +17,22 @@ h1 {
 
 .bg-tertiary {
     background-color: #6497b1 !important;
+}
+
+.thead-tertiary {
+    background-color: #6497b1 !important;
+    border-color: #6497b1 !important;
+    border-top: 2px solid #6497b1de !important;
+    border-bottom: 2px solid #6497b1de !important;
+    color: white;
+}
+
+.popover-header {
+    background-color: #03396c !important;
+    border-color: #03396c !important;
+    border-top: 2px solid #03396c !important;
+    border-bottom: 2px solid #03396c !important;
+    color: white;
 }
 
 .row.card-row {
@@ -357,6 +372,10 @@ Licensed under MIT
     color: white;
 }
 
+.fc-event:hover {
+    cursor: pointer;
+}
+
 /* Popup box BEGIN */
 .hover_bkgr_fricc {
     background: rgba(0,0,0,.4);
@@ -419,4 +438,3 @@ Licensed under MIT
     display: inline-block;
     font-weight: bold;
 }
-/* Popup box BEGIN */

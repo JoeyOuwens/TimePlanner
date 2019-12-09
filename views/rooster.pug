@@ -19,7 +19,10 @@ block content
             plugins: [ 'timeGrid' ],
             defaultView: 'timeGridWeek',
             allDaySlot: false,
-            events: !{timeTable}
+            events: !{timeTable},
+            eventClick: (info) => {
+                window.location = "/rooster/edit-user/" + info.event.extendedProps.timetable_id;
+            }
         });
 
         calendar.render();
