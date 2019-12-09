@@ -50,11 +50,4 @@ describe('Check user', () => {
         return "test";
     });
 
-    it('delete all users.', async () => {
-        await knex('users').del();
-
-        const total = await knex('users').count('id as CNT');
-
-        expect(total[0].CNT).toBe(0);
-    });
 });
