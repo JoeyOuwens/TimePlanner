@@ -6,6 +6,7 @@ block content
             div(class="alert alert-danger alert-dismissible fade show" role="alert") #{msg}
                 button(type="button" class="close" data-dismiss="alert" aria-label="Close")
                     i(class="fa fa-times") 
+   
     div(class="card shadow dashboard-timetable")
                 div(class="card-header bg-tertiary" role="button"  data-toggle="collapse" data-target="#collapseRequests"  aria-controls="collapseRequests" aria-expanded="true")
                     h3 Status van de aanvragen
@@ -36,7 +37,7 @@ block content
                                                 th(scope="col" style=activeStyle)  #{request.status_comment} 
                                         else
                                             tr
-                                                th(scope="col" style=activeStyle) Geen aanvragen bekend
+                                                th(scope="col" colspan="10" style=activeStyle) Geen aanvragen bekend
                                     
 
 
