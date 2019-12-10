@@ -37,14 +37,14 @@
                                             th(scope="col" )  #{request.status}
                                             th(scope="col" ) 
                                                 if request.status == "In afwachting"
-                                                    input(class="form-control " id="status-comment-"+request.id)
+                                                    input(class="form-control " id="status-comment-change-"+request.id)
                                                 else
                                                     p #{request.status_comment}
                                             if request.status == "In afwachting" 
                                                 th(scope="col" )
-                                                        button(class="btn btn-success btn-sm accept-request-btn" id=""+request.id) Goedkeuren
+                                                        button(class="btn btn-success btn-sm accept-change-request-btn" id=""+request.id) Goedkeuren
                                                 th(scope="col" ) 
-                                                        button( class="btn btn-danger btn-sm deny-request-btn" id=""+request.id) Afkeuren
+                                                        button( class="btn btn-danger btn-sm deny-change-request-btn" id=""+request.id) Afkeuren
                                             else
                                                 th(scope="col")  
                                                 th(scope="col")  

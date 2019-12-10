@@ -5,31 +5,38 @@
         })
 
 
-        $(".accept-request-btn").bind('click', function (e) {
-            acceptRequest(this.id);
+        $(".accept-dayoff-request-btn").bind('click', function (e) {
+            dayOffRequest(this.id,"APPROVED");
         });
-        $(".deny-request-btn").bind('click', function (e) {
-            denyRequest(this.id);
+        $(".deny-dayoff-request-btn").bind('click', function (e) {
+            dayOffRequest(this.id,"DENIED");
         });
 
+        $(".accept-change-request-btn").bind('click', function (e) {
+            changeRequest(this.id,"APPROVED")
+        });
+        $(".deny-change-request-btn").bind('click', function (e) {
+            changeRequest(this.id,"DENIED");
+        });
 
-        function getStatusComment(id) {
-            return $("#status-comment-" + id).val()
+        function getStatusComment(id,type) {
+            return $("#status-comment-"+type+"-" + id).val()
         };
 
 
 
-        function acceptRequest(id) {
-            $.post("/approve/dayoffrequest", { id: id, status_comment: getStatusComment(id), status: "APPROVED" }, function (result) {
+        function dayOffRequest(id,status) {
+            $.post("/approve/dayoffrequest", { id: id, status_comment: getStatusComment(id,"dayoff"), status: status }, function (result) {
+                location.reload();
+            });
+        };  
+        function changeRequest(id,status) {
+            $.post("/approve/changerequest", { id: id, status_comment: getStatusComment(id,"change"), status: status }, function (result) {
                 location.reload();
             });
         };
 
-        function denyRequest(id) {
-            $.post("/approve/dayoffrequest", { id: id, status_comment: getStatusComment(id), status: "DENIED" }, function (result) {
-                location.reload();
-            });
-        };
+        
 
     }
 }

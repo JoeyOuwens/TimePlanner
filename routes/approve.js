@@ -41,6 +41,14 @@ router.post('/dayoffrequest', async function (req, res) {
     }
 }); 
 
+router.post('/changerequest', async function (req, res) {
+    if (isUserOwnerOrManager(req.session.user.role)) {
+        console.log(req.body);
+        res.redirect('/');
+    }
+}); 
+
+
 async function  getDayOffRequests() {
     var dayoffRequests = await dayoffRequestHandler.retreiveAll();
     isDateCreatedLessThenAWeek(dayoffRequests);
