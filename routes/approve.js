@@ -8,12 +8,8 @@ var EVALUATING_STATUS_CODE = "In afwachting"
 /*GET page */
 router.get('/', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
-        var dayoffRequests = await dayoffRequestHandler.retreiveAll();
-        isDateCreatedLessThenAWeek(dayoffRequests);
-        dayoffRequests.sort((a) => (a.week_left) ? -1 : 1).sort((a, b) => (a.creation_date < b.creation_date) ? -1 : 1).sort((a) => (a.status == EVALUATING_STATUS_CODE) ? -1 : 1)
-        changeDateToString(dayoffRequests);
-        console.log(dayoffRequests)
-        res.render('approve', { title: 'Goedkeuren', dayoffRequests:dayoffRequests});
+        var dayoffRequests = await getDayOffRequests();
+        res.render('approve', { title: 'Goedkeuren', dayoffRequests:dayoffRequests, page: 'all'});
     } else {
 
         res.redirect('/dashboard');
@@ -21,12 +17,38 @@ router.get('/', async function (req, res) {
 
 }); 
 
+router.get('/dayoffrequests/', async function (req, res) {
+    if (isUserOwnerOrManager(req.session.user.role)) {
+        var dayoffRequests = await getDayOffRequests();
+        res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests, page: 'dayoffRequests' });
+    } else {
+        res.redirect('/dashboard');
+    }
+});
+
+router.get('/changeRequests/', async function (req, res) {
+    if (isUserOwnerOrManager(req.session.user.role)) {
+        var dayoffRequests = await getDayOffRequests();
+        res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests, page: 'changeRequests' });
+    } else {
+        res.redirect('/dashboard');
+    }
+});
 router.post('/dayoffrequest', async function (req, res) { 
     if (isUserOwnerOrManager(req.session.user.role)) {
         await dayoffRequestHandler.updateStatus(req.body);
         res.redirect('/');
     }
 }); 
+
+async function  getDayOffRequests() {
+    var dayoffRequests = await dayoffRequestHandler.retreiveAll();
+    isDateCreatedLessThenAWeek(dayoffRequests);
+    dayoffRequests.sort((a) => (a.week_left) ? -1 : 1).sort((a, b) => (a.creation_date < b.creation_date) ? -1 : 1).sort((a) => (a.status == EVALUATING_STATUS_CODE) ? -1 : 1)
+    changeDateToString(dayoffRequests);
+    console.log(dayoffRequests)
+    return dayoffRequests;
+};
 
 function isUserOwnerOrManager(role) {
     if (role == "OWNER" || role == "MANAGER") {

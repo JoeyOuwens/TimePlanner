@@ -1,0 +1,54 @@
+﻿div(class="card shadow dashboard-timetable change-requests")
+    div(class="card-header bg-tertiary " role="button"  data-toggle="collapse" data-target="#collapseChangeRequests"  aria-controls="collapseChangeRequests" aria-expanded="true")
+        h3 Vervanging verzoeken
+            i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
+    div(class="collapse show" id="collapseChangeRequests" )
+        div(class="card-body")
+            div(class="table-responsive")
+                table(class="table table-hover table-sm")
+                    thead(class="bg-secondary")
+                        tr
+                            th(scope="col") Aanvraag datum
+                            th(scope="col") Aanvrager
+                            th(scope="col") Datum
+                            th(scope="col") Werktijden
+                            th(scope="col") Overgenomen door
+                            th(scope="col") Status
+                            th(scope="col") Comentaar
+                            th(scope="col")  
+                            th(scope="col")  
+                
+                    tbody
+                        if(dayoffRequests !== [])
+                            each request in dayoffRequests  
+                                - week_left = request.week_left && request.status == "In afwachting"?"table-danger":""
+                                - popovercontent = "<p>Uur loon:  &euro;" + request.salary 
+                                - popovercontent += "<p>Contract uren: " + request.contract_hours 
+                                - popovercontent += "<p>Email: " + request.email 
+                                - popovercontent += "<p>Telefoon: " + request.phone_number  
+                                                
+                                    tr(class=""+week_left) 
+                                            th(scope="col" )  #{request.creation_date}
+                                            th(scope="col" )    
+                                                a( role="button" data-toggle="popover" data-trigger="hover" data-placement="right"  title=""+request.firstname+" "+request.middlename+" "+request.lastname  data-html='true' data-content=popovercontent data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header popover-header-primary"></h3><div class="popover-body"></div></div>') #{request.firstname} #{request.middlename} #{request.lastname}
+                                            th(scope="col" )  #{request.from}
+                                            th(scope="col" )  #{request.till}
+                                            th(scope="col" )  #{request.reason}
+                                            th(scope="col" )  #{request.status}
+                                            th(scope="col" ) 
+                                                if request.status == "In afwachting"
+                                                    input(class="form-control " id="status-comment-"+request.id)
+                                                else
+                                                    p #{request.status_comment}
+                                            if request.status == "In afwachting" 
+                                                th(scope="col" )
+                                                        button(class="btn btn-success btn-sm accept-request-btn" id=""+request.id) Goedkeuren
+                                                th(scope="col" ) 
+                                                        button( class="btn btn-danger btn-sm deny-request-btn" id=""+request.id) Afkeuren
+                                            else
+                                                th(scope="col")  
+                                                th(scope="col")  
+                                                            
+                            else
+                                tr
+                                    th(scope="col" colspan="10") Geen aanvragen bekend
