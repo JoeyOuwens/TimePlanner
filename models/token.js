@@ -5,7 +5,7 @@ Model.knex(knex);
 
 class Token extends Model {
     static get tableName() {
-        return 'token';
+        return 'sick_days';
     }
 }
 

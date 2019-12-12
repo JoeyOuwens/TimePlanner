@@ -1,0 +1,34 @@
+﻿extends layout
+
+block content
+    - dateOfToday = new Date()
+
+
+
+
+
+    if alreadyCalledInSick
+        p Je hebt je voor vandaag al ziekgemeld.
+    else
+        p Druk op de knop om jezelf ziek te melden voor vandaag - #{dateOfToday}.
+        button(type="button" style="btn btn-primary" id="callInSickBtn") Ziekmelden
+
+    script.
+        document.onreadystatechange = function () {
+            if (document.readyState === "complete") {  
+                $('#callInSickBtn').bind('click', function(e) { 
+                    callInSick();
+                    $(this).prop('disabled', true);
+                });
+                
+                function callInSick(){
+                    $.post("/call-in-sick", {callInSick: true}, function(result){
+                          location.reload(); 
+                        });
+
+                }
+
+
+            }
+        }
+        
