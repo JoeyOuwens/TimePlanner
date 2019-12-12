@@ -1,6 +1,31 @@
 extends ../layout
 
 block content
+
+    head
+        meta(charset='utf-8')
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.css' rel='stylesheet')
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.css' rel='stylesheet')
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.css' rel='stylesheet')
+
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js')
+
+        script.
+            document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'timeGrid' ],
+                defaultView: 'timeGridWeek',
+                allDaySlot: false,
+                events: !{timeTable}
+            });
+
+            calendar.render();
+            });
+
     if success !== undefined && success === true
         p(class="alert alert-success").
             | De gebruiker is succesvol ingeroosterd!
@@ -28,3 +53,10 @@ block content
                 label(class="custom-control-label" for="stay_on_page") Op pagina blijven
         div(class="input-group")
             input(type="submit" class="btn btn-success" value="Aanmaken")
+
+    
+    body
+        br
+        div(class="card shadow")
+            div(class="card-header")
+            div(id='calendar')
