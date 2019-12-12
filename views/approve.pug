@@ -1,0 +1,106 @@
+﻿extends layout
+
+block content
+    if(error !== undefined)
+        each msg in error
+            div(class="alert alert-danger alert-dismissible fade show" role="alert") #{msg}
+                button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                    i(class="fa fa-times") 
+    noscript
+        div(class="alert alert-danger alert-dismissible fade show" role="alert") Je hebt Javascript nodig om deze pagina te gebruiken...
+        button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+            i(class="fa fa-times") 
+   
+
+    div(class="card shadow dashboard-timetable")
+                div(class="card-header bg-tertiary " role="button"  data-toggle="collapse" data-target="#collapseRequests"  aria-controls="collapseRequests" aria-expanded="true")
+                    h3 Vrijedagen aanvragen
+                        i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
+                div(class="collapse show" id="collapseRequests" )
+                    div(class="card-body")
+                        div(class="table-responsive")
+                            table(class="table table-hover table-sm")
+                                thead(class="bg-secondary")
+                                    tr
+                                        th(scope="col") Aanvraag datum
+                                        th(scope="col") Medewerker
+                                        th(scope="col") Van
+                                        th(scope="col") Tot
+                                        th(scope="col") Reden
+                                        th(scope="col") Status
+                                        th(scope="col") Comentaar
+                                        th(scope="col")  
+                                        th(scope="col")  
+                
+                                tbody
+                                    if(dayoffRequests !== [])
+                                        each request in dayoffRequests  
+                                            - week_left = request.week_left && request.status == "In afwachting"?"table-danger":""
+                                            - popovercontent = "<p>Uur loon:  &euro;" + request.salary 
+                                            - popovercontent += "<p>Contract uren: " + request.contract_hours 
+                                            - popovercontent += "<p>Email: " + request.email 
+                                            - popovercontent += "<p>Telefoon: " + request.phone_number  
+                                                
+                                                tr(class=""+week_left) 
+                                                        th(scope="col" )  #{request.creation_date}
+                                                        th(scope="col" )    
+                                                            a( role="button" data-toggle="popover" data-trigger="hover" data-placement="right"  title=""+request.firstname+" "+request.middlename+" "+request.lastname  data-html='true' data-content=popovercontent ) #{request.firstname} #{request.middlename} #{request.lastname}
+                                                        th(scope="col" )  #{request.from}
+                                                        th(scope="col" )  #{request.till}
+                                                        th(scope="col" )  #{request.reason}
+                                                        th(scope="col" )  #{request.status}
+                                                        th(scope="col" ) 
+                                                            if request.status == "In afwachting"
+                                                                input(class="form-control " id="status-comment-"+request.id)
+                                                            else
+                                                                p #{request.status_comment}
+                                                        if request.status == "In afwachting" 
+                                                            th(scope="col" )
+                                                                    button(class="btn btn-success btn-sm accept-request-btn" id=""+request.id) Goedkeuren
+                                                            th(scope="col" ) 
+                                                                    button( class="btn btn-danger btn-sm deny-request-btn" id=""+request.id) Afkeuren
+                                                        else
+                                                            th(scope="col")  
+                                                            th(scope="col")  
+                                                            
+                                        else
+                                            tr
+                                                th(scope="col" ) Geen aanvragen bekend
+
+    div(class="loadTest")
+
+    script.
+        document.onreadystatechange = function () {
+            if (document.readyState === "complete") {  
+                $(function () {
+                  $('[data-toggle="popover"]').popover()
+                })
+
+
+                $(".accept-request-btn").bind('click', function(e) {
+                    acceptRequest(this.id);
+                });
+                   $(".deny-request-btn").bind('click', function(e) {
+                    denyRequest(this.id);
+                });
+                 
+                 
+                 function getStatusComment(id){
+                    return $("#status-comment-"+id).val()
+                 };
+
+
+                 function acceptRequest(id){ 
+                   $.post("approve/dayoffrequest", {id: id,status_comment: getStatusComment(id), status: "APPROVED"}, function(result){
+                          location.reload(); 
+                        });
+                 }; 
+
+                 function denyRequest(id){
+                        $.post("approve/dayoffrequest", {id: id,status_comment: getStatusComment(id), status: "DENIED"}, function(result){
+                          location.reload(); 
+                        });
+                };
+                 
+            }
+        }
