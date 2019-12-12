@@ -37,13 +37,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-<<<<<<< Updated upstream
-=======
-    <Content Include="classes\availabilityHandler.js" />
-    <Content Include="classes\dayoffRequestHandler.js">
-      <SubType>Code</SubType>
-    </Content>
->>>>>>> Stashed changes
     <Content Include="classes\emailHandler.js" />
     <Content Include="classes\resetToken.js" />
     <Content Include="classes\resetTokenDBHandler.js">
@@ -62,13 +55,6 @@
     <Content Include="migrations\20191031184830_token.js" />
     <Content Include="migrations\20191031184923_token.js" />
     <Content Include="migrations\20191111120618_users.js" />
-<<<<<<< Updated upstream
-=======
-    <Content Include="migrations\20191112120838_timetable_items.js" />
-    <Content Include="migrations\20191126184845_availability.js" />
-    <Content Include="models\availability.js" />
-    <Content Include="migrations\20191129150530_dayoffrequests.js" />
->>>>>>> Stashed changes
     <Content Include="models\token.js">
       <SubType>Code</SubType>
     </Content>
@@ -90,12 +76,8 @@
     <Content Include="node_modules\images\tile310x310.png" />
     <Content Include="node_modules\images\tile70x70.png" />
     <Content Include="node_modules\images\_head.html" />
-<<<<<<< Updated upstream
-    <Content Include="public\javascript\sendForm.js">
-=======
     <Content Include="public\javascript\sendForm.js" />
     <Content Include="public\javascript\availabilityValidation.js">
->>>>>>> Stashed changes
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\service-worker-register.js">
@@ -113,13 +95,9 @@
     <Content Include="public\stylesheets\style.css">
       <SubType>Code</SubType>
     </Content>
-<<<<<<< Updated upstream
-    <Content Include="routes\contactpageroute.js">
-=======
     <Content Include="routes\contactpage.js" />
     <Content Include="routes\contactpageroute.js" />
     <Content Include="routes\approve.js">
->>>>>>> Stashed changes
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\contact.js" />
@@ -159,13 +137,6 @@
     <Content Include="tests\database.test.js">
       <SubType>Code</SubType>
     </Content>
-<<<<<<< Updated upstream
-=======
-    <Content Include="views\approve.pug">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="views\contactpage.pug" />
->>>>>>> Stashed changes
     <Content Include="views\dashboard.pug">
       <SubType>Code</SubType>
     </Content>
@@ -175,12 +146,8 @@
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
-<<<<<<< Updated upstream
-    <Content Include="views\contactpagae.pug">
-=======
     <Content Include="views\contactpagae.pug" />
     <Content Include="views\requestdayoff.pug">
->>>>>>> Stashed changes
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\profile.pug" />
