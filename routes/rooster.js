@@ -23,8 +23,15 @@ router.get('/', async function (req, res, next) {
 router.get('/add-user', async function (req, res, next) {
     if (req.session.user.role === 'USER')
         res.redirect('/rooster/');
+    const timetable_items = await knex.select().from('timetable_items');
+    const timetable_users = await knex.select('*').from('timetable_items').leftJoin('users', 'timetable_items.user', 'users.id');
+    let timetable_list = [];
 
-    res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await userDBHandler.getAllUsers() });
+    for (let i = 0; i < timetable_items.length; i++) {
+        timetable_list.push({ "title": timetable_users[i].firstname + ' ' + timetable_users[i].lastname, "start": timetable_items[i].begin_date, "end": timetable_items[i].end_date });
+    }
+
+    res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await userDBHandler.getAllUsers(), timeTable: JSON.stringify(timetable_list) });
 });
 
 router.post('/add-user', async function (req, res, next) {
