@@ -18,16 +18,19 @@ header(class="container-fluid bg-primary")
 								a.dropdown-item(href='/rooster/') Rooster
 								if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
 									a.dropdown-item(href='/rooster/add-user/') Rooster maken
-									a.dropdown-item(href='#') Beschikbaarheid
+								if userInfo.contract_hours > 32
+									a.dropdown-item(href='/availability') Voorkeuren
+								else
+									a.dropdown-item(href='/availability') Beschikbaarheid 
 								a.dropdown-item(href='#') Vervanging
 								a.dropdown-item(href='#') Ziek melden
-								a.dropdown-item(href='#') Vrij vragen
+								a.dropdown-item(href='/requestdayoff') Vrij vragen
 						if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
 							li.nav-item
 								a.nav-link(href='/') Ziek meldingen
 						if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
 							li.nav-item
-								a.nav-link(href='/') Goedkeuren
+								a.nav-link(href='/approve') Goedkeuren
 						li.nav-item
 							a.nav-link(href='/usermanagement/list') Medewerkers 
 
