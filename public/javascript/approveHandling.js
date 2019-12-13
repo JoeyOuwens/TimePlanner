@@ -10,21 +10,20 @@
             changeTrToLoading(this.id, 'dayoff');
         });
         $(".deny-dayoff-request-btn").bind('click', function (e) {
-            changeTrToLoading(this.id, 'dayoff');
             dayOffRequest(this.id, "DENIED");
+            changeTrToLoading(this.id, 'dayoff');
         });
 
         $(".accept-change-request-btn").bind('click', function (e) {
-            changeTrToLoading(this.id, 'change');
             changeRequest(this.id, "APPROVED");
+            changeTrToLoading(this.id, 'change');
         });
         $(".deny-change-request-btn").bind('click', function (e) {
-            changeTrToLoading(this.id, 'change');
             changeRequest(this.id, "DENIED");
+            changeTrToLoading(this.id, 'change');
         });
 
-        function getStatusComment(id, type) {
-            alert($("#status-comment-"+type+"-" + id).val());
+        function getStatusComment(id, type) { 
             return $("#status-comment-" + type + "-" + id).val();
         };
 
