@@ -1,48 +1,55 @@
 ﻿div(class="card shadow dashboard-timetable change-requests")
-    div(class="card-header bg-tertiary " role="button"  data-toggle="collapse" data-target="#collapseChangeRequests"  aria-controls="collapseChangeRequests" aria-expanded="true")
-        h3 Vervanging verzoeken
-            i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
-    div(class="collapse show" id="collapseChangeRequests" )
-        div(class="card-body")
-            div(class="table-responsive")
-                table(class="table table-hover table-sm")
-                    thead(class="bg-secondary")
-                        tr
-                            th(scope="col") Aanvraag datum
-                            th(scope="col") Aanvrager
-                            th(scope="col") Datum
-                            th(scope="col") Werktijden
-                            th(scope="col") Overgenomen door
-                            th(scope="col") Status
-                            th(scope="col") Commentaar
-                            th(scope="col")  
-                            th(scope="col")  
-                
-                    tbody
-                        if(dayoffRequests !== [])
-                            each request in changeRequests   
-                                                
-                                    tr(class=""+week_left id="change-request-"+request.id) 
-                                            th(scope="col" )  #{request.creation_datetime}
-                                            th(scope="col" )  #{request.requesting_user.fullname}
-                                            th(scope="col" )  #{request.timetable_item.date}
-                                            th(scope="col" )  #{request.timetable_item.time} 
-                                            th(scope="col" )  #{request.replaced_by.fullname}
-                                            th(scope="col" )  #{request.status}
-                                            th(scope="col" ) 
-                                                if request.status == "In afwachting"
-                                                    input(class="form-control " id="status-comment-change-"+request.id)
-                                                else
-                                                    p #{request.status_comment}
-                                            if request.status == "In afwachting" 
-                                                th(scope="col" )
-                                                        button(class="btn btn-success btn-sm accept-change-request-btn" id=""+request.id) Goedkeuren
-                                                th(scope="col" ) 
-                                                        button( class="btn btn-danger btn-sm deny-change-request-btn" id=""+request.id) Afkeuren
-                                            else
-                                                th(scope="col")  
-                                                th(scope="col")  
-                                                            
-                            else
-                                tr
-                                    th(scope="col" colspan="10") Geen aanvragen bekend
+	div(class="card-header bg-tertiary " role="button"  data-toggle="collapse" data-target="#collapseChangeRequests"  aria-controls="collapseChangeRequests" aria-expanded="true")
+		h3 Vervanging verzoeken
+			i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
+	div(class="collapse show" id="collapseChangeRequests" )
+		div(class="card-body")
+			div(class="table-responsive")
+				table(class="table table-hover table-sm")
+					thead(class="bg-secondary")
+						tr
+							th(scope="col") Aanvraag datum
+							th(scope="col") Aanvrager
+							th(scope="col") Datum
+							th(scope="col") Werktijden
+							th(scope="col") Overgenomen door
+							th(scope="col") Status
+							th(scope="col") Commentaar
+							th(scope="col")  
+							th(scope="col")  
+				
+					tbody
+						if(changeRequests !== [])
+							each request in changeRequests    
+								tr(id='change-request-'+request.id ) 
+									th(scope="col" )  #{request.creation_datetime}
+									th(scope="col" )  #{request.requesting_user.fullname}
+									th(scope="col" )  #{request.timetable_item.date}
+									th(scope="col" )  #{request.timetable_item.time} 
+									th(scope="col" )  #{request.replaced_by.fullname}
+									th(scope="col" )  
+										case request.status
+												when "In afwachting" 
+													p(class="text-dark") #{request.status}
+												when "Goedgekeurd" 
+													p(class="text-success") #{request.status}
+												when "Afgekeurd" 
+													p(class="text-danger") #{request.status}
+									th(scope="col") 
+										if request.status == "In afwachting"
+											input(class="form-control" id="status-comment-change-"+request.id placeholder="Commentaar")
+										else
+											p #{request.status_comment}
+									if request.status == "In afwachting" 
+										th(scope="col" )
+												button(class="btn btn-success btn-sm accept-change-request-btn" id=""+request.id ) Goedkeuren
+										th(scope="col" ) 
+												button( class="btn btn-danger btn-sm deny-change-request-btn" id=""+request.id ) Afkeuren
+									else
+										th(scope="col")  
+										th(scope="col")    
+															
+						else
+							tr
+								th(scope="col" colspan="10") Geen aanvragen bekend
+

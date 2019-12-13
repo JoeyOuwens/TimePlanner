@@ -23,8 +23,9 @@
             changeRequest(this.id, "DENIED");
         });
 
-        function getStatusComment(id, type) { 
-            return $("#status-comment-"+type+"-" + id).val()
+        function getStatusComment(id, type) {
+            alert($("#status-comment-"+type+"-" + id).val());
+            return $("#status-comment-" + type + "-" + id).val();
         };
 
         function changeTrToLoading(id,type){
@@ -39,7 +40,7 @@
             });
         };  
         function changeRequest(id,status) {
-            $.post("/approve/changerequest", { id: id, status_comment: getStatusComment(id,"change"), status: status }, function (result) {
+            $.post("/approve/changerequest", { id: id, status_comment: getStatusComment(id, "change"), status: status }, function (result) {
                 location.reload();
             });
         };

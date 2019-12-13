@@ -55,7 +55,7 @@ async function  getDayOffRequests() {
     isDateCreatedLessThenAWeek(dayoffRequests);
     dayoffRequests.sort((a) => (a.week_left) ? -1 : 1).sort((a, b) => (a.creation_date < b.creation_date) ? -1 : 1).sort((a) => (a.status == EVALUATING_STATUS_CODE) ? -1 : 1)
     changeDateToString(dayoffRequests);
-    console.log(dayoffRequests)
+    //console.log(dayoffRequests)
     return dayoffRequests;
 };
 
@@ -77,6 +77,24 @@ async function getChangeRequests() {
             "creation_datetime": "12-04-2019 12:19:38",
             "timetable_item": { "id": 1, "date": "20-04-2019", "time": "13:00 - 21:00" },
             "status": "Goedgekeurd",
+            "status_comment": ""
+        },
+        {
+            "id": "31",
+            "requesting_user": { "id": 2, "fullname": "Elon Musk" },
+            "replaced_by": { "id": 1, "fullname": "Gerard Ramsea" },
+            "creation_datetime": "12-04-2019 12:19:38",
+            "timetable_item": { "id": 1, "date": "20-04-2019", "time": "13:00 - 21:00" },
+            "status": "In afwachting",
+            "status_comment": ""
+        },
+        {
+            "id": 4,
+            "requesting_user": { "id": 2, "fullname": "Elon Musk" },
+            "replaced_by": { "id": 1, "fullname": "Gerard Ramsea" },
+            "creation_datetime": "12-04-2019 12:19:38",
+            "timetable_item": { "id": 1, "date": "20-04-2019", "time": "13:00 - 21:00" },
+            "status": "In afwachting",
             "status_comment": ""
         }
     ]
