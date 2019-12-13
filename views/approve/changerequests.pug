@@ -20,20 +20,14 @@
                 
                     tbody
                         if(dayoffRequests !== [])
-                            each request in dayoffRequests  
-                                - week_left = request.week_left && request.status == "In afwachting"?"table-danger":""
-                                - popovercontent = "<p>Uur loon:  &euro;" + request.salary 
-                                - popovercontent += "<p>Contract uren: " + request.contract_hours 
-                                - popovercontent += "<p>Email: " + request.email 
-                                - popovercontent += "<p>Telefoon: " + request.phone_number  
+                            each request in changeRequests   
                                                 
-                                    tr(class=""+week_left) 
-                                            th(scope="col" )  #{request.creation_date}
-                                            th(scope="col" )    
-                                                a( role="button" data-toggle="popover" data-trigger="hover" data-placement="right"  title=""+request.firstname+" "+request.middlename+" "+request.lastname  data-html='true' data-content=popovercontent data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header popover-header-primary"></h3><div class="popover-body"></div></div>') #{request.firstname} #{request.middlename} #{request.lastname}
-                                            th(scope="col" )  #{request.from}
-                                            th(scope="col" )  #{request.till}
-                                            th(scope="col" )  #{request.reason}
+                                    tr(class=""+week_left id="change-request-"+request.id) 
+                                            th(scope="col" )  #{request.creation_datetime}
+                                            th(scope="col" )  #{request.requesting_user.fullname}
+                                            th(scope="col" )  #{request.timetable_item.date}
+                                            th(scope="col" )  #{request.timetable_item.time} 
+                                            th(scope="col" )  #{request.replaced_by.fullname}
                                             th(scope="col" )  #{request.status}
                                             th(scope="col" ) 
                                                 if request.status == "In afwachting"

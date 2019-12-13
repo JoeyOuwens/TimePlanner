@@ -9,7 +9,8 @@ var EVALUATING_STATUS_CODE = "In afwachting"
 router.get('/', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
         var dayoffRequests = await getDayOffRequests();
-        res.render('approve', { title: 'Goedkeuren', dayoffRequests:dayoffRequests, page: 'all'});
+        var changeRequests = await getChangeRequests();
+        res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests, changeRequests: changeRequests, page: 'all'});
     } else {
 
         res.redirect('/dashboard');
@@ -28,8 +29,8 @@ router.get('/dayoffrequests/', async function (req, res) {
 
 router.get('/changeRequests/', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
-        var dayoffRequests = await getDayOffRequests();
-        res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests, page: 'changeRequests' });
+        var changeRequests = await getChangeRequests();
+        res.render('approve', { title: 'Goedkeuren', changeRequests: changeRequests, page: 'changeRequests' });
     } else {
         res.redirect('/dashboard');
     }
@@ -57,6 +58,31 @@ async function  getDayOffRequests() {
     console.log(dayoffRequests)
     return dayoffRequests;
 };
+
+async function getChangeRequests() {
+    var changeRequests = [
+        {
+            "id": "1",
+            "requesting_user": { "id": 2, "fullname": "Elon Musk"},
+            "replaced_by": { "id": 1, "fullname": "Gerard Ramsea" },
+            "creation_datetime": "12-12-2019 10:04:41",
+            "timetable_item": { "id": 0, "date": "13-12-2019", "time": "12:00 - 19:00" },
+            "status": "In afwachting",
+            "status_comment": ""
+        },
+        {
+            "id": "2",
+            "requesting_user": { "id": 2, "fullname": "Elon Musk" },
+            "replaced_by": { "id": 1, "fullname": "Gerard Ramsea" },
+            "creation_datetime": "12-04-2019 12:19:38",
+            "timetable_item": { "id": 1, "date": "20-04-2019", "time": "13:00 - 21:00" },
+            "status": "Goedgekeurd",
+            "status_comment": ""
+        }
+    ]
+    
+    return changeRequests;
+}
 
 function isUserOwnerOrManager(role) {
     if (role == "OWNER" || role == "MANAGER") {
