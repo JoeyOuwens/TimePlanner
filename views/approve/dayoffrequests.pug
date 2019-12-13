@@ -14,7 +14,7 @@
                             th(scope="col") Tot
                             th(scope="col") Reden
                             th(scope="col") Status
-                            th(scope="col") Comentaar
+                            th(scope="col") Commentaar
                             th(scope="col")  
                             th(scope="col")  
                 
@@ -34,7 +34,14 @@
                                             th(scope="col" )  #{request.from}
                                             th(scope="col" )  #{request.till}
                                             th(scope="col" )  #{request.reason}
-                                            th(scope="col" )  #{request.status}
+                                            th(scope="col" )  
+                                                case request.status
+                                                        when "In afwachting" 
+                                                            p(class="text-dark") #{request.status}
+                                                        when "Goedgekeurd" 
+                                                            p(class="text-success") #{request.status}
+                                                        when "Afgekeurd" 
+                                                            p(class="text-danger") #{request.status}
                                             th(scope="col" ) 
                                                 if request.status == "In afwachting"
                                                     input(class="form-control " id="status-comment-dayoff-"+request.id)

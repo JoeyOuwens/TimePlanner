@@ -23,7 +23,7 @@ block content
                                         th(scope="col") Tot
                                         th(scope="col") Reden
                                         th(scope="col") Status
-                                        th(scope="col") Comentaar
+                                        th(scope="col") Commentaar
                 
                                 tbody
                                     if(dayoffRequests !== [])
@@ -33,8 +33,15 @@ block content
                                                 th(scope="col" style=activeStyle)  #{request.from}
                                                 th(scope="col" style=activeStyle)  #{request.till}
                                                 th(scope="col" style=activeStyle)  #{request.reason}
-                                                th(scope="col" style=activeStyle)  #{request.status}
-                                                th(scope="col" style=activeStyle)  #{request.status_comment} 
+                                                th(scope="col" style=activeStyle)  
+                                                    case request.status
+                                                        when "In afwachting" 
+                                                            p(class="text-warning") #{request.status}
+                                                        when "Goedgekeurd" 
+                                                            p(class="text-success") #{request.status}
+                                                        when "Afgekeurd" 
+                                                            p(class="text-danger") #{request.status}
+                                                    th(scope="col" style=activeStyle)  #{request.status_comment} 
                                         else
                                             tr
                                                 th(scope="col" colspan="10" style=activeStyle) Geen aanvragen bekend
