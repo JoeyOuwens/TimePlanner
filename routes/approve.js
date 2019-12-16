@@ -18,6 +18,7 @@ router.get('/', async function (req, res) {
 
 }); 
 
+
 router.get('/dayoffrequests/', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
         var dayoffRequests = await getDayOffRequests();

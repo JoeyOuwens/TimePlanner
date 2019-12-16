@@ -71,7 +71,7 @@ block content
                     changeTrToLoading(this.id);
                 });  
 
-            function handleRequest(id,type) {
+                function handleRequest(id,type) {
                     $.post("/usermanagement/user/"+type+"/", { id: id}, function (result) {
                         location.reload();
                     });
