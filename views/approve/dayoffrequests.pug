@@ -25,7 +25,8 @@
                                 - popovercontent = "<p>Uur loon:  &euro;" + request.salary 
                                 - popovercontent += "<p>Contract uren: " + request.contract_hours 
                                 - popovercontent += "<p>Email: " + request.email 
-                                - popovercontent += "<p>Telefoon: " + request.phone_number  
+                                - popovercontent += "<p>Telefoon: " + request.phone_number   
+
                                                 
                                     tr(class=""+week_left id="dayoff-request-"+request.id) 
                                             th(scope="col" )  #{request.creation_date}
@@ -43,15 +44,21 @@
                                                         when "Afgekeurd" 
                                                             p(class="text-danger") #{request.status}
                                             th(scope="col" ) 
-                                                if request.status == "In afwachting"
+                                                if request.status == "In afwachting" && !(userInfo.id == request.userId) && !(userInfo.role == request.role) && !(userInfo.role == "MANAGER" && request.role == "OWNER") 
                                                     input(class="form-control " id="status-comment-dayoff-"+request.id)
                                                 else
                                                     p #{request.status_comment}
-                                            if request.status == "In afwachting" 
-                                                th(scope="col" )
-                                                        button(class="btn btn-success btn-sm accept-dayoff-request-btn" id=""+request.id) Goedkeuren
-                                                th(scope="col" ) 
-                                                        button( class="btn btn-danger btn-sm deny-dayoff-request-btn" id=""+request.id) Afkeuren
+                                            if request.status == "In afwachting"
+                                                if userInfo.id == request.userId || userInfo.role == request.role || (userInfo.role == "MANAGER" && request.role == "OWNER")
+                                                    th(scope="col" )
+                                                            button(class="btn btn-success btn-sm accept-dayoff-request-btn" disabled ) Goedkeuren
+                                                    th(scope="col" ) 
+                                                            button( class="btn btn-danger btn-sm deny-dayoff-request-btn" disabled ) Afkeuren
+                                                else
+                                                    th(scope="col" )
+                                                            button(class="btn btn-success btn-sm accept-dayoff-request-btn" id=""+request.id) Goedkeuren
+                                                    th(scope="col" ) 
+                                                            button( class="btn btn-danger btn-sm deny-dayoff-request-btn" id=""+request.id) Afkeuren
                                             else
                                                 th(scope="col")  
                                                 th(scope="col")  

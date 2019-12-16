@@ -6,18 +6,18 @@ var validation = require('../../classes/validation')
 
 
 /* GET page. */
-router.get('/delete/:id',  async function (req, res) {
+router.post('/deactivate/',  async function (req, res) {
     if (req.session.user.role == 'OWNER' || req.session.user.role == 'MANAGER') { 
-        if (await allowedToChange(req.session.user, req.params.id)){
-            userDBHandler.deactivateUserById(req.params.id);
+        if (await allowedToChange(req.session.user, req.body.id)){
+            userDBHandler.deactivateUserById(req.body.id);
         }
     }
     res.redirect('/usermanagement/list');
 
 });
-router.get('/activate/:id', async function (req, res) {
-    if (await allowedToChange(req.session.user, req.params.id)) {
-        userDBHandler.activateUserById(req.params.id);
+router.post('/activate/', async function (req, res) {
+    if (await allowedToChange(req.session.user, req.body.id)) {
+        userDBHandler.activateUserById(req.body.id);
     }
     res.redirect('/usermanagement/list');
 
