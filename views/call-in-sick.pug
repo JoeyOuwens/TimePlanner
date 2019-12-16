@@ -11,8 +11,13 @@ block content
         p Je hebt je voor vandaag al ziekgemeld.
     else
         div(class="info")
-            p Druk op de knop om jezelf ziek te melden voor vandaag - #{dateOfToday}.
-            button(type="button" style="btn btn-primary" id="callInSickBtn") Ziekmelden
+            p Druk op de knop om jezelf ziek te melden voor vandaag - #{dateOfToday}. 
+            
+            div(class="input-group mb-3") 
+                input( type="text" class="form-control" id="CallInSickReason" placeholder="Reden" aria-label="Reden" aria-describedby="callInSickBtn")
+                div(class="input-group-append")
+                    button(class="btn btn-outline-primary" type="button" id="callInSickBtn") Ziekmelden  
+
 
     script.
         document.onreadystatechange = function () {
@@ -22,8 +27,14 @@ block content
                     $('.info').html('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Laden...</span></div></div>');
                 });
                 
+                function getFromInput(){
+                    $('#CallInSickReason').bind('click', function(e) {
+                        return $(this).val();
+                    });
+                }
+
                 function callInSick(){
-                    $.post("/call-in-sick", {callInSick: true}, function(result){
+                    $.post("/call-in-sick", {callInSick: true,reason: getFromInput() }, function(result){
                           location.reload(); 
                         });
 

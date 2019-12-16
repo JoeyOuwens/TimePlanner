@@ -12,11 +12,11 @@ class SickDay extends Model {
         const User = require('./User'); 
 
         return {
-            users: {
+            user: {
                 relation: Model.BelongsToOneRelation, 
                 modelClass: User,
                 join: {
-                    from: 'sick_days.userId',
+                    from: 'sick_days.user_id',
                     to: 'users.id'
                 }
             }

@@ -4,9 +4,10 @@ exports.up = function (knex) {
         if (!exists) {
             return knex.schema.createTable('sick_days', t => {
                 t.increments('id');
-                t.integer('userId').unsigned().index().references('id').inTable('users');
+                t.integer('user_id').unsigned().index().references('id').inTable('users');
                 t.date('date'); 
-                t.unique(['userId', 'date']);   
+                t.string('reason'); 
+                t.unique(['user_id', 'date']);   
                  
             }); 
         }

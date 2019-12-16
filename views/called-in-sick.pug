@@ -9,9 +9,9 @@ block content
                             th(class="col-xs-1" scope="col") Medewerker 
                             th(class="col-xs-1" scope="col") Datum 
                     tbody
-                        each info in sickdays 
-                            tr 
-                                - date = new Date(info.date).toLocaleString()
-                                td #{info.firstname} #{info.middlename} #{info.lastname} 
-                                td #{date}
-                                  
+                        if(sickdays.length > 0)
+                            each info in sickdays 
+                                tr 
+                                    - date = new Date(info.date).toLocaleString()
+                                    td #{info.user.getFullName()}
+                                    td #{date} 

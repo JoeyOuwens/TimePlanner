@@ -12,11 +12,11 @@ router.get('/', async function (req, res) {
 
 
     var alreadyCalledInSick = false;
-
+    console.log(req.session.user)
     var sickday = await getTodaysSickDayByUserId(req.session.user.id);
+    console.log(sickday)
     if (sickday.length > 0) {
         alreadyCalledInSick = true;
-
 
     } 
 
@@ -28,9 +28,12 @@ router.get('/', async function (req, res) {
 router.post('/', async function (req, res) {
     console.log(req.body)
     if (req.body.callInSick) { 
+         
+        var today = await getTodaysSickDayByUserId(req.session.user.id); 
 
-        if (await getTodaysSickDayByUserId(req.session.user.id).length == 0) {  
+        if (today.length == 0) {  
             callInSick(req.session.user.id);
+             
         }
     }
     res.render('call-in-sick', { title: 'Ziek melden' });
@@ -38,7 +41,9 @@ router.post('/', async function (req, res) {
 
 
 router.get('/list', async function (req, res) { 
-    res.render('called-in-sick', { title: 'Ziek meldingen', sickdays: await getAllSickDays() });
+    var sickdays = await getAllSickDays()
+    console.log(sickdays)
+    res.render('called-in-sick', { title: 'Ziek meldingen', sickdays:  sickdays });
 
 });
 
@@ -56,15 +61,13 @@ function getDateOfToday() {
 
 async function callInSick(userId) {  
     await Sickday.query().insert({
-        userId: userId,
+        user_id: userId,
         date: getDateOfToday()
     });
 }
 
-async function getAllSickDays() {
-    const sickdays = await Sickday.query().select('sick_days.*', 'users.firstname as firstname', 'users.middlename as middlename', 'users.lastname as lastname')
-        .join('users', 'users.id', 'sick_days.userId')
-        .orderBy('date', 'DESC');
+async function getAllSickDays() { 
+    const sickdays = await Sickday.query().eager('user').orderBy('date', 'DESC');
     return sickdays;
 
 }
@@ -73,7 +76,7 @@ async function getTodaysSickDayByUserId(userId) {
 
     const sickday = await Sickday.query()
         .select('id', 'date')
-        .where('userId', userId)
+        .where('user_id', userId)
         .where('date', getDateOfToday());
 
     return sickday;
