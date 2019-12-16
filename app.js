@@ -45,8 +45,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 } }));
-app.use(function (req, res, next) {
-    res.locals.userInfo = req.session.user;
+app.use(async function (req, res, next) {
+    var User = require('./models/user');
+    if (req.session.user !== undefined)
+        res.locals.userInfo = await User.query().findById(req.session.user.id);
     next();
 });
 

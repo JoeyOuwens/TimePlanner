@@ -1,10 +1,10 @@
 /* Safe up */
 exports.up = function (knex) {
-    knex.schema.hasTable('dayoffrequests').then(function (exists) {
+    knex.schema.hasTable('day_off_requests').then(function (exists) {
         if (!exists) {
-            return knex.schema.createTable('dayoffrequests', t => {
+            return knex.schema.createTable('day_off_requests', t => {
                 t.increments('id'); 
-                t.integer('userId').unsigned().index().references('id').inTable('users');
+                t.integer('user_id').unsigned().index().references('id').inTable('users');
                 t.date('creation_date'); 
                 t.date('from'); 
                 t.date('till'); 
@@ -18,9 +18,9 @@ exports.up = function (knex) {
 
 /* Safe down */
 exports.down = function (knex) {
-    knex.schema.hasTable('dayoffrequests').then(function (exists) {
+    knex.schema.hasTable('day_off_requests').then(function (exists) {
         if (exists) {
-            return knex.schema.dropTable('dayoffrequests');
+            return knex.schema.dropTable('day_off_requests');
         }
     });
 };
