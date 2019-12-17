@@ -9,7 +9,6 @@ class User extends Model {
     }
 
     getFullName() {
-        console.log(this.middlename);
         if (this.middlename !== undefined && this.middlename.replace(/\s+/g, '') !== '')
             return this.firstname + ' ' + this.middlename + ' ' + this.lastname;
         else
@@ -28,6 +27,13 @@ class User extends Model {
         return false;
     }
 
+    // TODO: Check if hashed password is the same as hashed&stored password. 
+    isPassword(password) {
+        if (this.password === password)
+            return true;
+        return false;
+    }
+
     async activate() {
         this.active = true;
         return (await this.$query().patchAndFetch()).active;
@@ -36,6 +42,12 @@ class User extends Model {
     async deactivate() {
         this.active = false;
         return (await this.$query().patchAndFetch()).active;
+    }
+
+    // TODO: Add hashing to password. 
+    async changePassword(password) {
+        this.password = password;
+        return await this.$query().patchAndFetch();
     }
 }
 

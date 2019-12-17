@@ -52,4 +52,9 @@ describe('Check user', () => {
         expect(await user.activate()).toBe(1);
     });
 
+    it('Check if password check works for users', async () => {
+        const user = await User.query().first();
+        expect(user.isPassword(user.password)).toBe(true);
+        expect(user.isPassword('NotAValidPassWoRd!' + user.password)).toBe(false);
+    });
 });

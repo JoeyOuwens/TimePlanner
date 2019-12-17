@@ -22,9 +22,28 @@ class Token extends Model {
         };
     }
 
-    generateToken() {
+    static generateToken() {
         this.token_serial = crypto.randomBytes(15).toString('hex');
         return this.token_serial;
+    }
+
+    async useToken() {
+        this.used = true;
+        return this.$query().patch()
+            .then(function () {
+                return true;
+            })
+            .catch(function (e) {
+                console.log(e);
+                return false;
+            });
+    }
+
+    isTokenExpired() {
+        var today = new Date();
+        if (today.getTime() > this.valid_until) 
+            return true;
+        return false;
     }
 }
 

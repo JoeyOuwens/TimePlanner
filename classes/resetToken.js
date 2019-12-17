@@ -1,110 +1,62 @@
-var crypto = require("crypto");
-var userDBHandler = require('../classes/userDBHandler')
-var resetTokenDBHandler = require('../classes/resetTokenDBHandler')
-var emailHandler = require('../classes/emailHandler')
-module.exports = {
+var User = require('../models/user');
+var Token = require('../models/token');
+var emailHandler = require('../classes/emailHandler');
 
+module.exports = {
     generateFor: async function (email) {
-        if (await accountExists(email)) {
-            handleTokenGeneration(email);
+        email = email.toLowerCase();
+        var userExists = await User.query().where({ email: email.toLowerCase() }).first();
+        if (userExists !== undefined) {
+            handleTokenGeneration(userExists);
         } else {
-            handleAccountDoesntExist(email)
+            handleAccountDoesntExist(email);
         }
 
     },
 
     exists: async function (tokenSerial) {
-        return await tokenExists(tokenSerial)
-             
+        var token = await Token.query().where({ token_serial: tokenSerial }).first();
+       if (token !== undefined && !token.isTokenExpired()) {
+            return true;
+        } else {
+            return false;
+        }             
     },
 
     passwordReset: async function (tokenSerial, password) {
-        await handlePasswordReset(tokenSerial, password)
-        console.log(await userDBHandler.getAllUsers())
+        const tkn = await Token.query().where({ token_serial: tokenSerial }).first().eager('user');
+        tkn.user.changePassword(password);
     }
 
 };
 
-
-async function tokenExists(tokenSerial) {
-    var token = await resetTokenDBHandler.getTokenByTokenSerial(tokenSerial);
-    if (isValidToken(token)) {
-        return true
-    } else {
-        return false
-    }
-}
-
-
-function isValidToken(token) {
-    if (token.length == 1 && token[0].used == false && !isTokenExpired(token[0].validUntil)) {
-        return true
-    } else {
-        return false
-    }
-}
-
-function isTokenExpired(dateTime) {
-    var today = new Date()
-    if (today > dateTime) {
-        return true
-    } else {
-        return false
-    }
-}
-
-async function handlePasswordReset(tokenSerial, password) {
-    if (await tokenExists(tokenSerial)) {
-        var userId = await getUserIdFromToken(tokenSerial)
-        useToken(tokenSerial)
-        return userDBHandler.updateUserPasswordById(userId,password)
-    }
-}
-
-async function getUserIdFromToken(tokenSerial) {
-    var user = await resetTokenDBHandler.getUserIdByTokenSerial(tokenSerial)
-    return user[0].userId
-}
-
-function useToken(tokenSerial) {
-    resetTokenDBHandler.useToken(tokenSerial);
-}
-
 function handleAccountDoesntExist(email) {
-    emailHandler.sendNoAccountFoundEmail(email)
+    emailHandler.sendNoAccountFoundEmail(email);
 }
 
-async function handleTokenGeneration(email) {
-    var tokenSerial = generateTokenSerial();
-    var user = await userDBHandler.getUserIdByEmail(email)
-    if (user != []) {
-        var userId = user[0].id
-        if (await insertTokenIntoDB(tokenSerial, userId)) {
-            emailHandler.sendResetPasswordEmail(email, tokenSerial)
-        }
-        resetTokenDBHandler.consoleLogTokens();
+async function handleTokenGeneration(user) {
+    var tokenSerial = Token.generateToken();
+    if (await insertTokenIntoDB(tokenSerial, user.id)) {
+        emailHandler.sendResetPasswordEmail(user.email, tokenSerial);
     }
-}
 
-
-function generateTokenSerial() {
-    return crypto.randomBytes(15).toString('hex');
-
+    //console.log(await Token.query().select());
+    
 }
 
 async function insertTokenIntoDB(tokenSerial, userId) {
-  return await resetTokenDBHandler.insertToken(tokenSerial, userId);
-}
+    date = new Date();
+    date.setDate(date.getDate() + 1); 
 
-
- 
-
-async function accountExists(email) {
-    var user = await userDBHandler.getUserByEmail(email);
-    if (user.length == 1) {
-        return true
-    } else {
-        return false
-    }
-
+    return await Token.query().insert({
+            user_id: userId,
+            token_serial: tokenSerial,
+            valid_until: date,
+            used: false
+    }).then(function () {
+        return true;
+    }).catch(function (e) {
+        console.log(e);
+        return false;
+    });
 }
