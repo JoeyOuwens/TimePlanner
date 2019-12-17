@@ -42,4 +42,14 @@ describe('Check user', () => {
         return "test";
     });
 
+    it('Deactivate first user', async () => {
+        const user = await User.query().first();
+        expect(await user.deactivate()).toBe(0);
+    });
+
+    it('Activate first user', async () => {
+        const user = await User.query().first();
+        expect(await user.activate()).toBe(1);
+    });
+
 });
