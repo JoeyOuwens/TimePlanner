@@ -40,7 +40,7 @@ block content
             events: !{timeTable},
             eventClick: function(info){ 
                                     $('#modalTitle').html(info.event.title);
-                                    $('#modalBody').html(info.event.description);
+                                    $('#Commentaar').html("Commentaar: "+info.event.extendedProps.timetable_comment);
                                     $('#fullCalModal').modal();
                                     $('#editBtn').val(info.event.extendedProps.timetable_id);}
         });
@@ -55,11 +55,12 @@ block content
         .modal-dialog
             .modal-content
                 .modal-header
+                    h4#modalTitle.modal-title
                     button.close(type='button' data-dismiss='modal')
                         span(aria-hidden='true') &times;
                         span.sr-only close
-                    h4#modalTitle.modal-title
-                #modalBody.modal-body
+                #modalBody.modal-body   
+                    p(id="Commentaar")
                     .modal-footer
                         button.btn.btn-default(type='button' data-dismiss='modal') Close
                         button.btn.btn-primary(type='button' id="editBtn") Bewerken
