@@ -5,7 +5,7 @@
     "scripts": {
         "start": "set PORT=1337&& node app",
         "dev": "set PORT=1337&& nodemon app.js",
-        "test": "knex migrate:latest --env test && knex seed:run --env test && jest --verbose"
+        "test": "knex migrate:latest --env test && knex seed:run --env test && jest --verbose true && del /f test.sqlite3"
     },
   "description": "TimePlanner",
   "author": {

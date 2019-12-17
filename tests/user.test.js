@@ -3,9 +3,8 @@ const knex = require('../db/knex');
 const User = require('../models/User');
 
 describe('Check user', () => {
-    it('Create a new user.', async () => {
-        await knex('users').insert([
-            {
+    it('Check if user gets created', async () => {
+        await User.query().insert({
                 firstname: "Albert",
                 lastname: "Hoefnagel",
                 password: "MySecretPassWord",
@@ -19,25 +18,18 @@ describe('Check user', () => {
                 phone_number: "010-1234567",
                 function: "Vaatwasser",
                 role: "gebruiker"
-                
-            }
-        ]);
+            });
 
-        //await knex('users').count('id as CNT').then(function (total) {
-        //    console.log(total[0].CNT);
-        //});
-
-
-        const total = await knex('users').where({ email: "09619@hr.nl" }).count('id as CNT');
+        const total = await User.query().where({ email: "09619@hr.nl" }).count('id as CNT');
 
         expect(total[0].CNT).toBe(1);
     });
 
-    it('edit user email of first user.', async () => {
+    it('Edit typo in users emailaddress.', async () => {
 
-        await knex('users').where({ email: "09619@hr.nl" }).update({ email: "0961988@hr.nl"});
+        await User.query().where({ email: "09619@hr.nl" }).update({ email: "0961988@hr.nl"});
 
-        const user = await knex('users').where({ email: "0961988@hr.nl" }).first();
+        const user = await User.query().where({ email: "0961988@hr.nl" }).first();
 
         expect(user.email).toBe("0961988@hr.nl");
 

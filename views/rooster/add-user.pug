@@ -11,10 +11,10 @@ block content
         div(class="input-group")
             label Gebruiker
                 
-                select(class="form-control" name="user" disabled= editing !== undefined ? true : false)
+                select(class="form-control" name="user_id" disabled= editing !== undefined ? true : false)
 
                     each list_user in user_list
-                        if user !== undefined && list_user.id === user.user
+                        if user !== undefined && list_user.id === user.user_id
                             option(value=list_user.id selected) #{list_user.firstname} #{list_user.lastname}
                         else
                             option(value=list_user.id) #{list_user.firstname} #{list_user.lastname}

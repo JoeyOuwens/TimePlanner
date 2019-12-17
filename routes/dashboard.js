@@ -1,7 +1,9 @@
 'use strict';
 var express = require('express');
-var knexjs = require('../db/knex');
 var router = express.Router();
+
+const { User } = require('../models/user');
+const TimeTableItems = require('../models/timetable_item');
 
 
 /* GET upcomming work scedule for the user, along with other important functionalities. */
@@ -28,10 +30,10 @@ async function get_scedule_for_user(userid) {
     end_date.setDate(end_date.getDate() + 8);
     end_date.setHours(0, 0, 0, 0);
     /* Get the upcomming 7 days that the user is sceduled to work and add new values to the user model that contain their start and end hours/minutes and add it to the items variable */
-    let items = await knexjs.select().from('timetable_items')
-        .where('user', userid)
-        .andWhere('begin_date', '>=', begin_date.toISOString().replace('T', ' ').replace('Z', ''))
-        .andWhere('end_date', '<=', end_date.toISOString().replace('T', ' ').replace('Z', '')).then((values) => {
+    let items = await TimeTableItems.query()
+        .where('user_id', userid)
+        .where('begin_date', '>=', begin_date.toISOString().replace('T', ' ').replace('Z', ''))
+        .where('end_date', '<=', end_date.toISOString().replace('T', ' ').replace('Z', '')).then((values) => {
             values.forEach((item, index, array) => {
                 item.begin_time = new Date(item.begin_date).toTimeString().split(' ')[0].split(/(.+):/)[1];
                 item.end_time = new Date(item.end_date).toTimeString().split(' ')[0].split(/(.+):/)[1];

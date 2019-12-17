@@ -15,7 +15,7 @@ block content
                                 label(for="filebrowser") Wijzig profielfoto
                                 input(name="ProfileImage" style="display: none;" id="filebrowser" type="file" class="custom-file-input"  onchange="this.form.submit()")                        
             div( class="profile-usertitle")
-                div( class="profile-usertitle-name") #{userInfo.firstname} #{userInfo.lastname}
+                div( class="profile-usertitle-name") #{userInfo.getFullName()}
                 div( class="profile-usertitle-job") 
                     case userInfo.role 
                         when "MANAGER"

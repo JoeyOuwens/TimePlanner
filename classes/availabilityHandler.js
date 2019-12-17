@@ -63,7 +63,7 @@ async function handleAvailabilityUpdate(req) {
 
 async function updateAvailability(userId, info) {
     return knex('availability')
-        .where({ userId: userId })
+        .where({ user_id: userId })
         .update({
             monday: info.monday,
             tuesday: info.tuesday,
@@ -86,7 +86,7 @@ async function updateAvailability(userId, info) {
 async function getAvailability(userId) {
     var row = await knex.select("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
         .from("availability")
-        .where("userId", userId)
+        .where("user_id", userId)
         .then(function (data) {
 
             return data
@@ -99,7 +99,7 @@ async function getAvailability(userId) {
 async function getAllAvailabilities() {
     var row = await knex.select("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "users.firstname", "users.middlename","users.lastname")
         .from("availability")  
-        .join('users', { 'userId': 'users.id' })
+        .join('users', { 'user_id': 'users.id' })
         .then(function (data) { 
             return data
         }).catch(function (e) {
@@ -123,7 +123,7 @@ async function rowExists(userId, day) {
 async function insertAvailability(userId, info) {
     return await knex('availability').insert([
         {
-            userId: userId,
+            user_id: userId,
             monday: info.monday,
             tuesday: info.tuesday,
             wednesday: info.wednesday,

@@ -23,7 +23,7 @@ class Add {
 
         await knex('timetable_items').insert([
             {
-                user: req.body.user,
+                user_id: req.body.user_id,
                 begin_date: req.body.begin_date,
                 end_date: req.body.end_date,
                 comment: req.body.comment
