@@ -7,11 +7,10 @@ module.exports = {
         email = email.toLowerCase();
         var userExists = await User.query().where({ email: email.toLowerCase() }).first();
         if (userExists !== undefined) {
-            handleTokenGeneration(userExists);
+            await handleTokenGeneration(userExists);
         } else {
-            handleAccountDoesntExist(email);
+            await handleAccountDoesntExist(email);
         }
-
     },
 
     exists: async function (tokenSerial) {
@@ -37,11 +36,9 @@ function handleAccountDoesntExist(email) {
 async function handleTokenGeneration(user) {
     var tokenSerial = Token.generateToken();
     if (await insertTokenIntoDB(tokenSerial, user.id)) {
-        emailHandler.sendResetPasswordEmail(user.email, tokenSerial);
+        await emailHandler.sendResetPasswordEmail(user.email, tokenSerial);
     }
-
     //console.log(await Token.query().select());
-    
 }
 
 async function insertTokenIntoDB(tokenSerial, userId) {

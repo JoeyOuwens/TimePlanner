@@ -8,7 +8,7 @@ var availabilityHandler = require('../classes/availabilityHandler');
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
 
-    var availability = await Availability.query().where('user_id', req.session.user.id).first();
+    var availability = await Availability.query().where({ user_id: req.session.user.id }).first();
 
     if (availability === undefined) {
         availability = await Availability.query().insert({
@@ -22,11 +22,9 @@ router.get('/', async function (req, res, next) {
 });
 
 router.post('/', async function (req, res, next) {
-    console.log(req.body)
+    console.log(req.body);
 
-    await availabilityHandler.update(req)
-
-    console.log(Availability.query().findById(req.session.user.id));
+    await availabilityHandler.update(req.session.user.id, req.body);
 
     res.redirect('/availability');
 });

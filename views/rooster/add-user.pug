@@ -55,7 +55,7 @@ block content
                     each item in availability
                         tr  
                             td(colspan="3")
-                                label #{item.firstname} #{item.middlename} #{item.lastname}
+                                label #{item.user.getFullName()}
                             td
                                 label #{item.monday == ""? "Niet": item.monday}
                             td
