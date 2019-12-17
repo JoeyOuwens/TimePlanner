@@ -6,17 +6,20 @@ block content
 
 
 
-
-    if alreadyCalledInSick
-        p Je hebt je voor vandaag al ziekgemeld.
-    else
-        div(class="info")
-            p Druk op de knop om jezelf ziek te melden voor vandaag - #{dateOfToday}. 
-            
-            div(class="input-group mb-3") 
-                input( type="text" class="form-control" id="CallInSickReason" placeholder="Reden" aria-label="Reden" aria-describedby="callInSickBtn")
-                div(class="input-group-append")
-                    button(class="btn btn-outline-primary" type="button" id="callInSickBtn") Ziekmelden  
+    
+    div(class="info")
+        div(class="container")
+            if alreadyCalledInSick
+                p Je hebt je voor vandaag al ziekgemeld.
+            else 
+                p Ziek? Meld je hieronder af voor vandaag- #{dateOfToday}. 
+                div(class="row")
+                    div(class="col") 
+                        div(class="input-group mb-3") 
+                            input( type="text" class="form-control" id="CallInSickReason" placeholder="Reden" aria-label="Reden" aria-describedby="callInSickBtn")
+                            div(class="input-group-append")
+                                button(class="btn btn-outline-primary" type="button" id="callInSickBtn") Ziekmelden  
+                    div(class="col")
 
 
     script.
@@ -28,14 +31,12 @@ block content
                 });
                 
                 function getFromInput(){
-                    $('#CallInSickReason').bind('click', function(e) {
-                        return $(this).val();
-                    });
+                    return $('#CallInSickReason').val();
                 }
 
                 function callInSick(){
                     $.post("/call-in-sick", {callInSick: true,reason: getFromInput() }, function(result){
-                          location.reload(); 
+                          $('.info').html("<p>Verstuurt.</p>");
                         });
 
                 }
