@@ -25,13 +25,17 @@ router.post('/changesettings/', async function (req, res, next) {
     let id = req.body.userid;
 
     delete accountDetails.userid; // deletes value from accountDetails and req.body
-    delete accountDetails.submit; // deletes value from accountDetails and req.body
+    delete accountDetails.submit; // deletes value from accountDetails and req.body 
 
     /* data should be validated before putting into the database */
     var failedFields = fieldValidation(accountDetails);
     if (failedFields.length === 0) {
         await User.query().patchAndFetchById(id, accountDetails).skipUndefined();
         let user = await User.query().where('id', id).first();
+        // Hotfix for default image disapearing when updating.
+        if (user.profile_image == "") {
+            user.profile_image = "images/default_profileimage.jpg";
+        }
         req.session.user = user;
         res.locals.userInfo = user;
         
@@ -79,13 +83,15 @@ router.post('/upload', function (req, res) {
    upload(req, res, (err) => {
        if (err) {
            if (err == "MulterError: File too large") { err = "Foto is te groot! Max 10 MB."} 
-            res.render('profile', {
+           res.render('profile', {
+                title: 'Profiel wijzigen',
                 page: 'changesettings',
                 error: err    
             });
         } else {
             if (req.file == undefined) {
                 res.render('profile', {
+                    title: 'Profiel wijzigen',
                     page: 'changesettings',
                     error: 'Geen foto geselecteerd.'
                 });
@@ -96,16 +102,16 @@ router.post('/upload', function (req, res) {
                             if (err) throw err; 
                             console.log('File deleted!');
                         }); 
+
+                        req.session.user.profile_image = `uploads/${req.file.filename}`
+                        res.locals.userInfo.profile_image = `uploads/${req.file.filename}`
+                        res.redirect('/profile/changesettings');
+
                     }
-                    req.session.user.profile_image = `uploads/${req.file.filename}`
-                    res.locals.userInfo.profile_image  = `uploads/${req.file.filename}`
-                    res.render('profile', {
-                        msg: 'File Uploaded!',
-                        page: 'changesettings'
-                    });
                 }).catch(function (e) {
                     console.log(e)
                     res.render('profile', {
+                        title: 'Profiel wijzigen',
                         error: 'Er ging wat fout,probeer later opnieuw.',
                         page: 'changesettings'
                     });
@@ -126,7 +132,7 @@ router.get('/help/', function (req, res, next) {
 });
 
 
-router.get('/upload/', function (req, res, next) {
+router.get('/upload', function (req, res, next) {
     res.redirect('/profile/changesettings');
 
 });
