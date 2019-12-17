@@ -3,10 +3,10 @@ const knex = require('../db/knex');
 
 Model.knex(knex);
 
-class Token extends Model {
+class DayOffRequest extends Model {
     static get tableName() {
-        return 'sick_days';
+        return 'dayoffrequests';
     }
 }
 
-module.exports = Token;
+module.exports = DayOffRequest;

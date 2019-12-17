@@ -1,0 +1,160 @@
+﻿extends layout
+
+block content
+    if(error !== undefined)
+        each msg in error
+            div(class="alert alert-danger alert-dismissible fade show" role="alert") #{msg}
+                button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                    i(class="fa fa-times") 
+    div(class="card shadow dashboard-timetable")
+                div(class="card-header bg-tertiary" role="button"  data-toggle="collapse" data-target="#collapseRequests"  aria-controls="collapseRequests" aria-expanded="true")
+                    h3 Status van de aanvragen
+                        i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
+                        
+                div(class="collapse show" id="collapseRequests" )
+                    div(class="card-body")
+                        div(class="table-responsive")
+                            table(class="table table-hover table-sm")
+                                thead(class="bg-secondary")
+                                    tr
+                                        th(scope="col") Aanvraag datum
+                                        th(scope="col") Van
+                                        th(scope="col") Tot
+                                        th(scope="col") Reden
+                                        th(scope="col") Status
+                                        th(scope="col") Comentaar
+                
+                                tbody
+                                    if(dayoffRequests !== [])
+                                        each request in dayoffRequests
+                                            tr
+                                                th(scope="col" style=activeStyle)  #{request.creation_date}
+                                                th(scope="col" style=activeStyle)  #{request.from}
+                                                th(scope="col" style=activeStyle)  #{request.till}
+                                                th(scope="col" style=activeStyle)  #{request.reason}
+                                                th(scope="col" style=activeStyle)  #{request.status}
+                                                th(scope="col" style=activeStyle)  #{request.status_comment} 
+                                        else
+                                            tr
+                                                th(scope="col" style=activeStyle) Geen aanvragen bekend
+                                    
+
+
+    br 
+
+    
+    div(class="card shadow dashboard-timetable")
+                div(class="card-header bg-tertiary" role="button"  data-toggle="collapse" data-target="#collapseRequestForm"  aria-controls="collapseRequestForm" aria-expanded="true")
+                    h3 Vrije dagen aanvragen
+                div(class="collapse show" id="collapseRequestForm" )
+                    div(class="card-body ") 
+                        form(method='POST' action='/requestdayoff') 
+                            div( class="form-group row")
+                                div(class="col")
+                                    label(for="from" class="col-form-label") Van                         
+                                    input(type="date" class="form-control" name="from" id="from" placeholder="Van"  value=fieldInput===undefined? "" :fieldInput.from required)
+                                    div(class="invalid-feedback" id="feedback-from") 
+                                div(class="col")
+                                    label(for="till" class=" col-form-label") Tot                         
+                                    input(type="date"  class="form-control"  name="till" onblur=""  id="till" placeholder="Tot" value=fieldInput===undefined? "" :fieldInput.till  Required )
+                                    div(class="invalid-feedback" id="feedback-till") 
+                                div(class="col")
+                                    label(for="reason" class=" col-form-label") Reden                         
+                                    input(type="text" class="form-control"  name="reason" id="reason" placeholder="Reden"   value=fieldInput===undefined? "" :fieldInput.reason ) 
+                            div(class="form-group row float-right")        
+
+                                div(class="col")
+                                    button(type="submit" id="submitBtn"  class=" btn btn-success") Vraag aan
+ 
+    script. 
+        document.onreadystatechange = function () {
+            if (document.readyState === "complete") { 
+            
+                function disableSubmit() {
+                    $('#submitBtn').prop("disabled", true);
+                }
+                function enableSubmit() {
+                    $('#submitBtn').prop("disabled", false);
+                }
+
+                function checkInput(element) {
+                    if($('#'+element).val() !== ""){
+                        if (checkDateFormat(element)) {
+                          
+                            onValidInput(element);
+                            handleBeginDateLowerThanDateOfToday(element)
+                            handleBeginDateGreaterThanEndDate(); 
+                        }
+                        else {
+                            onInvalidInput(element,"Datum ver in de toekomst of foutieve datum formaat alleen dd-mm-yyyy of yyyy-mm-dd");                         
+                        } 
+                    } 
+                }
+
+                function fixDateFormat(element){
+                    var date = $('#'+element).val(); 
+                    if(/^((0|1)\d{1})-((0|1|2)\d{1})-((19|20)\d{2})/.test(date)){
+                        date = date.split("-").reverse().join("-");
+                    } 
+                    return date;
+                }
+
+                function checkDateFormat(element){ 
+                    var date = $('#' + element).val();
+                    //  yyyy-mm-dd & dd-mm-yyyy   max 2099 as year.                
+                    if (/^(([1][9])|([2][0]))[0-9][0-9](\-)([0][0-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1]$)/.test(date) || /^([0-2][0-9]|[3][0-1])(\-)([0][0-9]|[1][0-2])(\-)((19|20)\d{2})/.test(date)){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                function onValidInput(element){
+                    $('#'+element).removeClass("is-invalid");
+                    enableSubmit()
+                }
+                
+                function onInvalidInput(element, message){
+                    document.getElementById("feedback-" + element).innerHTML = message;
+                    $('#'+element).addClass("is-invalid");
+                    disableSubmit();
+                }   
+
+                function handleBeginDateLowerThanDateOfToday(element){
+                    if (element === 'from') { 
+                        dateOfToday = new Date().setHours(0, 0, 0, 0);
+                        givenDate = new Date(fixDateFormat(element)).setHours(0, 0, 0, 0);
+                        if (dateOfToday > givenDate) {
+                            onInvalidInput(element,"Dag mag niet eerder zijn dan vandaag."); 
+                        }
+                    }
+                }
+
+                function handleBeginDateGreaterThanEndDate(){
+                    var beginDate = new Date(fixDateFormat('from')).setHours(0, 0, 0, 0);
+                    var endDate = new Date(fixDateFormat('till')).setHours(0, 0, 0, 0);
+                    var message = "Eind dag mag niet eerder zijn dan begin dag.";
+                    if (beginDate > endDate) {
+                        onInvalidInput('till',message);  
+                    } 
+                    else {
+                        if(document.getElementById("feedback-till").innerHTML == message){
+                            onValidInput('till');
+                        }
+                    }
+                }
+                function onBlur(element){
+                    $("#"+ element).blur(function () {
+                        checkInput('till');
+                        checkInput('from');
+                    });
+                } 
+                
+                checkInput('till');
+                checkInput('from');
+
+                onBlur('till');
+                onBlur('from'); 
+
+            }
+        }

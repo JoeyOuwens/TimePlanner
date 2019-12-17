@@ -3,10 +3,10 @@ const knex = require('../db/knex');
 
 Model.knex(knex);
 
-class Token extends Model {
+class TimeTableItems extends Model {
     static get tableName() {
-        return 'sick_days';
+        return 'timetable_items';
     }
 }
 
-module.exports = Token;
+module.exports = TimeTableItems;

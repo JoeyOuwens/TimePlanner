@@ -2,11 +2,11 @@
   "name": "time-planner",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "start": "set PORT=1337&& node app",
-    "dev": "set PORT=1337&& nodemon app.js",
-    "test": "jest --verbose"
-  },
+    "scripts": {
+        "start": "set PORT=1337&& node app",
+        "dev": "set PORT=1337&& nodemon app.js",
+        "test": "knex migrate:latest --env test && knex seed:run --env test && jest --verbose"
+    },
   "description": "TimePlanner",
   "author": {
     "name": ""

@@ -15,14 +15,15 @@ describe('Check zipcode validation', function () {
 
 describe('Check birthdate validation', function () {
     it('Birthdate tests should pass.', function () {
-        expect(validation.birthdate("1995-10-12")).toBe(true);
-        expect(validation.birthdate("2019-12-31")).toBe(true);
-        expect(validation.birthdate("1890-02-02")).toBe(true); 
+        expect(validation.date("1995-10-12")).toBe(true);
+        expect(validation.date("2019-12-31")).toBe(true);
+        expect(validation.date("1990-02-02")).toBe(true); 
     });
     it('Birthdate tests should fail.', function () {
-        expect(validation.birthdate("1995-13-12")).toBe(false);
-        expect(validation.birthdate("2019-12-32")).toBe(false); 
-        expect(validation.birthdate("x-12-32")).toBe(false); 
+        expect(validation.date("1995-13-12")).toBe(false);
+        expect(validation.date("1895-12-12")).toBe(false);
+        expect(validation.date("2019-12-32")).toBe(false); 
+        expect(validation.date("x-12-32")).toBe(false); 
     });
 });
 

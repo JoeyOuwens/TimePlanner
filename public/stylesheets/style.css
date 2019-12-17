@@ -19,12 +19,19 @@ h1 {
     background-color: #6497b1 !important;
 }
 
-
 .thead-tertiary {
     background-color: #6497b1 !important;
     border-color: #6497b1 !important;
-    border-top: 2px solid  #6497b1de !important;
+    border-top: 2px solid #6497b1de !important;
     border-bottom: 2px solid #6497b1de !important;
+    color: white;
+}
+
+.popover-header {
+    background-color: #03396c !important;
+    border-color: #03396c !important;
+    border-top: 2px solid #03396c !important;
+    border-bottom: 2px solid #03396c !important;
     color: white;
 }
 
