@@ -24,9 +24,10 @@ var usermanagementedit = require('./routes/usermanagement/user');
 var logout = require('./routes/logout');
 var termsofuse = require('./routes/termsofuse');
 var privacypolicy = require('./routes/pivacypolicy');
-var rooster = require('./routes/rooster');
-var availability = require('./routes/availability');
-
+var rooster = require('./routes/rooster'); 
+var availability = require('./routes/availability'); 
+var requestdayoff = require('./routes/requestdayoff');
+var approve = require('./routes/approve');
 
 var app = express();
 
@@ -63,6 +64,8 @@ app.use('/usermanagement/user', sessionChecker, usermanagementedit);
 app.use('/rooster', sessionChecker, rooster);
 app.use('/dashboard', sessionChecker, dashboard);
 app.use('/profile', sessionChecker, profile);
+app.use('/requestdayoff', sessionChecker, requestdayoff);
+app.use('/approve', sessionChecker, approve);
 app.use('/user/resetpassword', sessionChecker, passwordreset);
 app.use('/logout', sessionChecker, logout); 
 app.use('/termsofuse', termsofuse);

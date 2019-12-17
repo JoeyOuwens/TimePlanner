@@ -117,9 +117,9 @@ function isZipcodeFormat(str) {
     return /^\d{4}[a-zA-Z]{2}$/.test(str);
 }
 
-//YYYY-MM-DD
+//YYYY-MM-DD max year 2099
 function isDateFormat(str) {
-    return /^\d{4}(\-)([0][0-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1]$)/.test(str);
+    return /^(([1][9])|([2][0]))[0-9][0-9](\-)([0][0-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1]$)/.test(str);
 }
 
 

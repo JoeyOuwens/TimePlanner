@@ -36,8 +36,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="app.js" />
-    <Content Include="classes\availabilityHandler.js">
+    <Content Include="app.js" /> 
+    <Content Include="classes\availabilityHandler.js"/> 
+    <Content Include="classes\dayoffRequestHandler.js"> 
       <SubType>Code</SubType>
     </Content>
     <Content Include="classes\emailHandler.js" />
@@ -59,11 +60,13 @@
     <Content Include="migrations\20191031184923_token.js" />
     <Content Include="migrations\20191111120618_users.js" />
     <Content Include="migrations\20191112120838_timetable_items.js" />
-    <Content Include="migrations\20191126184845_availability.js" />
+    <Content Include="migrations\20191126184845_availability.js" /> 
+    <Content Include="models\availability.js" />
+    <Content Include="migrations\20191129150530_dayoffrequests.js" />
     <Content Include="models\token.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="models\availability.js" />
+    <Content Include="models\dayoffrequest.js" />
     <Content Include="models\user.js">
       <SubType>Code</SubType>
     </Content>
@@ -101,7 +104,8 @@
     <Content Include="public\stylesheets\style.css">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="routes\contactpageroute.js">
+    <Content Include="routes\contactpageroute.js"/>
+    <Content Include="routes\approve.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\contact.js" />
@@ -110,6 +114,9 @@
     </Content>
     <Content Include="routes\footer.js" />
     <Content Include="routes\index.js" />
+    <Content Include="routes\requestdayoff.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\login.js" />
     <Content Include="routes\logout.js">
       <SubType>Code</SubType>
@@ -135,6 +142,9 @@
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="seeds\01_users.js" />
+    <Content Include="seeds\dayoff.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="settings\mailing.json" />
     <Content Include="tests\add_user.test.js" />
     <Content Include="tests\create-user-validation-unitTest.js">
@@ -142,6 +152,9 @@
       <TestFramework>Jest</TestFramework>
     </Content>
     <Content Include="tests\database.test.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\approve.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\dashboard.pug">
@@ -153,7 +166,8 @@
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
-    <Content Include="views\contactpagae.pug">
+    <Content Include="views\contactpagae.pug"/>
+    <Content Include="views\requestdayoff.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\profile.pug" />
@@ -191,9 +205,6 @@
     <Folder Include="routes\usermanagement\" />
     <Folder Include="seeds\" />
     <Folder Include="settings\" />
-    <Content Include="views\users.pug">
-      <SubType>Code</SubType>
-    </Content>
     <Folder Include="views\profile\" />
     <Folder Include="views\rooster\" />
     <Folder Include="views\usermanagement\" />

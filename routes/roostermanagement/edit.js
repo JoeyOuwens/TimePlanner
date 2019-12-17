@@ -10,9 +10,15 @@ class Edit {
         if (req.session.user.role === 'USER' || user === undefined)
             res.redirect('/rooster/');
 
-        console.log(user);
+        const timetable_items = await knex.select().from('timetable_items');
+        const timetable_users = await knex.select('*').from('timetable_items').leftJoin('users', 'timetable_items.user', 'users.id');
+        let timetable_list = [];
 
-        res.render('rooster/add-user', { title: "Inroostering bewerken", user_list: await userDBHandler.getAllUsers(), availability: await availabilityHandler.retreiveAll(), user: user, userid: req.params.timetable_id, editing: true });
+        for (let i = 0; i < timetable_items.length; i++) {
+            timetable_list.push({ "title": timetable_users[i].firstname + ' ' + timetable_users[i].lastname, "start": timetable_items[i].begin_date, "end": timetable_items[i].end_date });
+        }
+
+        res.render('rooster/add-user', { title: "Inroostering bewerken", user_list: await userDBHandler.getAllUsers(), availability: await availabilityHandler.retreiveAll(), user: user, userid: req.params.timetable_id, editing: true, timeTable: JSON.stringify(timetable_list) });
     }
 
     static async post(req, res) {
