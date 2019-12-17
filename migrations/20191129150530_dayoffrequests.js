@@ -1,5 +1,5 @@
 /* Safe up */
-exports.up = function (knex) {
+exports.up = async function (knex) {
     knex.schema.hasTable('day_off_requests').then(function (exists) {
         if (!exists) {
             return knex.schema.createTable('day_off_requests', t => {
@@ -13,6 +13,9 @@ exports.up = function (knex) {
                 t.string('status_comment'); 
             }); 
         }  
+    })
+    .catch(function (error) {
+        console.error(error);
     });
 };
 

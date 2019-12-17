@@ -1,6 +1,6 @@
 
-exports.up = function(knex) {
-    knex.schema.hasTable('availability').then(function (exists) {
+exports.up = async function(knex) {
+    await knex.schema.hasTable('availability').then(function (exists) {
         if (!exists) {
             return knex.schema.createTable('availability', t => {
                 t.integer('user_id').unsigned().index().references('id').inTable('users');
@@ -17,6 +17,9 @@ exports.up = function(knex) {
 
             });
         }
+    })
+    .catch(function (error) {
+        console.error(error);
     });
 };
 

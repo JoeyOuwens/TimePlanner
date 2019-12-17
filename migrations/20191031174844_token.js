@@ -1,6 +1,6 @@
 /* Safe up */
-exports.up = function (knex) {
-    knex.schema.hasTable('token').then(function (exists) {
+exports.up = async function (knex) {
+    await knex.schema.hasTable('token').then(function (exists) {
         if (!exists) {
             return knex.schema.createTable('token', t => {
                 t.increments('id').primary;
@@ -10,6 +10,9 @@ exports.up = function (knex) {
                 t.boolean('used');
             });
         }
+    })
+    .catch(function (error) {
+        console.error(error);
     });
 };
 
