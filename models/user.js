@@ -15,6 +15,28 @@ class User extends Model {
         else
             return this.firstname + ' ' + this.lastname;
     }
+
+    isManager() {
+        if (this.role === 'MANAGER')
+            return true;
+        return false;
+    }
+
+    isOwner() {
+        if (this.role === 'OWNER')
+            return true;
+        return false;
+    }
+
+    async activate() {
+        this.active = true;
+        return (await this.$query().patchAndFetch()).active;
+    }
+
+    async deactivate() {
+        this.active = false;
+        return (await this.$query().patchAndFetch()).active;
+    }
 }
 
 module.exports = User;
