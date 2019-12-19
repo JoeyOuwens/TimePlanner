@@ -3,28 +3,6 @@ extends layout
 block content
   head
     meta(charset='utf-8')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.css' rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.css' rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.css' rel='stylesheet')
-
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.4/jquery.js')
-
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.4/jquery.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.5/js/bootstrap-modal.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.5/css/bootstrap-modal-bs3patch.css')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.5/css/bootstrap-modal.css')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.5/img/ajax-loader.gif')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.5/js/bootstrap-modal.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.5/js/bootstrap-modalmanager.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.5/js/bootstrap-modalmanager.min.js')
-
-
     script.
         document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -61,6 +39,7 @@ block content
                         span.sr-only close
                 #modalBody.modal-body   
                     p(id="Commentaar")
+                    button.btn.btn-warning(type='button') Vervanging
                     .modal-footer
                         button.btn.btn-default(type='button' data-dismiss='modal') Close
                         button.btn.btn-primary(type='button' id="editBtn") Bewerken
