@@ -57,14 +57,13 @@ block content
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.remove('hidden') }, 60);
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.add('hidden') }, 4000);
 
-
     script.
             document.onreadystatechange = function () {
                 if (document.readyState === "complete") {  
                     $(function () {
-                        var popupElement = '<div id="popover-body-1" class="btn-group btn-toggle"></div>';
+                        var popupElement = '<div class="btn-group btn-toggle"><button class="btn btn-sm btn-info">On</button><button class="btn btn-sm btn-primary active">Off</button></div>';
                        
-                        $('#roosterdiv').popover({
+                        $('#popbutton').popover({
                         animation: true,
                         content: popupElement,
                         html: true
