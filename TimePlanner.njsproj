@@ -54,10 +54,6 @@
     <Content Include="knexfile.js" />
     <Content Include="migrations\20191010105705_users.js" />
     <Content Include="migrations\20191031174844_token.js" />
-    <Content Include="migrations\20191031181138_token.js" />
-    <Content Include="migrations\20191031182050_token.js" />
-    <Content Include="migrations\20191031184830_token.js" />
-    <Content Include="migrations\20191031184923_token.js" />
     <Content Include="migrations\20191111120618_users.js" />
     <Content Include="migrations\20191112120838_timetable_items.js" />
     <Content Include="migrations\20191126184845_availability.js" />

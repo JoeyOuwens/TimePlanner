@@ -10,8 +10,8 @@
                         tr
                             th(scope="col") Aanvraag datum
                             th(scope="col") Aanvrager
-                            th(scope="col") Datum
-                            th(scope="col") Werktijden
+                            th(scope="col") Begin
+                            th(scope="col") Eind
                             th(scope="col") Overgenomen door
                             th(scope="col") Status
                             th(scope="col") Commentaar
@@ -20,27 +20,33 @@
                 
                     tbody
                         if(changeRequests !== [])
-                            each request in changeRequests    
+                            each request in changeRequests
+                                - translatedStatus = ""
+                                case request.status 
+                                    when "AWAITING_APPROVAL" 
+                                        - translatedStatus = "Afwachting"
+                                    when "AWAITING_REPLACEMENT" 
+                                        - translatedStatus = "Niet overgenomen"
+                                    when "APPROVED" 
+                                        - translatedStatus = "Goedgekeurd";
+                                    when "DENIED"
+                                        - translatedStatus = "Afgekeurd";
+                                - date = "" +new Date(request.creation_datetime).getDate() +"-"+new Date(request.creation_datetime).getMonth()+"-"+new Date(request.creation_datetime).getFullYear()
                                 tr(id='change-request-'+request.id ) 
-                                    th(scope="col" )  #{request.creation_datetime}
-                                    th(scope="col" )  #{request.requesting_user.fullname}
-                                    th(scope="col" )  #{request.timetable_item.date}
-                                    th(scope="col" )  #{request.timetable_item.time} 
-                                    th(scope="col" )  #{request.replaced_by.fullname}
+                                    th(scope="col" )  #{date}
+                                    th(scope="col" )  #{request.requestingUser.getFullName()}
+                                    th(scope="col" )  #{request.timeTableItem.begin_date}
+                                    th(scope="col" )  #{request.timeTableItem.end_date} 
                                     th(scope="col" )  
-                                        case request.status
-                                                when "In afwachting" 
-                                                    p(class="text-dark") #{request.status}
-                                                when "Goedgekeurd" 
-                                                    p(class="text-success") #{request.status}
-                                                when "Afgekeurd" 
-                                                    p(class="text-danger") #{request.status}
+                                        if !(request.status == "AWAITING_REPLACEMENT")
+                                             p #{request.replacedByUser.getFullName()}
+                                    th(scope="col" )  #{translatedStatus}
                                     th(scope="col") 
-                                        if request.status == "In afwachting"
+                                        if request.status == "AWAITING_APPROVAL"
                                             input(class="form-control " id="status-comment-change-"+request.id)
                                         else
-                                            p #{request.status_comment}
-                                    if request.status == "In afwachting" 
+                                            p #{request.comment}
+                                    if request.status == "AWAITING_APPROVAL" 
                                         th(scope="col" )
                                                 button(class="btn btn-success btn-sm accept-change-request-btn" id=""+request.id) Goedkeuren
                                         th(scope="col" ) 

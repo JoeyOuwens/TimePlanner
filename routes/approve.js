@@ -2,6 +2,8 @@
 var express = require('express');
 var router = express.Router();
 var dayoffRequestHandler = require('../classes/dayoffRequestHandler')
+const WorkReplacement = require('../models/work_replacement');
+const TimeTableItem = require('../models/timetable_item');
 var validation = require('../classes/validation')
 var EVALUATING_STATUS_CODE = "In afwachting"
 
@@ -9,7 +11,7 @@ var EVALUATING_STATUS_CODE = "In afwachting"
 router.get('/', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
         var dayoffRequests = await getDayOffRequests();
-        var changeRequests = await getChangeRequests();
+        var changeRequests = await getWorkReplacementRequests();
         res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests, changeRequests: changeRequests, page: 'all'});
     } else {
 
@@ -30,8 +32,9 @@ router.get('/dayoffrequests/', async function (req, res) {
 
 router.get('/changeRequests/', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
-        var changeRequests = await getChangeRequests();
-        res.render('approve', { title: 'Goedkeuren', changeRequests: changeRequests, page: 'changeRequests' });
+        var workReplacementRequests = await getWorkReplacementRequests();
+        //console.log(workReplacementRequests)
+        res.render('approve', { title: 'Goedkeuren', changeRequests: workReplacementRequests, page: 'changeRequests' });
     } else {
         res.redirect('/dashboard');
     }
@@ -45,11 +48,26 @@ router.post('/dayoffrequest', async function (req, res) {
 
 router.post('/changerequest', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
-        console.log(req.body);
+        await WorkReplacement.query()
+            .where('id', req.body.id)
+            .update({ status: req.body.status, comment: req.body.status_comment })
+            .then(function () {
+                if (req.body.status == "APPROVED") {
+                    updateTimeTable(req.body)
+                }
+            })
+            .catch(function (e) { console.log(e); });
+        //console.log(req.body);
         res.redirect('/');
     }
 }); 
 
+async function updateTimeTable(info) {
+    const workReplacementRequest = await WorkReplacement.query().select().where('id', info.id).first();
+    console.log(workReplacementRequest);
+    await TimeTableItem.query().where('id', workReplacementRequest.timetable_item).update({user: workReplacementRequest.replaced_by_user});
+
+}
 
 async function  getDayOffRequests() {
     var dayoffRequests = await dayoffRequestHandler.retreiveAll();
@@ -60,47 +78,13 @@ async function  getDayOffRequests() {
     return dayoffRequests;
 };
 
-async function getChangeRequests() {
-    var changeRequests = [
-        {
-            "id": "1",
-            "requesting_user": { "id": 2, "fullname": "Elon Musk"},
-            "replaced_by": { "id": 1, "fullname": "Gerard Ramsea" },
-            "creation_datetime": "12-12-2019 10:04:41",
-            "timetable_item": { "id": 0, "date": "13-12-2019", "time": "12:00 - 19:00" },
-            "status": "In afwachting",
-            "status_comment": ""
-        },
-        {
-            "id": "2",
-            "requesting_user": { "id": 2, "fullname": "Elon Musk" },
-            "replaced_by": { "id": 1, "fullname": "Gerard Ramsea" },
-            "creation_datetime": "12-04-2019 12:19:38",
-            "timetable_item": { "id": 1, "date": "20-04-2019", "time": "13:00 - 21:00" },
-            "status": "Goedgekeurd",
-            "status_comment": ""
-        },
-        {
-            "id": "31",
-            "requesting_user": { "id": 2, "fullname": "Elon Musk" },
-            "replaced_by": { "id": 1, "fullname": "Gerard Ramsea" },
-            "creation_datetime": "12-04-2019 12:19:38",
-            "timetable_item": { "id": 1, "date": "20-04-2019", "time": "13:00 - 21:00" },
-            "status": "In afwachting",
-            "status_comment": ""
-        },
-        {
-            "id": 4,
-            "requesting_user": { "id": 2, "fullname": "Elon Musk" },
-            "replaced_by": { "id": 1, "fullname": "Gerard Ramsea" },
-            "creation_datetime": "12-04-2019 12:19:38",
-            "timetable_item": { "id": 1, "date": "20-04-2019", "time": "13:00 - 21:00" },
-            "status": "In afwachting",
-            "status_comment": ""
-        }
-    ]
-    
-    return changeRequests;
+async function getWorkReplacementRequests() { 
+    const workReplacementRequests = await WorkReplacement.query()
+        .eager('[requestingUser, replacedByUser,timeTableItem]') 
+        .then(function (data) { return data; })
+        .catch(function (e) { console.log(e) }); 
+
+    return workReplacementRequests;
 }
 
 function isUserOwnerOrManager(role) {
@@ -117,7 +101,8 @@ function flipDateFormat(date) {
     return date.split("-").reverse().join("-");
 }
 
- 
+  
+
 
 // Formats:
 //creation_date: dd-mm-yyyy hh:mm:ss
