@@ -31,7 +31,7 @@ module.exports = {
 //DENIED
 
 function changeStatusCodeToDutch(data) {
-    console.log(data);
+    //console.log(data);
     for (const info of data) {
         
         switch (info.status) {

@@ -64,7 +64,7 @@ router.post('/changerequest', async function (req, res) {
 
 async function updateTimeTable(info) {
     const workReplacementRequest = await WorkReplacement.query().select().where('id', info.id).first();
-    console.log(workReplacementRequest);
+    //console.log(workReplacementRequest);
     await TimeTableItem.query().where('id', workReplacementRequest.timetable_item).update({user: workReplacementRequest.replaced_by_user});
 
 }
