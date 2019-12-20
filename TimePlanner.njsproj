@@ -37,6 +37,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="classes\availabilityHandler.js" />
+    <Content Include="classes\dayoffRequestHandler.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="classes\emailHandler.js" />
     <Content Include="classes\resetToken.js" />
     <Content Include="classes\resetTokenDBHandler.js">
@@ -50,11 +54,13 @@
     <Content Include="knexfile.js" />
     <Content Include="migrations\20191010105705_users.js" />
     <Content Include="migrations\20191031174844_token.js" />
-    <Content Include="migrations\20191031181138_token.js" />
-    <Content Include="migrations\20191031182050_token.js" />
-    <Content Include="migrations\20191031184830_token.js" />
-    <Content Include="migrations\20191031184923_token.js" />
     <Content Include="migrations\20191111120618_users.js" />
+    <Content Include="migrations\20191112120838_timetable_items.js" />
+    <Content Include="migrations\20191126184845_availability.js" />
+    <Content Include="migrations\20191212170505_sick_days.js" />
+    <Content Include="models\availability.js" />
+    <Content Include="migrations\20191129150530_dayoffrequests.js" />
+    <Content Include="models\sickday.js" />
     <Content Include="models\token.js">
       <SubType>Code</SubType>
     </Content>
@@ -97,6 +103,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\contactpage.js" />
+    <Content Include="routes\call-in-sick.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\contactpageroute.js" />
     <Content Include="routes\approve.js">
       <SubType>Code</SubType>
@@ -127,8 +136,12 @@
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
-    <Content Include="seeds\01_users.js" />
     <Content Include="seeds\timetable_items.js" />
+    <Content Include="seeds\sick_days.js" />
+    <Content Include="seeds\users.js" />
+    <Content Include="seeds\dayoff.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="settings\mailing.json" />
     <Content Include="tests\add_user.test.js" />
     <Content Include="tests\create-user-validation-unitTest.js">
@@ -136,6 +149,15 @@
       <TestFramework>Jest</TestFramework>
     </Content>
     <Content Include="tests\database.test.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\approve.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\call-in-sick.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\called-in-sick.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\dashboard.pug">

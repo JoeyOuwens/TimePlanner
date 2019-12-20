@@ -23,11 +23,11 @@ header(class="container-fluid bg-primary")
 								else
 									a.dropdown-item(href='/availability') Beschikbaarheid 
 								a.dropdown-item(href='#') Vervanging
-								a.dropdown-item(href='#') Ziek melden
+								a.dropdown-item(href='/call-in-sick') Ziek melden
 								a.dropdown-item(href='/requestdayoff') Vrij vragen
 						if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
 							li.nav-item
-								a.nav-link(href='/') Ziek meldingen
+								a.nav-link(href='/call-in-sick/list') Ziek meldingen
 						if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
 							li.nav-item
 								a.nav-link(href='/approve') Goedkeuren
