@@ -4,9 +4,11 @@ exports.up = function (knex) {
         if (!exists) {
             return knex.schema.createTable('substitute', t => {
                 t.increments('id');
-                t.integer('timetable_id').unsigned().index().references('id').inTable('timetable_items');
-                t.datetime('begin_date');
-                t.datetime('end_date');
+                t.integer('requesting_user').unsigned().index().references('id').inTable('users');
+                t.integer('replaced_by_user').unsigned().index().references('id').inTable('users');
+                t.datetime('creation_datetime');
+                t.integer('timetable_item').unsigned().index().references('id').inTable('timetable_items');
+                t.string('status');
                 t.string('comment');
             });
         }

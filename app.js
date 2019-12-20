@@ -28,7 +28,6 @@ var rooster = require('./routes/rooster');
 var availability = require('./routes/availability'); 
 var requestdayoff = require('./routes/requestdayoff');
 var approve = require('./routes/approve');
-var requestsubstitute = require('./routes/requestsubstitute');
 
 var app = express();
 
@@ -73,7 +72,6 @@ app.use('/termsofuse', termsofuse);
 app.use('/privacypolicy', privacypolicy);
 app.use('/contactpage', contact); 
 app.use('/availability', sessionChecker, availability);
-app.use('/requestsubstitute', sessionChecker, requestsubstitute);
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use((req, res, next) => {

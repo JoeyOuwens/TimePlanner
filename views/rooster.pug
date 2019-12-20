@@ -11,6 +11,12 @@ block content
             window.location = "/rooster/edit-user/"+ this.value;
         });
 
+        $('#substitutebutton').click(function (e){
+            $.post("/rooster/substitute", { id:$(this).val() }, function (result) {
+                location.reload();
+            });
+        });
+
         var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'timeGrid' ],
             defaultView: 'timeGridWeek',
@@ -20,7 +26,9 @@ block content
                                     $('#modalTitle').html(info.event.title);
                                     $('#Commentaar').html("Commentaar: "+info.event.extendedProps.timetable_comment);
                                     $('#fullCalModal').modal();
-                                    $('#editBtn').val(info.event.extendedProps.timetable_id);}
+                                    $('#editBtn').val(info.event.extendedProps.timetable_id);
+                                    $('#substitutebutton').val(info.event.extendedProps.timetable_id);
+                                    }
         });
 
         calendar.render();
@@ -39,7 +47,7 @@ block content
                         span.sr-only close
                 #modalBody.modal-body   
                     p(id="Commentaar")
-                    button.btn.btn-warning(type='button') Vervanging
+                    button.btn.btn-warning(type='button' id='substitutebutton') Vervanging
                     .modal-footer
                         button.btn.btn-default(type='button' data-dismiss='modal') Close
                         button.btn.btn-primary(type='button' id="editBtn") Bewerken
