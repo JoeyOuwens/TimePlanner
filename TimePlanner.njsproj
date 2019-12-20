@@ -64,7 +64,6 @@
     <Content Include="models\token.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="models\dayoffrequest.js" />
     <Content Include="models\user.js">
       <SubType>Code</SubType>
     </Content>
@@ -83,6 +82,7 @@
     <Content Include="node_modules\images\tile310x310.png" />
     <Content Include="node_modules\images\tile70x70.png" />
     <Content Include="node_modules\images\_head.html" />
+    <Content Include="public\javascript\modal.js" />
     <Content Include="public\javascript\sendForm.js" />
     <Content Include="public\javascript\availabilityValidation.js">
       <SubType>Code</SubType>
@@ -102,6 +102,7 @@
     <Content Include="public\stylesheets\style.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\contactpage.js" />
     <Content Include="routes\call-in-sick.js">
       <SubType>Code</SubType>
     </Content>
@@ -115,15 +116,11 @@
     </Content>
     <Content Include="routes\footer.js" />
     <Content Include="routes\index.js" />
-    <Content Include="routes\requestdayoff.js">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="routes\login.js" />
     <Content Include="routes\logout.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\privacypolicy.js" />
-    <Content Include="routes\availability.js" />
     <Content Include="routes\profile.js" />
     <Content Include="routes\reset-password.js">
       <SubType>Code</SubType>
@@ -173,6 +170,9 @@
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
     <Content Include="views\contactpagae.pug" />
+    <Content Include="views\profile\help.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\requestdayoff.pug">
       <SubType>Code</SubType>
     </Content>
@@ -187,10 +187,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\rooster.pug">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="views\rooster\add-user.pug" />
-    <Content Include="views\rooster\availability.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\termsofuse.pug" />
@@ -210,8 +206,10 @@
     <Folder Include="routes\usermanagement\" />
     <Folder Include="seeds\" />
     <Folder Include="settings\" />
+    <Content Include="views\users.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Folder Include="views\profile\" />
-    <Folder Include="views\rooster\" />
     <Folder Include="views\usermanagement\" />
   </ItemGroup>
   <ItemGroup>
