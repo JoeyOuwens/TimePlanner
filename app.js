@@ -47,8 +47,11 @@ app.set('view engine', 'pug');
 app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 } }));
 app.use(async function (req, res, next) {
     var User = require('./models/user');
-    if (req.session.user !== undefined)
+    if (req.session.user !== undefined) {
         res.locals.userInfo = await User.query().findById(req.session.user.id);
+        if (res.locals.userInfo.profile_image == "") { res.locals.userInfo.profile_image  = "images/default_profileimage.jpg" }
+
+    }
     next();
 });
 
