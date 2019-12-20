@@ -4,6 +4,8 @@ var validation = require('../classes/validation');
 var router = express.Router();
 var path = require('path');
 var fs = require('fs');
+var $ = require('jquery');
+
 
 const multer = require('multer');
 const User = require('../models/User');
@@ -121,9 +123,9 @@ router.get('/tasks/', function (req, res, next) {
 });
 
 router.get('/help/', function (req, res, next) {
-    res.render('profile', { title: 'Help',  page: 'help' });
-
+    res.render('profile', { title: 'Help', page: 'help' });
 });
+ 
 
 
 router.get('/upload/', function (req, res, next) {

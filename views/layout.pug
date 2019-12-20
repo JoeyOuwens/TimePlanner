@@ -50,48 +50,4 @@ html
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")
         script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous")
-        script.
-            var page = 1;
-            var minPage = 1
-            var maxPage = 4
-            $("#helpBtn").click(function(){
-                 
-               changeContext() ;
-            }) ;
-             $("#next-btn").click(function(){
-                if(page < maxPage){ 
-                    page++;
-                }
-               changeContext() ;
-            }) ;
-            $("#back-btn").click(function(){
-                if(page > minPage) { 
-                     page--;
-                }
-               changeContext() ;
-            }) ;
-            function changeContext() {
-                switch(page) {
-                    case 1:
-                        $('#bodyText').html("<p>Bovenin  is de navigatie balk. Deze word gebruikt om vrij te vragen, vervanging te regelen, het profiel in te zien, of om de roosters te bekijken.</p> ") ;
-                        break;
-                    case 2:
-                        $('#bodyText').html("<p>Bij het klikken op home kom je op de homepage terecht, hier zie je je rooster voor aankomende week, notificaties, en de nieuwste medewerkers </p> ") ;
-                        break;
-                    case 3:
-                     $("#next-btn").show();
-                       $('#bodyText').html("<p>Tenslotte zie je naast het hint icoon ook en logout icoon, hiermee word je naar het inlogscherm gebracht.</p> ") ;
-                       break;
-                    case 4:
-                        $("#next-btn").hide();
-                         $('#bodyText').html("<p>Vanaf het inlogscherm kan je de Privacy Policy en de Terms of use lezen.Ook kan je hier je wachtwoord resetten en bericht sturen naar de developers</p>");
-                         break; 
-                         
-                    default:
-                        page == 1;
-                        break;
-
-
-                };
-            
-            }
+        script(src="/javascript/modal.js")
