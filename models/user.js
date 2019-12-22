@@ -15,6 +15,13 @@ class User extends Model {
             return this.firstname + ' ' + this.lastname;
     }
 
+    getImage() {
+        if (this.profile_image === '') {
+            return 'images/default_profileimage.jpg';
+        }
+        return this.profile_image;
+    }
+
     isManager() {
         if (this.role === 'MANAGER')
             return true;
@@ -23,6 +30,12 @@ class User extends Model {
 
     isOwner() {
         if (this.role === 'OWNER')
+            return true;
+        return false;
+    }
+
+    isUser() {
+        if (this.role === 'USER')
             return true;
         return false;
     }
