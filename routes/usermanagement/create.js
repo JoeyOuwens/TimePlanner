@@ -25,7 +25,7 @@ router.post('/',async function (req, res) {
         accountDetails.inputRights = "USER";
     }
 
-    accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, ''); 
+    accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, '');
     var failedFields = fieldValidation(accountDetails);
     if (failedFields.length === 0) {
         if (await userDBHandler.insertUser(accountDetails, password)) {
