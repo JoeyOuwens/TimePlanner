@@ -39,7 +39,7 @@ header(class="container-fluid bg-primary")
 				ul.navbar-nav.mr-auto
 					li.nav-item.dropdown
 						a.nav-link.dropdown-toggle(id='profileDropdown', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href="#") 
-							img( src='/'+userInfo.profile_image class="img-responsive profile-img" alt="")
+							img( src='/'+userInfo.getImage() class="img-responsive profile-img" alt="")
 						div#profile-dropdown.dropdown-menu(aria-labelledby='profileDropdown')
 							a.dropdown-item(href='/profile') #{userInfo.firstname}
 							hr
