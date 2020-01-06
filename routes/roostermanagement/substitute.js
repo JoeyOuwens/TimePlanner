@@ -3,7 +3,9 @@ var knex = require('../../db/knex');
 
 class RequestSubstitute {
     static async get(req, res) {
-        res.render('requestsubstitute', { title: "Vervangingslijst" });
+        let data = getSubstituteList();
+        res.render('requestsubstitute', { title: "Vervangingslijst", substituteList : data });
+
     }
     static async post(req, res, next) {
         let id = req.body.id
@@ -25,9 +27,14 @@ class RequestSubstitute {
         }
        
     }
+    
+}
 
-    }
-
-
+async function getSubstituteList() {
+    const RequestSubstitute = await RequestSubstitute.query()
+        .eager('[requesting_user, replaced_by_user, timetable_item]')
+        .then(function (data) { return data; })
+        .catch(function (e) { console.log(e) });
+}
 
 module.exports = RequestSubstitute;

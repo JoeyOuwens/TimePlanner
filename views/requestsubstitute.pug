@@ -2,3 +2,30 @@ extends layout
 
 block content
     
+    
+    div(class="card shadow") 
+        div(class="table-responsive ")  
+                table(class="table table-sm")
+                    thead(class="thead-tertiary")
+                        tr
+                            th(class="col-xs-1" scope="col") Aanvraag datum 
+                            th(class="col-xs-1" scope="col") Aangevraagd door
+                            th(class="col-xs-1" scope="col") Vervangen door 
+                            th(class="col-xs-1" scope="col") Werkdatum
+                            th(class="col-xs-1" scope="col") Status 
+                            th(class="col-xs-1" scope="col") Commentaar 
+                    tbody
+                        if(substituteList.length > 0)
+                            each substitute in substituteList 
+                                tr 
+                                    - day = new Date(substitute.creation_date).getDate();
+                                    - month = new Date(substitute.creation_date).getMonth();
+                                    - year = new Date(substitute.creation_date).getFullYear();
+                                    - date = day + "-"  + month + "-" + year;
+                                    td #{substitute.creation_datetime}
+                                    td #{substitute.requesting_user}
+                                    td #{substitute.replaced_by_user}
+                                    td #{substitute.timetable_item}
+                                    td #{substitute.status}
+                                    td #{substitute.comment}
+    br

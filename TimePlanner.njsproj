@@ -61,6 +61,7 @@
     <Content Include="models\availability.js" />
     <Content Include="migrations\20191129150530_dayoffrequests.js" />
     <Content Include="models\sickday.js" />
+    <Content Include="models\substitute.js" />
     <Content Include="models\token.js">
       <SubType>Code</SubType>
     </Content>
@@ -186,12 +187,15 @@
     <Content Include="views\profile\overview.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\requestsubstitute.pug" />
     <Content Include="views\reset-password.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\rooster.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\rooster\add-user.pug" />
+    <Content Include="views\rooster\availability.pug" />
     <Content Include="views\termsofuse.pug" />
     <Content Include="views\usermanagement\create.pug" />
     <Content Include="views\usermanagement\edit.pug">
@@ -214,6 +218,7 @@
       <SubType>Code</SubType>
     </Content>
     <Folder Include="views\profile\" />
+    <Folder Include="views\rooster\" />
     <Folder Include="views\usermanagement\" />
   </ItemGroup>
   <ItemGroup>
