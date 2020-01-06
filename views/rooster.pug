@@ -3,34 +3,54 @@ extends layout
 block content
   head
     meta(charset='utf-8')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.css' rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.css' rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.css' rel='stylesheet')
-
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js')
-
     script.
         document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
+
+        $('#editBtn').click(function (e){
+            window.location = "/rooster/edit-user/"+ this.value;
+        });
+
+        $('#substitutebutton').click(function (e){
+            $.post("/rooster/substitute", { id:$(this).val() }, function (result) {
+                location.reload();
+            });
+        });
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'timeGrid' ],
             defaultView: 'timeGridWeek',
             allDaySlot: false,
             events: !{timeTable},
-            eventClick: (info) => {
-                window.location = "/rooster/edit-user/" + info.event.extendedProps.timetable_id;
-            }
+            eventClick: function(info){ 
+                                    $('#modalTitle').html(info.event.title);
+                                    $('#Commentaar').html("Commentaar: "+info.event.extendedProps.timetable_comment);
+                                    $('#fullCalModal').modal();
+                                    $('#editBtn').val(info.event.extendedProps.timetable_id);
+                                    $('#substitutebutton').val(info.event.extendedProps.timetable_id);
+                                    }
         });
 
         calendar.render();
         });
-
-    
+        
   body
     br
+    //-https://stackoverflow.com/questions/29965136/fullcalendar-modal-on-event-click-not-displaying-correctly
+    #fullCalModal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h4#modalTitle.modal-title
+                    button.close(type='button' data-dismiss='modal')
+                        span(aria-hidden='true') &times;
+                        span.sr-only close
+                #modalBody.modal-body   
+                    p(id="Commentaar")
+                    button.btn.btn-warning(type='button' id='substitutebutton') Vervanging
+                    .modal-footer
+                        button.btn.btn-default(type='button' data-dismiss='modal') Close
+                        button.btn.btn-primary(type='button' id="editBtn") Bewerken
     div(class="card shadow")
         div(class="card-header")
             div(id='calendar')
