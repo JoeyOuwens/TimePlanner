@@ -1,9 +1,9 @@
 header(class="container-fluid bg-primary")
-    div(class="row ")
-        div(class="col-sm-12 col-md-4 col-lg-3")
+    div(class="d-flex justify-content-between bd-highlight mb-3 ")
+        div(class="p-1")
             a.navbar-brand(href='/') 
                 h1 TimePlanner
-        div(class="col-sm-12 col-md-6")
+        div(class="p-1")
             nav.navbar.navbar-expand-lg.nav.navbar-nav.d-none.d-md-block
                 button.navbar-toggler.bg-light(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
                     span.navbar-toggler-icon
@@ -39,13 +39,13 @@ header(class="container-fluid bg-primary")
                         li.nav-item
                             a.nav-link(href='/usermanagement/list') Medewerkers 
 
-        div(class="col-sm-12 col-md-2 col-lg-2")
+        div(class="p-1")
             nav.navbar.navbar-expand-lg.nav.navbar-nav
                 ul.navbar-nav.mr-auto
                     li.nav-item.dropdown
                         a.nav-link.dropdown-toggle(id='profileDropdown', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href="#") 
                             img( src='/'+userInfo.profile_image class="img-responsive profile-img" alt="")
-                        div#profile-dropdown.dropdown-menu(aria-labelledby='profileDropdown')
+                        div#profile-dropdown.dropdown-menu(style="right:-30px; left:auto;" aria-labelledby='profileDropdown')
                             a.dropdown-item(href='/profile') #{userInfo.firstname}
                             hr
                             a.dropdown-item(href='/profile/') Profiel Overzicht
