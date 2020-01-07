@@ -53,9 +53,9 @@ function changeStatusCodeToDutch(data) {
 }
 async function insertIntoDB(info) {
     dateOfToday = new Date()
-    return await knex('dayoffrequests').insert([
+    return await knex('day_off_requests').insert([
         {
-            userId: info.userId,
+            user_id: info.userId,
             creation_date: dateOfToday,
             from: new Date(info.from),
             till: new Date(info.till),
@@ -71,7 +71,7 @@ async function insertIntoDB(info) {
 };
 
 async function updateStatusToDB(info) {
-    return await knex('dayoffrequests')
+    return await knex('day_off_requests ')
         .where({ id: info.id })
         .update({
             status: info.status,
@@ -86,7 +86,7 @@ async function updateStatusToDB(info) {
         })  
 };
 async function updateToDB(info) {
-    return await knex('dayoffrequests')
+    return await knex('day_off_requests')
         .where({ id: info.id })
         .update({
             creation_date: new Date(info.creation_date),
@@ -106,9 +106,9 @@ async function updateToDB(info) {
 };
 //select explanation: users.id overides dayoffrequest.id due to both using id. 'dayoffrequest.id as id' writes the initial dayoffrequest id back.
 async function retreiveAllFromDB() {
-    return await knex.select(['dayoffrequests.*', 'users.*', 'dayoffrequests.id as id'] )
-        .from("dayoffrequests") 
-        .join('users', { 'userId': 'users.id' })
+    return await knex.select(['day_off_requests.*', 'users.*', 'day_off_requests.id as id'] )
+        .from("day_off_requests") 
+        .join('users', { 'user_id': 'users.id' })
         .then(function (data) {  
             return changeStatusCodeToDutch(data);
         }).catch(function (e) {
@@ -121,9 +121,9 @@ async function retreiveAllFromDB() {
 
 
 async function retreiveByIdFromDB(id) {
-    return await knex.select(['dayoffrequests.*', 'users.*', 'dayoffrequests.id as id'])
-        .from("dayoffrequests")
-        .join('users', { 'userId': 'users.id' })
+    return await knex.select(['day_off_requests.*', 'users.*', 'day_off_requests.id as id'])
+        .from("day_off_requests")
+        .join('users', { 'user_id': 'users.id' })
         .where("id", id)
         .then(function (data) {
             return changeStatusCodeToDutch(data);
@@ -134,10 +134,10 @@ async function retreiveByIdFromDB(id) {
 
 
 async function retreiveByUserIdFromDB(userId) {
-    return await knex.select(['dayoffrequests.*', 'users.*', 'dayoffrequests.id as id'])
-        .from("dayoffrequests")
-        .join('users', { 'userId': 'users.id' })
-        .where("userId", userId)
+    return await knex.select(['day_off_requests.*', 'users.*', 'day_off_requests.id as id'])
+        .from("day_off_requests")
+        .join('users', { 'user_id': 'users.id' })
+        .where("user_id", userId)
         .then(function (data) {
             return changeStatusCodeToDutch(data);
         }).catch(function () {

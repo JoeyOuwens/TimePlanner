@@ -1,7 +1,7 @@
 'use strict';
 var express = require('express');
 var router = express.Router();
-//var userDBHandler = require('../../classes/userDBHandler')
+var userDBHandler = require('../../classes/userDBHandler')
 var validation = require('../../classes/validation');
 var User = require('../../models/user');
 var DayOffRequest = require('../../models/dayoffrequest');
