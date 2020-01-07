@@ -18,7 +18,10 @@ router.post('/', async function (req, res, next) {
     const email = req.body.username.toLowerCase();
     const password = req.body.password;
 
-    const user = await User.query().where({ email: email }).first();
+    const user = await User.query().where({
+        email: email,
+        active: true
+    }).first();
 
     if (user !== undefined) {
         if (user.isPassword(password)) {
@@ -36,7 +39,7 @@ router.post('/', async function (req, res, next) {
             errors.push('Het ingevulde wachtwoord is onjuist. ');
         }
     } else {
-        errors.push('Het emailadres is onjuist. ');
+        errors.push('Het emailadres is onjuist of het account is gedeactiveerd. ');
     }
 
     res.render('index', { errors: errors });
