@@ -39,6 +39,7 @@ router.post('/', async function (req, res) {
         } else {
 
             info.user_id = req.session.user.id;
+            info.status = "EVALUATING";
             if (await DayOffRequest.query().insert(info)) {
                 res.redirect('requestdayoff');
             } else {
