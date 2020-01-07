@@ -11,8 +11,15 @@ router.get('/', function (req, res) {
 });
 
 router.get('/token/:token', async function (req, res) {
-    if (await resetTokenHandler.exists(req.params.token)) {
-        res.render('reset-password', { title: "Reset wachtwoord", token: req.params.token });
+    var token = await Token.query().where({
+        token_serial: req.params.token,
+        used: false
+    }).first();
+    if (token !== undefined) {
+        if (token.isTokenExpired())
+            res.render('reset-password', { title: "Error!", error: true, errorMessage: "Token is expired!" });
+        else
+            res.render('reset-password', { title: "Reset wachtwoord", token: req.params.token });
     } else {
         res.render('reset-password', { title: "Error!", error: true, errorMessage: "Token is invalid!" });
     } 
@@ -25,7 +32,12 @@ router.post('/reset', async function (req, res) {
     // Check if both password fields are the same and the password is larger than 5 characters.
     // Change password with a function, allowing for easier implementation of hashing. 
     // Remove token when used. 
-    if (await resetTokenHandler.exists(req.body.token) &&
+    if (
+        (await Token.query().where({
+            token_serial: req.params.token,
+            used: false
+        }).first() !== undefined) &&
+
         passwordFieldOne === passwordFieldTwo &&
         passwordFieldOne.length > 5) {
         await resetTokenHandler.passwordReset(token, passwordFieldOne);

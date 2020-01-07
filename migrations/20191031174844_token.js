@@ -4,9 +4,9 @@ exports.up = async function (knex) {
         if (!exists) {
             return knex.schema.createTable('token', t => {
                 t.increments('id').primary;
-                t.integer('userId');
-                t.string('tokenSerial');
-                t.date('validUntil');
+                t.integer('user_id');
+                t.string('token_serial');
+                t.date('valid_until');
                 t.boolean('used');
             });
         }
