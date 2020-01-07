@@ -71,7 +71,7 @@ app.use('/dashboard', sessionChecker, dashboard);
 app.use('/profile', sessionChecker, profile);
 app.use('/requestdayoff', sessionChecker, requestdayoff);
 app.use('/approve', sessionChecker, approve);
-app.use('/user/resetpassword', sessionChecker, passwordreset);
+app.use('/user/resetpassword', passwordreset);
 app.use('/logout', sessionChecker, logout); 
 app.use('/termsofuse', termsofuse);
 app.use('/privacypolicy', privacypolicy);
