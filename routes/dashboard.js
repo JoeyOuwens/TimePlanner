@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { User } = require('../models/user');
+const User = require('../models/user');
 const TimeTableItems = require('../models/timetable_item');
 
 
@@ -11,6 +11,7 @@ router.get('/', async function (req, res, next) {
     var context = { title: 'Dashboard' };
 
     context.timetable_days = await get_scedule_for_user(req.session.user.id);
+    context.newest_users = await User.query().orderBy('employed_since', 'desc').limit(10);
 
     /* Check if the user has been redirected after a login, if so, show a greeting/message */
     if (req.session.logged_in !== undefined) {

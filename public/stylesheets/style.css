@@ -301,15 +301,21 @@ Licensed under MIT
 }
 
 
-.dashboard-timetable .timetable-item:not(:last-child) { 
+.dashboard-timetable .timetable-item:not(:last-child),
+.dashboard-employees .employee-item:not(:last-child) {
     border-bottom: 1px solid #eee;
 }
-
-.dashboard-timetable .timetable-item:not(:first-child) {
+.dashboard-employees b {
+    padding-top: 8px;
+}
+.dashboard-timetable .timetable-item:not(:first-child),
+.dashboard-employees .employee-item:not(:first-child) {
     padding-top: 16px;
 }
-
-.greeting-message {
+.dashboard-employees .employee-item:not(:last-child) {
+    padding-bottom: 16px;
+}
+    .greeting-message {
     position: fixed;
     top: 1rem;
     right: 0;
