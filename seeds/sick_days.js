@@ -17,7 +17,7 @@ exports.seed = function (knex) {
                 { id: 10, user_id: 3, date: new Date(2019,04,11)},  
                 { id: 11, user_id: 2, date: new Date(2019,01,24)},  
                 { id: 12, user_id: 1, date: new Date(2019,04,11), reason: "Ziek"},  
-                { id: 13, user_id: 1, date: new Date(2019,07,21)}  
+                { id: 13, user_id: 1, date: new Date(2019,03,13)}  
             ]);
         });
 };
