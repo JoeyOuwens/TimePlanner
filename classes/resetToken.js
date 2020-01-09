@@ -25,6 +25,8 @@ module.exports = {
     passwordReset: async function (tokenSerial, password) {
         const tkn = await Token.query().where({ token_serial: tokenSerial }).first().eager('user');
         tkn.user.changePassword(password);
+        await Token.query().where({ token_serial: tokenSerial }).first().delete();
+
     }
 
 };

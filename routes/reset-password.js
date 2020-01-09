@@ -34,7 +34,7 @@ router.post('/reset', async function (req, res) {
     // Remove token when used. 
     if (
         (await Token.query().where({
-            token_serial: req.params.token,
+            token_serial: token,
             used: false
         }).first() !== undefined) &&
 
