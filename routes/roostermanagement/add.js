@@ -29,22 +29,22 @@ class Add {
             return;
         }
 
-        await knex('timetable_items').insert([
+        await TimeTableItem.query().patch(
             {
                 user_id: req.body.user_id,
                 begin_date: req.body.begin_date,
                 end_date: req.body.end_date,
                 comment: req.body.comment
-            }]);
+            });
 
         if (req.body.stay_on_page === 'on') {
-            const timetable_items = await knex.select().from('timetable_items');
-            const timetable_users = await knex.select('*').from('timetable_items').leftJoin('users', 'timetable_items.user', 'users.id');
             let timetable_list = [];
 
-            for (let i = 0; i < timetable_items.length; i++) {
-                timetable_list.push({ "title": timetable_users[i].firstname + ' ' + timetable_users[i].lastname, "start": timetable_items[i].begin_date, "end": timetable_items[i].end_date });
-            }
+            await TimeTableItem.query().eager('user').then((list) => {
+                list.forEach((item) => {
+                    timetable_list.push({ "title": item.user.getFullName(), "start": item.begin_date, "end": item.end_date });
+                });
+            });
 
             res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await User.query().where({ active: true }), availability: await availabilityHandler.retreiveAll(), success: true, timeTable: JSON.stringify(timetable_list)  });
 
