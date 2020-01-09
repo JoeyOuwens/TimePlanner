@@ -7,7 +7,7 @@ block content
                 div(class="card-header bg-tertiary")
                     h3 Rooster
                         i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
-                div(class="card-body")
+                div(class="card-body" id="roosterdiv")
                     each day in timetable_days
                         //div(class="" data-toggle="popover" data-trigger="click" data-placement="right")
 
@@ -56,45 +56,37 @@ block content
             script.
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.remove('hidden') }, 60);
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.add('hidden') }, 4000);
-            
+
+
     script.
             document.onreadystatechange = function () {
                 if (document.readyState === "complete") {  
-                    $()
                     $(function () {
                         var popupElement = '<div id="popover-body-1" class="btn-group btn-toggle"></div>';
                        
-                        $('#popbutton').popover({
+                        $('#roosterdiv').popover({
                         animation: true,
                         content: popupElement,
                         html: true
                         });
-                        $('#popbutton').on('inserted.bs.popover', function () {
+                        $('#roosterdiv').on('inserted.bs.popover', function () {
                               
-                                 $('#popover-body-1').html('<button class="btn btn-sm btn-info">On</button><button class="btn btn-sm btn-primary active">Off</button>');
-                            })
-                        $('body').on('click','.btn-toggle',function () {
-                            $(this).find('.btn').toggleClass('active');
+                                 $('#popover-body-1').html('<button class="btn btn-sm btn-info" id="btn1" >Vrij Vragen</button><button class="btn btn-sm btn-primary active" id="btn2" >Ziek Melden</button>');
+                            
+                            $('#btn1').click(function (e){
+                            window.location = "/profile";}
+                            );
 
-                            if ($(this).find('.btn-primary').length > 0) {
-                                $(this).find('.btn').toggleClass('btn-primary');
-                            }
-                            if ($(this).find('.btn-danger').length > 0) {
-                                $(this).find('.btn').toggleClass('btn-danger');
-                            }
-                            if ($(this).find('.btn-success').length > 0) {
-                                $(this).find('.btn').toggleClass('btn-success');
-                            }
-                            if ($(this).find('.btn-info').length > 0) {
-                                $(this).find('.btn').toggleClass('btn-info');
-                            }
+                            $('#btn2').click(function (e){
+                            window.location = "/call-in-sick";
+                            
+                            });
 
-                            $(this).find('.btn').toggleClass('btn-default');
+                            
                         });
 
                     });
                      
                      
                  }
-              }
-           
+              }          
