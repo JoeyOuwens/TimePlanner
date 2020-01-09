@@ -7,6 +7,11 @@ h1 {
     margin-right: 24px;
 }
 
+.navbar-brand {
+    width: 100%;
+    text-align: center;
+}
+
 .bg-primary {
     background-color: #03396c !important;
 }
@@ -98,6 +103,7 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    z-index: 1;
 }
 .footer-loginpage {
     position: center;
@@ -425,9 +431,6 @@ Licensed under MIT
 }
 
 @media (max-width: 768px){
-    .navbar-brand h1{
-        font-size: 1.25rem;
-    }
 
     .navbar-mobile {
         position: center;
