@@ -1,6 +1,7 @@
 doctype html
 html
     head
+        meta(charset='utf-8')
         title= title + ' | TimePlanner'
         meta( name="viewport" content="width=device-width, initial-scale=1")
         link(rel='manifest', href='/manifest.json')
@@ -9,6 +10,8 @@ html
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css")
         link(rel='stylesheet', href='/stylesheets/style.css')
         script(src='/service-worker-register.js')
+        block styles
+        block scripts
     body
         if userInfo !== undefined 
             header

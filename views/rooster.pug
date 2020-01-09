@@ -1,37 +1,33 @@
 extends layout
 
-block content
-  head
-    meta(charset='utf-8')
+block styles
     link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.css' rel='stylesheet')
     link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.css' rel='stylesheet')
     link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.css' rel='stylesheet')
 
+block scripts
     script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js')
 
     script.
         document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
+            var calendarEl = document.getElementById('calendar');
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: [ 'timeGrid' ],
-            defaultView: 'timeGridWeek',
-            allDaySlot: false,
-            events: !{timeTable},
-            eventClick: (info) => {
-                window.location = "/rooster/edit-user/" + info.event.extendedProps.timetable_id;
-            }
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'timeGrid' ],
+                defaultView: 'timeGridWeek',
+                allDaySlot: false,
+                events: !{timeTable},
+                eventClick: (info) => {
+                    window.location = "/rooster/edit-user/" + info.event.extendedProps.timetable_id;
+                }
+            });
+
+            calendar.render();
         });
 
-        calendar.render();
-        });
 
-    
-  body
-    br
-    div(class="card shadow")
-        div(class="card-header")
-            div(id='calendar')
+block content
+    div(id='calendar')
     

@@ -1,6 +1,15 @@
 extends ../layout
 
-block content
+block styles
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.css' rel='stylesheet')
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.css' rel='stylesheet')
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.css' rel='stylesheet')
+
+block scripts
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js')
+
     script.
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
@@ -9,12 +18,15 @@ block content
                 plugins: [ 'timeGrid' ],
                 defaultView: 'timeGridWeek',
                 allDaySlot: false,
-                events: !{timeTable}
-            });
+                events: !{timeTable},
+                });
 
             calendar.render();
         });
 
+
+
+block content
     if success !== undefined && success === true
         p(class="alert alert-success")
             | De gebruiker is succesvol ingeroosterd!
@@ -28,9 +40,9 @@ block content
 
                     each list_user in user_list
                         if user !== undefined && list_user.id === user.user_id
-                            option(value=list_user.id selected) #{list_user.firstname} #{list_user.lastname}
+                            option(value=list_user.id selected) #{list_user.getFullName()}
                         else
-                            option(value=list_user.id) #{list_user.firstname} #{list_user.lastname}
+                            option(value=list_user.id) #{list_user.getFullName()}
         div(class="input-group")
             label Begin datum en tijd
                 input(class="form-control" type="datetime-local" name="begin_date" value=user !== undefined ? user.begin_date : '')
@@ -47,7 +59,7 @@ block content
                     input(type="checkbox" class="custom-control-input " name="stay_on_page" id="stay_on_page" checked)                    
                     label(class="custom-control-label" for="stay_on_page") Op pagina blijven
         div(class="input-group")
-            input(type="submit" class="btn btn-success" value="Aanmaken")
+            input(type="submit" class="btn btn-success" value= user !== undefined ? "Bewerken" : "Aanmaken")
     br
     div(class="table-responsive ")  
         table(class="table table-sm")
