@@ -4,7 +4,7 @@ var emailHandler = require('../../classes/emailHandler');
 var generatePassword = require('password-generator');
 var validation = require('../../classes/validation');
 var router = express.Router();
-var userDBHandler = require('../../classes/userDBHandler')
+var userDBHandler = require('../../classes/userDBHandler');
 
  
 
@@ -25,9 +25,9 @@ router.post('/',async function (req, res) {
         accountDetails.inputRights = "USER";
     }
 
-    accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, ''); 
+    accountDetails.inputZipcode = accountDetails.inputZipcode.replace(/\s/g, '');
     var failedFields = fieldValidation(accountDetails);
-    if (failedFields.length == 0) {
+    if (failedFields.length === 0) {
         if (await userDBHandler.insertUser(accountDetails, password)) {
             emailHandler.sendNewAccountEmail(accountDetails.inputEmail, accountDetails.inputFname, password);
             handlePageStayCheck(req.body.checkPageStay, res);

@@ -58,9 +58,6 @@ module.exports = {
         return user
     },
     insertUser: async function (accountDetails, password) {
-        var today = new Date();
-        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-
         return await knex('users').insert([
             {
                 password: password,
@@ -68,7 +65,7 @@ module.exports = {
                 middlename: accountDetails.inputMname,
                 lastname: accountDetails.inputLname,
                 email: accountDetails.inputEmail.toLowerCase(),
-                employed_since: String(date),
+                employed_since: String(new Date().toISOString().substr(0, 10)),
                 birth_date: accountDetails.inputDOB,
                 address: accountDetails.inputAddress,
                 zip: accountDetails.inputZipcode,

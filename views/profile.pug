@@ -7,7 +7,7 @@ block content
             div( class="profile-sidebar")
             //SIDEBAR USERPIC
             div( class="profile-userpic text-center")
-                img(id="profilepic" src='/'+userInfo.profile_image class="img-responsive profile-img2" alt="")
+                img(id="profilepic" src='/'+userInfo.getImage() class="img-responsive profile-img2" alt="")
                 case page
                     when "changesettings"
                         form(action="/profile/upload" method="POST" enctype="multipart/form-data") 
@@ -15,7 +15,7 @@ block content
                                 label(for="filebrowser") Wijzig profielfoto
                                 input(name="ProfileImage" style="display: none;" id="filebrowser" type="file" class="custom-file-input"  onchange="this.form.submit()")                        
             div( class="profile-usertitle")
-                div( class="profile-usertitle-name") #{userInfo.firstname} #{userInfo.lastname}
+                div( class="profile-usertitle-name") #{userInfo.getFullName()}
                 div( class="profile-usertitle-job") 
                     case userInfo.role 
                         when "MANAGER"
