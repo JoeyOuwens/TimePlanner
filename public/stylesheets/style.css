@@ -6,6 +6,13 @@ h1 {
     color: white;
     margin-right: 24px;
 }
+#helpprofile{
+    color: black;
+}
+
+#paraprofile{
+    color:black;
+}
 
 .bg-primary {
     background-color: #03396c !important;
@@ -156,7 +163,46 @@ footer {
     opacity: 1;
 }
 
+.formcontainer {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
 
+#contactlabel {
+    display: inline-block;
+    margin-bottom: .5rem;
+    font-size: smaller;
+    font-family: unset;
+}
+
+#contact-message {
+    width: 100%;
+    height: 100px;
+}
+#submit_message {
+    background-color: #03396c ;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    #submit_message:hover {
+        background-color: #03396c85;
+    }
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
 
 .nav .dropdown-item {
     color: #343434;
@@ -278,6 +324,38 @@ Licensed under MIT
         padding-left: 5px;
     }
 
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
+
+
+
+.modal-content {
+    left: 30%;
+    right: 30%;
+    bottom: 50%;
+    position: inherit;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: auto;
+    pointer-events: auto;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .4rem;
+    outline: 0;
+}
+
+
 /* Profile Content */
 .profile-content {
     padding: 20px;
@@ -301,15 +379,21 @@ Licensed under MIT
 }
 
 
-.dashboard-timetable .timetable-item:not(:last-child) { 
+.dashboard-timetable .timetable-item:not(:last-child),
+.dashboard-employees .employee-item:not(:last-child) {
     border-bottom: 1px solid #eee;
 }
-
-.dashboard-timetable .timetable-item:not(:first-child) {
+.dashboard-employees b {
+    padding-top: 8px;
+}
+.dashboard-timetable .timetable-item:not(:first-child),
+.dashboard-employees .employee-item:not(:first-child) {
     padding-top: 16px;
 }
-
-.greeting-message {
+.dashboard-employees .employee-item:not(:last-child) {
+    padding-bottom: 16px;
+}
+    .greeting-message {
     position: fixed;
     top: 1rem;
     right: 0;

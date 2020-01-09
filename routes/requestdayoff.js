@@ -1,15 +1,18 @@
 ﻿'use strict';
 var express = require('express');
 var router = express.Router();
-var dayoffRequestHandler = require('../classes/dayoffRequestHandler')
-var validation = require('../classes/validation')
+//var dayoffRequestHandler = require('../classes/dayoffRequestHandler')
+var DayOffRequest = require('../models/dayoffrequest');
+var validation = require('../classes/validation');
 
 
 /*GET page */
 router.get('/', async function (req, res) {
-    var dayoffRequests = await dayoffRequestHandler.retreiveByUserId(req.session.user.id);
+    var dayoffRequests = await DayOffRequest.query().where({ user_id: req.session.user.id }).then((items) => {
+        return items;
+    });
     req.session.user.dayoffrequests = dayoffRequests;
-    changeDateToString(dayoffRequests);
+    changeDateToString(dayoffRequests); // TODO: Change to function in model.
     res.render('requestdayoff', { title: 'Vrij vragen', dayoffRequests: dayoffRequests }); 
 });
 
@@ -18,24 +21,26 @@ router.post('/', async function (req, res) {
     info.from = checkAndChangeDateFormat(info.from);
     info.till = checkAndChangeDateFormat(info.till);
     var failedFields = fieldValidation(info);
+    info.creation_date = new Date();
    
 
-    var errorMessage = []
-    if (failedFields.length == 0) {
+    var errorMessage = [];
+    if (failedFields.length === 0) {
         if (isBeginDateGreaterThanEndDate(info)) {
             errorMessage.push("Begin datum mag niet later zijn als de eind datum.");
         }
         if (isBeginDateLowerThenDateOfToday(info)) {
-            errorMessage.push("Begin datum mag niet eerder zijn dan vandaag.")
+            errorMessage.push("Begin datum mag niet eerder zijn dan vandaag.");
         }
-        if (errorMessage.length != 0) {
+        if (errorMessage.length !== 0) {
 
             res.render('requestdayoff', { title: 'Vrij vragen', dayoffRequests: req.session.user.dayoffrequests, fieldInput: req.body, error: errorMessage });
 
         } else {
 
-            info.userId = req.session.user.id;
-            if (await dayoffRequestHandler.insert(info)) {
+            info.user_id = req.session.user.id;
+            info.status = "EVALUATING";
+            if (await DayOffRequest.query().insert(info)) {
                 res.redirect('requestdayoff');
             } else {
                 errorMessage.push("Er ging wat fout. Probeer later opnieuw.");
