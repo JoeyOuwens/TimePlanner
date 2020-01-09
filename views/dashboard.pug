@@ -12,7 +12,7 @@ block content
                         //div(class="" data-toggle="popover" data-trigger="click" data-placement="right")
 
                         //div( class="row no-gutter timetable-item" role="button" data-toggle="popover" data-trigger="click" data-placement="right"  title="Opties"  data-html='true'  data-content=popovercontent data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>')
-                        div( class="row no-gutter timetable-item" id="")    
+                        div( class="row no-gutter timetable-item" id="timetable-"+day.id)    
                             div( class="col-sm-12")
                                 case day.day_count
                                     when 0
@@ -60,15 +60,19 @@ block content
     script.
             document.onreadystatechange = function () {
                 if (document.readyState === "complete") {  
+                    $()
                     $(function () {
-                        var popupElement = '<div class="btn-group btn-toggle"><button class="btn btn-sm btn-info">On</button><button class="btn btn-sm btn-primary active">Off</button></div>';
+                        var popupElement = '<div id="popover-body-1" class="btn-group btn-toggle"></div>';
                        
                         $('#popbutton').popover({
                         animation: true,
                         content: popupElement,
                         html: true
                         });
-
+                        $('#popbutton').on('inserted.bs.popover', function () {
+                              
+                                 $('#popover-body-1').html('<button class="btn btn-sm btn-info">On</button><button class="btn btn-sm btn-primary active">Off</button>');
+                            })
                         $('body').on('click','.btn-toggle',function () {
                             $(this).find('.btn').toggleClass('active');
 
@@ -89,6 +93,8 @@ block content
                         });
 
                     });
+                     
+                     
                  }
               }
            
