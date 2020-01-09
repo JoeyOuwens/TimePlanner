@@ -29,8 +29,12 @@ header(class="container-fluid bg-primary")
 							li.nav-item
 								a.nav-link(href='/call-in-sick/list') Ziek meldingen
 						if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
-							li.nav-item
-								a.nav-link(href='/approve') Goedkeuren
+							li.nav-item.dropdown 
+								a.nav-link.dropdown-toggle(id='navbarApproveDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href='#') Goedkeuren
+								div.dropdown-menu(aria-labelledby='navbarApproveDropdownMenuLink')
+									a.dropdown-item(href='/approve/') Alle  
+									a.dropdown-item(href='/approve/changerequests') Vervanging
+									a.dropdown-item(href='/approve/dayoffrequests') Vrijedagen  
 						li.nav-item
 							a.nav-link(href='/usermanagement/list') Medewerkers 
 

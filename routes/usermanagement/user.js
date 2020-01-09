@@ -7,24 +7,24 @@ var DayOffRequest = require('../../models/dayoffrequest');
 
 
 /* GET page. */
-router.get('/delete/:id', async function (req, res) {
-    
-    if (!res.locals.userInfo.isUser()) { 
-        if (await allowedToChange(res.locals.userInfo, req.params.id)){
-            (await User.query().findById(req.params.id)).deactivate();
+router.post('/deactivate/',  async function (req, res) {
+    if (!res.locals.userInfo.isUser()) {
+        if (await allowedToChange(res.locals.userInfo, req.body.id)) {
+            (await User.query().findById(req.body.id)).deactivate();
         }
     }
     res.redirect('/usermanagement/list');
 
 });
-router.get('/activate/:id', async function (req, res) {
+router.post('/activate/', async function (req, res) {
     if (!res.locals.userInfo.isUser()) {
-        if (await allowedToChange(res.locals.userInfo, req.params.id)) {
-            (await User.query().findById(req.params.id)).activate();
+        if (await allowedToChange(res.locals.userInfo, req.body.id)) {
+            (await User.query().findById(req.body.id)).activate();
         }
     }
     res.redirect('/usermanagement/list');
 });
+ 
 
 
 router.get('/edit/:id', async function (req, res) {

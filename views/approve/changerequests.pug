@@ -21,7 +21,7 @@
                     tbody
                         if(changeRequests !== [])
                             each request in changeRequests 
-                                - date = "" +new Date(request.creation_datetime).getDate() +"-"+new Date(request.creation_datetime).getMonth()+"-"+new Date(request.creation_datetime).getFullYear()
+                                - var date = "" +new Date(request.creation_datetime).getDate() +"-"+new Date(request.creation_datetime).getMonth()+"-"+new Date(request.creation_datetime).getFullYear()
                                 tr(id='change-request-'+request.id ) 
                                     th(scope="col" )  #{date}
                                     th(scope="col" )  

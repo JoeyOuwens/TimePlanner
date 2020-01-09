@@ -110,7 +110,7 @@ async function retreiveAllFromDB() {
         .from("day_off_requests") 
         .join('users', { 'user_id': 'users.id' })
         .then(function (data) {  
-            return changeStatusCodeToDutch(data);
+            return data;
         }).catch(function (e) {
             console.log(e)
 
@@ -126,7 +126,7 @@ async function retreiveByIdFromDB(id) {
         .join('users', { 'user_id': 'users.id' })
         .where("id", id)
         .then(function (data) {
-            return changeStatusCodeToDutch(data);
+            return data;
         }).catch(function () {
             return [];
         })
@@ -139,7 +139,7 @@ async function retreiveByUserIdFromDB(userId) {
         .join('users', { 'user_id': 'users.id' })
         .where("user_id", userId)
         .then(function (data) {
-            return changeStatusCodeToDutch(data);
+            return data;
         }).catch(function () {
             return [];
         })

@@ -35,12 +35,12 @@ block content
                                                 th(scope="col" style=activeStyle)  #{request.reason}
                                                 th(scope="col" style=activeStyle)  
                                                     case request.status
-                                                        when "In afwachting" 
-                                                            p(class="text-warning") #{request.status}
-                                                        when "Goedgekeurd" 
-                                                            p(class="text-success") #{request.status}
-                                                        when "Afgekeurd" 
-                                                            p(class="text-danger") #{request.status}
+                                                            when "EVALUATING" 
+                                                                p(class="text-dark") In afwachting
+                                                            when "APPROVED" 
+                                                                p(class="text-success") Goedgekeurd
+                                                            when "DENIED" 
+                                                                p(class="text-danger") Afgekeurd
                                                     th(scope="col" style=activeStyle)  #{request.status_comment} 
                                         else
                                             tr
