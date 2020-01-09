@@ -29,7 +29,7 @@ class Add {
             return;
         }
 
-        await TimeTableItem.query().patch(
+        await TimeTableItem.query().insert(
             {
                 user_id: req.body.user_id,
                 begin_date: req.body.begin_date,
