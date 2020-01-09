@@ -5,7 +5,7 @@ var dayoffRequestHandler = require('../classes/dayoffRequestHandler')
 const WorkReplacement = require('../models/work_replacement');
 const TimeTableItem = require('../models/timetable_item');
 var validation = require('../classes/validation')
-var EVALUATING_STATUS_CODE = "In afwachting"
+var EVALUATING_STATUS_CODE = "EVALUATING"
 
 /*GET page */
 router.get('/', async function (req, res) {
