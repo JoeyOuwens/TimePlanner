@@ -1,0 +1,47 @@
+﻿extends layout
+
+block content
+    - dateOfToday = new Date()
+
+
+
+
+    
+    div(class="info")
+        div(class="container")
+            if alreadyCalledInSick
+                p Je hebt je voor vandaag al ziekgemeld.
+            else 
+                p Ziek? Meld je hieronder af voor vandaag- #{dateOfToday}. 
+                div(class="row")
+                    div(class="col") 
+                        div(class="input-group mb-3") 
+                            input( type="text" class="form-control" id="CallInSickReason" placeholder="Reden" aria-label="Reden" aria-describedby="callInSickBtn")
+                            div(class="input-group-append")
+                                button(class="btn btn-outline-primary" type="button" id="callInSickBtn") Ziekmelden  
+                    div(class="col")
+
+
+    script.
+        document.onreadystatechange = function () {
+            if (document.readyState === "complete") {  
+                $('#callInSickBtn').bind('click', function(e) { 
+                    callInSick();
+                    $('.info').html('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Laden...</span></div></div>');
+                });
+                
+                function getFromInput(){
+                    return $('#CallInSickReason').val();
+                }
+
+                function callInSick(){
+                    $.post("/call-in-sick", {callInSick: true,reason: getFromInput() }, function(result){
+                          $('.info').html("<p>Verstuurt.</p>");
+                        });
+
+                }
+
+
+            }
+        }
+        

@@ -21,6 +21,7 @@ exports.up = async function (knex) {
                 t.string("role");
                 t.string("profile_image");
                 t.boolean("active");
+                t.boolean("firsttime");
                 t.unique('email');
             });
         }

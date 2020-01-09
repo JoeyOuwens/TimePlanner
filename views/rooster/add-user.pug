@@ -1,16 +1,29 @@
 extends ../layout
 
 block content
+    script.
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'timeGrid' ],
+                defaultView: 'timeGridWeek',
+                allDaySlot: false,
+                events: !{timeTable}
+            });
+
+            calendar.render();
+        });
+
     if success !== undefined && success === true
-        p(class="alert alert-success").
-            De gebruiker is succesvol ingeroosterd!
-    if error !== undefined
-        p(class="alert alert-danger").
-            #{error}
-    form(class="form" method="POST")
+        p(class="alert alert-success")
+            | De gebruiker is succesvol ingeroosterd!
+    else if success === false
+        p(class="alert alert-danger")
+            | Begintijd mag niet later zijn dan eindtijd!
+    form(method="POST" )
         div(class="input-group")
             label Gebruiker
-                
                 select(class="form-control" name="user_id" disabled= editing !== undefined ? true : false)
 
                     each list_user in user_list
@@ -27,7 +40,7 @@ block content
         div(class="input-group")
             label Commentaar
                 textarea(class="form-control" name="comment")
-                   | !{user !== undefined ? user.comment : ''}
+                    | !{user !== undefined ? user.comment : ''}
         div(class="input-group")
             if editing === undefined
                 div(class="col custom-control custom-switch") 
@@ -36,37 +49,41 @@ block content
         div(class="input-group")
             input(type="submit" class="btn btn-success" value="Aanmaken")
     br
-     
     div(class="table-responsive ")  
-            table(class="table table-sm")
-                thead(class="thead-tertiary")
-                    tr
-                        th(class="col-xs-1" scope="col" colspan="10") Beschikbaarheid
-                    tr
-                        th(class="col-xs-1" scope="col" colspan="3") Naam
-                        th(class="col-xs-1" scope="col") Maandag
-                        th(class="col-xs-1" scope="col") Dinsdag 
-                        th(class="col-xs-1" scope="col") Woensdag 
-                        th(class="col-xs-1" scope="col") Donderdag
-                        th(class="col-xs-1" scope="col") Vrijdag
-                        th(class="col-xs-1" scope="col") Zaterdag
-                        th(class="col-xs-1" scope="col") Zondag
-                tbody 
-                    each item in availability
-                        tr  
-                            td(colspan="3")
-                                label #{item.user.getFullName()}
-                            td
-                                label #{item.monday == ""? "Niet": item.monday}
-                            td
-                                label #{item.tuesday == ""? "Niet": item.tuesday}
-                            td
-                                label #{item.wednesday == ""? "Niet": item.wednesday}
-                            td
-                                label #{item.thursday == ""? "Niet": item.thursday}
-                            td
-                                label #{item.friday == ""? "Niet": item.friday}
-                            td
-                                label #{item.saturday == ""? "Niet": item.saturday}
-                            td
-                                label #{item.sunday == ""? "Niet": item.sunday} 
+        table(class="table table-sm")
+            thead(class="thead-tertiary")
+                tr
+                    th(class="col-xs-1" scope="col" colspan="10") Beschikbaarheid
+                tr
+                    th(class="col-xs-1" scope="col" colspan="3") Naam
+                    th(class="col-xs-1" scope="col") Maandag
+                    th(class="col-xs-1" scope="col") Dinsdag 
+                    th(class="col-xs-1" scope="col") Woensdag 
+                    th(class="col-xs-1" scope="col") Donderdag
+                    th(class="col-xs-1" scope="col") Vrijdag
+                    th(class="col-xs-1" scope="col") Zaterdag
+                    th(class="col-xs-1" scope="col") Zondag
+            tbody 
+                each item in availability
+                    tr  
+                        td(colspan="3")
+                            label #{item.user.getFullName()}
+                        td
+                            label #{item.monday == ""? "Niet": item.monday}
+                        td
+                            label #{item.tuesday == ""? "Niet": item.tuesday}
+                        td
+                            label #{item.wednesday == ""? "Niet": item.wednesday}
+                        td
+                            label #{item.thursday == ""? "Niet": item.thursday}
+                        td
+                            label #{item.friday == ""? "Niet": item.friday}
+                        td
+                            label #{item.saturday == ""? "Niet": item.saturday}
+                        td
+                            label #{item.sunday == ""? "Niet": item.sunday} 
+
+        br
+        div(class="card shadow")
+            div(class="card-header")
+            div(id='calendar')

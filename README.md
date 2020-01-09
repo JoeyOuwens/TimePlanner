@@ -38,7 +38,7 @@ After creating the migration you'll have to create the fields, for more info you
 
 ### Running migrations
 Before you can use knexjs or any other db related changes you have to migrate the database to the latest version.  
-This can be done with the following command that should be executed in the root of the project folder; `node_modules\.bin\knex migrate:up`.  
+This can be done with the following command that should be executed in the root of the project folder; `node_modules\.bin\knex migrate:latest`.  
 
 ## Running tests
 
