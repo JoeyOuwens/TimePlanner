@@ -2,11 +2,11 @@
   "name": "time-planner",
   "version": "0.0.0",
   "private": true,
-    "scripts": {
-        "start": "set PORT=1337&& node app",
-        "dev": "set PORT=1337&& nodemon app.js",
-        "test": "knex migrate:latest --env test && knex seed:run --env test && jest --verbose"
-    },
+  "scripts": {
+    "start": "set PORT=1337&& node app",
+    "dev": "set PORT=1337&& nodemon app.js",
+    "test": "knex migrate:latest --env test && knex seed:run --env test && jest --verbose"
+  },
   "description": "TimePlanner",
   "author": {
     "name": ""
@@ -33,7 +33,7 @@
     "pg": "^7.12.1",
     "pg-promise": "^9.3.3",
     "pug": "^2.0.0-beta6",
-    "react-scripts": "^3.2.0",
+    "react-scripts": "^3.3.0",
     "redis": "^2.8.0",
     "serve-favicon": "^2.3.0",
     "sqlite3": "^4.1.0",

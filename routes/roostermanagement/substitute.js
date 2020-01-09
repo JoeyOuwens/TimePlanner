@@ -35,6 +35,7 @@ async function getSubstituteList() {
         .eager('[requesting_user, replaced_by_user, timetable_item]')
         .then(function (data) { return data; })
         .catch(function (e) { console.log(e) });
+    return RequestSubstitute;
 }
 
 module.exports = RequestSubstitute;
