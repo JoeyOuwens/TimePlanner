@@ -82,6 +82,9 @@
     <Content Include="node_modules\images\tile310x310.png" />
     <Content Include="node_modules\images\tile70x70.png" />
     <Content Include="node_modules\images\_head.html" />
+    <Content Include="public\javascript\approveHandling.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\javascript\modal.js" />
     <Content Include="public\javascript\sendForm.js" />
     <Content Include="public\javascript\availabilityValidation.js">
@@ -154,6 +157,10 @@
     <Content Include="views\approve.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\approve\changerequests.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\approve\dayoffrequests.pug"/>
     <Content Include="views\call-in-sick.pug">
       <SubType>Code</SubType>
     </Content>
@@ -206,6 +213,7 @@
     <Folder Include="routes\usermanagement\" />
     <Folder Include="seeds\" />
     <Folder Include="settings\" />
+    <Folder Include="views\approve\" />
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>

@@ -6,7 +6,7 @@ Model.knex(knex);
 
 class Token extends Model {
     static get tableName() {
-        return 'sick_days';
+        return 'token';
     }
 
     static get relationMappings() {
