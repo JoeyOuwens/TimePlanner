@@ -21,7 +21,13 @@ block scripts
                 events: !{timeTable},
                 eventClick: (info) => {
                     window.location = "/rooster/edit-user/" + info.event.extendedProps.timetable_id;
-                }
+                },
+                eventTimeFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                    }
+
             });
 
             calendar.render();
