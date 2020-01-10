@@ -9,7 +9,10 @@ block content
                         i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
                 div(class="card-body")
                     each day in timetable_days
-                        div(class="row no-gutter timetable-item")
+                        //div(class="" data-toggle="popover" data-trigger="click" data-placement="right")
+
+                        //div( class="row no-gutter timetable-item" role="button" data-toggle="popover" data-trigger="click" data-placement="right"  title="Opties"  data-html='true'  data-content=popovercontent data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>')
+                        div( class="row no-gutter timetable-item" id="")    
                             div( class="col-sm-12")
                                 case day.day_count
                                     when 0
@@ -63,3 +66,39 @@ block content
             script.
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.remove('hidden') }, 60);
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.add('hidden') }, 4000);
+            
+    script.
+            document.onreadystatechange = function () {
+                if (document.readyState === "complete") {  
+                    $(function () {
+                        var popupElement = '<div class="btn-group btn-toggle"><button class="btn btn-sm btn-info">On</button><button class="btn btn-sm btn-primary active">Off</button></div>';
+                       
+                        $('#popbutton').popover({
+                        animation: true,
+                        content: popupElement,
+                        html: true
+                        });
+
+                        $('body').on('click','.btn-toggle',function () {
+                            $(this).find('.btn').toggleClass('active');
+
+                            if ($(this).find('.btn-primary').length > 0) {
+                                $(this).find('.btn').toggleClass('btn-primary');
+                            }
+                            if ($(this).find('.btn-danger').length > 0) {
+                                $(this).find('.btn').toggleClass('btn-danger');
+                            }
+                            if ($(this).find('.btn-success').length > 0) {
+                                $(this).find('.btn').toggleClass('btn-success');
+                            }
+                            if ($(this).find('.btn-info').length > 0) {
+                                $(this).find('.btn').toggleClass('btn-info');
+                            }
+
+                            $(this).find('.btn').toggleClass('btn-default');
+                        });
+
+                    });
+                 }
+              }
+           

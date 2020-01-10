@@ -12,21 +12,71 @@ block scripts
 
     script.
         document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
+        var calendarEl = document.getElementById('calendar');
+         
+       
+       
+       function handleResponse(response){
+            let resultObj = JSON.parse(response); 
+            if(resultObj.success == true){
+                $("#feedback-req").html('<div class="alert alert-success alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>'); 
+                } 
+                else { 
+                $("#feedback-req").html(' <div class="alert alert-danger alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>');
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: [ 'timeGrid' ],
-                defaultView: 'timeGridWeek',
-                allDaySlot: false,
-                events: !{timeTable},
-                eventClick: (info) => {
-                    window.location = "/rooster/edit-user/" + info.event.extendedProps.timetable_id;
-                },
+            } 
+        }
+
+         
+        function onCalendarItemClick(timetableItemId,timetableItemUserId){   
+            let userId = "#{userInfo.id}"; 
+            let userRole = "#{userInfo.role}";  
+            if (String(userId) == String(timetableItemUserId)){ 
+
+                $("#substituteBtnDiv").html('<button class="btn btn-success" type="button" data-dismiss="modal" id="substitutebutton" val="'+timetableItemId+'"> Vervanging aanvragen</button>');
+                $('#substitutebutton').click(function (e){
+                        $.ajax({
+                            type: "POST",
+                            url: '/rooster/substitute/',
+                            data: {id: timetableItemId},
+                            success: function(result){
+                                handleResponse(result);
+                            }  
+                        }); 
+                    });
+                      
+            } else{
+                $("#substituteBtnDiv").html('');
+            }
+            
+            if (userRole == "OWNER" || userRole == "MANAGER" ){
+                $("#editBtnDiv").html('<button class="btn btn-warning editBtn" type="button" id="editBtn" value="'+timetableItemId+'"> Aanpassen</button>');
+                 $('#editBtn').click(function (e){ 
+                    window.location = "/rooster/edit-user/"+ this.value;
+                });
+            } 
+            else{
+                $("#editBtnDiv").html('');
+            }
+        }
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: [ 'timeGrid' ],
+            defaultView: 'timeGridWeek',
+            allDaySlot: false,
+            events: !{timeTable},
+            eventClick: function(info){ 
+                                    $('#modalTitle').html(info.event.title);
+                                    $('#Commentaar').html("Commentaar: "+info.event.extendedProps.timetable_comment);
+                                    $('#fullCalModal').modal(); 
+                                    onCalendarItemClick(info.event.extendedProps.timetable_id,info.event.extendedProps.timetable_user_id);
+                                    },
                 eventTimeFormat: {
                     hour: '2-digit',
                     minute: '2-digit',
                     hour12: false
                     }
+        });
 
             });
 
@@ -34,6 +84,27 @@ block scripts
         });
 
 
-block content
-    div(id='calendar')
+block content 
+    br
+    //-https://stackoverflow.com/questions/29965136/fullcalendar-modal-on-event-click-not-displaying-correctly
+    #fullCalModal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h4#modalTitle.modal-title
+                    button.close(type='button' data-dismiss='modal')
+                        span(aria-hidden='true') &times;
+                        span.sr-only close
+                #modalBody.modal-body   
+                    p(id="Commentaar")
+                    .modal-footer
+                        button.btn.btn-default(type='button' data-dismiss='modal') Close 
+                        div(id="editBtnDiv")
+                            button.btn.btn-warning(type='button' id="editBtn") Aanpassen
+                        div(id="substituteBtnDiv")
+
+    div(class="card shadow")
+        div(class="card-header")
+            div(id='feedback-req')
+            div(id='calendar')
     
