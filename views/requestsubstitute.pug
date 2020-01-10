@@ -87,7 +87,26 @@ block content
                             select(class="form-control" id="substituteRequest")                            
                                 option(selected value="no-selection") Kies...
                                 each item in timetableItems
-                                    option(value=item.id) #{item.begin_date} - #{item.end_date} 
+                                
+                                    - bdday = new Date(item.begin_date).getDate();
+                                    - bdmonth = new Date(item.begin_date).getMonth();
+                                    - bdyear = new Date(item.begin_date).getFullYear();
+                                    - bdhours = new Date(item.begin_date).getHours();
+                                    - if (String(bdhours).length == 1){bdhours = 0 + String(bdhours)};
+                                    - bdminutes = new Date(item.begin_date).getMinutes(); 
+                                    - if (String(bdminutes).length == 1){bdminutes = 0 + String(bdminutes);}; 
+                                    - bddate = bdday + "-"  + (bdmonth+1) + "-" + bdyear + " " + bdhours+":"+bdminutes;
+                                            
+                                    - edday = new Date(item.end_date).getDate();
+                                    - edmonth = new Date(item.end_date).getMonth();
+                                    - edyear = new Date(item.end_date).getFullYear();
+                                    - edhours = new Date(item.end_date).getHours();
+                                    - if (String(edhours).length == 1){edhours = 0 + String(edhours)};
+                                    - edminutes = new Date(item.end_date).getMinutes(); 
+                                    - if (String(edminutes).length == 1){edminutes = 0 + String(edminutes)};
+                                    - eddate = edday + "-"  + (edmonth+1) + "-" + edyear + " " + edhours+":"+edminutes;    
+
+                                    option(value=item.id) #{bddate} - #{eddate} 
 
                         div(class="col-sm-2") 
                             button(class="btn btn-primary" id="substituteRequestBtn") Vraag aan.
@@ -97,7 +116,7 @@ block content
     script.
         document.onreadystatechange = function () {
             if (document.readyState === "complete") {   
-
+                
                 $('#substituteRequestBtn').bind('click', function(e){
                     var substituteRequestSelector = document.getElementById("substituteRequest");
                     var selectedSubstituteRequest = substituteRequestSelector.options[substituteRequestSelector.selectedIndex].value; 
