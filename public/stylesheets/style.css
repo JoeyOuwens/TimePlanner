@@ -27,6 +27,10 @@ h1 {
     color: white;
 }
 
+.hidden {
+    display: none;
+}
+
 .popover-header {
     background-color: #03396c !important;
     border-color: #03396c !important;
@@ -331,8 +335,13 @@ Licensed under MIT
     color: white;
 }
 
-.fc-event:hover {
+.fc-event:hover,
+.anchor:hover {
     cursor: pointer;
+}
+
+a.anchor:not([href]) {
+    color: white;
 }
 
 /* Popup box BEGIN */
@@ -398,10 +407,6 @@ Licensed under MIT
     font-weight: bold;
 }
 
-.container {
-    padding: 20px;
-}
-
 .popover {
     width: 350px;
     max-width: 1500px;
@@ -411,11 +416,11 @@ Licensed under MIT
     color: #00A1FF;
 }
 
-    .popover-content h4 small {
-        color: black;
-    }
+.popover-content h4 small {
+    color: black;
+}
 
-.popover-content button.btn-primary {
+/*.popover-content button.btn-primary {
     color: #00A1FF;
     border-color: #00A1FF;
     background: white;
@@ -424,4 +429,4 @@ Licensed under MIT
 .popover-content button.btn-default {
     color: gray;
     border-color: gray;
-}
+}*/
