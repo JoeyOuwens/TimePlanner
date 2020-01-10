@@ -3,9 +3,24 @@ var knex = require('../../db/knex');
 var substitute = require('../../models/substitute');
 var timetableItem = require('../../models/timetable_item');
 
+
 class RequestSubstitute {
     static async get(req, res) {
         let data = await getSubstituteList();
+        //var begin_date = new Date();
+        //begin_date.setHours(0, 0, 0, 0); 
+        //let items = await knex.select().from('timetable_items')
+        //    .where('user', req.session.user.id)
+        //    .andWhere('begin_date', '>=', begin_date.toISOString().replace('T', ' ').replace('Z', ''))
+        //    .then((values) => {
+        //        values.forEach((item, index, array) => {
+        //            item.begin_time = new Date(item.begin_date).toTimeString().split(' ')[0].split(/(.+):/)[1];
+        //            item.end_time = new Date(item.end_date).toTimeString().split(' ')[0].split(/(.+):/)[1];
+        //            array[index] = item;
+        //        });
+        //        return values;
+        //    }); 
+
         res.render('requestsubstitute', { title: "Vervangingslijst", substituteList : data });
 
     }

@@ -3,53 +3,76 @@ extends layout
 block content
     
     
-    div(class="card shadow") 
-        div(class="table-responsive ")  
-                table(class="table table-sm")
-                    thead(class="thead-tertiary")
-                        tr
-                            th(class="col-xs-1" scope="col") Aanvraag datum 
-                            th(class="col-xs-1" scope="col") Aangevraagd door
-                            th(class="col-xs-1" scope="col") Vervangen door 
-                            th(class="col-xs-1" scope="col") Van 
-                            th(class="col-xs-1" scope="col") Tot 
-                            th(class="col-xs-1" scope="col") Status 
-                            th(class="col-xs-1" scope="col") Commentaar 
-                    tbody
-                        if(substituteList.length > 0)
-                            each substitute in substituteList 
-                                tr(id="substitute-request-"+substitute.id ) 
-                                    - day = new Date(substitute.creation_date).getDate();
-                                    - month = new Date(substitute.creation_date).getMonth();
-                                    - year = new Date(substitute.creation_date).getFullYear();
-                                    - date = day + "-"  + month + "-" + year;
-                                    td #{substitute.creation_datetime}
-                                    td #{substitute.requestingUser.getFullName()} 
-                                    if substitute.replacedByUser.id === userInfo.id
-                                        td 
-                                    else
-                                        if substitute.requestingUser.id === substitute.replacedByUser.id
-                                            td
-                                                button(class="btn btn-primary btn-sm take-over-btn" id=substitute.id) Neem over
-                                        else
-                                            td #{substitute.replacedByUser.getFullName()}
-                                    td #{substitute.timetableItem.begin_date}
-                                    td #{substitute.timetableItem.end_date}
-                                    td 
-                                        case substitute.status 
-                                            when "AWAITING_APPROVAL" 
-                                                p(class="text-dark") In afwachting
-                                            when "AWAITING_REPLACEMENT" 
-                                                p(class="text-dark") Niet overgenomen
-                                            when "APPROVED" 
-                                                p(class="text-success") Goedgekeurd
-                                            when "DENIED"
-                                                p(class="text-danger") Afgekeurd
-                                    td #{substitute.comment}
-                        else
-                            td Geen aanvragen
+    div(class="card shadow dashboard-timetable")
+            div(class="card-header bg-tertiary ")
+                h3 Vervanging aanvragen
+            div(class="card-body") 
+                div(class="table-responsive ")  
+                        table(class="table table-sm")
+                            thead(class="bg-secondary")
+                                tr
+                                    th(class="col-xs-1" scope="col") Aanvraag datum 
+                                    th(class="col-xs-1" scope="col") Aangevraagd door
+                                    th(class="col-xs-1" scope="col") Vervangen door 
+                                    th(class="col-xs-1" scope="col") Van 
+                                    th(class="col-xs-1" scope="col") Tot 
+                                    th(class="col-xs-1" scope="col") Status 
+                                    th(class="col-xs-1" scope="col") Commentaar 
+                            tbody
+                                if(substituteList.length > 0)
+                                    each substitute in substituteList 
+                                        tr(id="substitute-request-"+substitute.id ) 
+                                            - day = new Date(substitute.creation_date).getDate();
+                                            - month = new Date(substitute.creation_date).getMonth();
+                                            - year = new Date(substitute.creation_date).getFullYear();
+                                            - date = day + "-"  + month + "-" + year;
+                                            td #{substitute.creation_datetime}
+                                            td #{substitute.requestingUser.getFullName()} 
+                                            if substitute.replacedByUser.id === userInfo.id
+                                                td 
+                                            else
+                                                if substitute.requestingUser.id === substitute.replacedByUser.id
+                                                    td
+                                                        button(class="btn btn-primary btn-sm take-over-btn" id=substitute.id) Neem over
+                                                else
+                                                    td #{substitute.replacedByUser.getFullName()}
+                                            td #{substitute.timetableItem.begin_date}
+                                            td #{substitute.timetableItem.end_date}
+                                            td 
+                                                case substitute.status 
+                                                    when "AWAITING_APPROVAL" 
+                                                        p(class="text-dark") In afwachting
+                                                    when "AWAITING_REPLACEMENT" 
+                                                        p(class="text-dark") Niet overgenomen
+                                                    when "APPROVED" 
+                                                        p(class="text-success") Goedgekeurd
+                                                    when "DENIED"
+                                                        p(class="text-danger") Afgekeurd
+                                            td #{substitute.comment}
+                                else
+                                    td Geen aanvragen
+                                // Pagination?
                             
     br
+    //-    
+        div(class="card shadow dashboard-timetable")
+                div(class="card-header bg-tertiary " )
+                    h3 Vraag aan
+                div(class="card-body") 
+                    div(class="container")
+                        div(class="row")
+                            div(class="col-sm")
+                                p Kies werkdatum
+                        div(class="row")
+                            div(class="col-sm-2") 
+                                select(class="form-control")                            
+                                    option(selected) Kies...
+                                    each item in timetableItems
+                                        option(id=item.id) #{item.begin_date} - #{item.end_date} 
+
+                            div(class="col-sm-2") 
+                                button(class="btn btn-primary") Vraag aan.
+
 
     //TODO Add block scripts when moving to dev!
     script.
