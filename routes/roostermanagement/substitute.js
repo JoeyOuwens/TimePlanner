@@ -7,33 +7,32 @@ var timetableItem = require('../../models/timetable_item');
 class RequestSubstitute {
     static async get(req, res) {
         let data = await getSubstituteList();
-        //var begin_date = new Date();
-        //begin_date.setHours(0, 0, 0, 0); 
-        //let items = await knex.select().from('timetable_items')
-        //    .where('user', req.session.user.id)
-        //    .andWhere('begin_date', '>=', begin_date.toISOString().replace('T', ' ').replace('Z', ''))
-        //    .then((values) => {
-        //        values.forEach((item, index, array) => {
-        //            item.begin_time = new Date(item.begin_date).toTimeString().split(' ')[0].split(/(.+):/)[1];
-        //            item.end_time = new Date(item.end_date).toTimeString().split(' ')[0].split(/(.+):/)[1];
-        //            array[index] = item;
-        //        });
-        //        return values;
-        //    }); 
+        var begin_date = new Date();
+        begin_date.setHours(0, 0, 0, 0); 
+        let items = await knex.select().from('timetable_items')
+            .where('user', req.session.user.id)
+            .andWhere('begin_date', '>=', begin_date.toISOString().replace('T', ' ').replace('Z', ''))
+            .then((values) => {
+                values.forEach((item, index, array) => {
+                    item.begin_time = new Date(item.begin_date).toTimeString().split(' ')[0].split(/(.+):/)[1];
+                    item.end_time = new Date(item.end_date).toTimeString().split(' ')[0].split(/(.+):/)[1];
+                    array[index] = item;
+                });
+                return values;
+            }); 
 
-        res.render('requestsubstitute', { title: "Vervangingslijst", substituteList : data });
+        res.render('requestsubstitute', { title: "Vervangingslijst", substituteList : data, timetableItems: items });
 
     }
     static async post(req, res, next) {
-        let id = req.body.id
-        //let ti = await timetableItem.query('timetable_items.user').where('id', id)
-
+        let id = req.body.id;
         let timetableUser = await knex.select('timetable_items.user')
-            .from("timetable_items").where('id', id);
+            .from("timetable_items").where('id', id); 
         if (timetableUser[0].user == req.session.user.id) {
             let substitute = await knex.select().from('substitute').where('timetable_item', id);
-            if (substitute.length == 0) {
-                await knex('substitute').insert([
+            console.log(req.body.id);
+            if (substitute.length == 0) { 
+                var insertedSubstitute = await knex('substitute').insert([
                     {
                         requesting_user: req.session.user.id,
                         replaced_by_user: req.session.user.id,
@@ -41,16 +40,32 @@ class RequestSubstitute {
                         timetable_item: req.body.id,
                         status: 'AWAITING_REPLACEMENT',
                         comment: ''
-                    }]).catch(function (e) { console.log(e) });
+                    }]).then(function () { 
+                        return true;
+                    }).catch(function (e) {
+                        console.log(e)
+                        return false;
+                    });
+                if (insertedSubstitute) {
+                    handleResponseJson(res, true, "Het is goed gegaan, topper ben je.");
+                } else {
+                    handleResponseJson(res, false, "Het is fout gegaan, topper ben je.");
+                }
+            } else {
+                handleResponseJson(res, false, "Je hebt al voor deze dag een aanvraag staan, topper ben je.");
             }
-        }
-       
+        } else {
+            handleResponseJson(res, false, "Het is fout gegaan, topper ben je."); 
+        } 
+        handleResponseJson(res, false, "Er ging wat fout. Prutser ben je."); 
+
     }
 
     //TODO checks if user is not requesting user.
     //TODO rename? relocate to other file.
     static async takeOver(req, res, next) {
-        await substitute.query().where('id', req.body.id)
+        await substitute.query().where('id', req.body.substituteId)
+            .whereNot('requesting_user', req.session.user.id)
             .update({ status: "AWAITING_APPROVAL", replaced_by_user: req.session.user.id })
             .then(function () { 
                 return true;
@@ -59,12 +74,19 @@ class RequestSubstitute {
                 console.log(e);
                 return false;}); 
 
-        res.redirect("/substitute/list"); 
+        res.redirect("/rooster/substitute/list"); 
     }
 }
 
 module.exports = RequestSubstitute;
 
+function handleResponseJson(res, success, message) {
+    res.send(JSON.stringify({
+        success: success,
+        message: message
+    }));
+
+}
 
 async function getSubstituteList() {
     const substituteList = await substitute.query()

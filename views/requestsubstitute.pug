@@ -22,20 +22,20 @@ block content
                                 if(substituteList.length > 0)
                                     each substitute in substituteList 
                                         tr(id="substitute-request-"+substitute.id ) 
-                                            - day = new Date(substitute.creation_date).getDate();
+                                            - day = new Date(substitute.creation_date);
                                             - month = new Date(substitute.creation_date).getMonth();
                                             - year = new Date(substitute.creation_date).getFullYear();
                                             - date = day + "-"  + month + "-" + year;
                                             td #{substitute.creation_datetime}
-                                            td #{substitute.requestingUser.getFullName()} 
-                                            if substitute.replacedByUser.id === userInfo.id
-                                                td 
-                                            else
-                                                if substitute.requestingUser.id === substitute.replacedByUser.id
+                                            td #{substitute.requestingUser.getFullName()}  
+                                            if substitute.requestingUser.id === substitute.replacedByUser.id
+                                                if substitute.replacedByUser.id === userInfo.id
+                                                    td Niemand
+                                                else
                                                     td
                                                         button(class="btn btn-primary btn-sm take-over-btn" id=substitute.id) Neem over
-                                                else
-                                                    td #{substitute.replacedByUser.getFullName()}
+                                            else
+                                                td #{substitute.replacedByUser.getFullName()}
                                             td #{substitute.timetableItem.begin_date}
                                             td #{substitute.timetableItem.end_date}
                                             td 
@@ -54,41 +54,74 @@ block content
                                 // Pagination?
                             
     br
-    //-    
-        div(class="card shadow dashboard-timetable")
-                div(class="card-header bg-tertiary " )
-                    h3 Vraag aan
-                div(class="card-body") 
-                    div(class="container")
-                        div(class="row")
-                            div(class="col-sm")
-                                p Kies werkdatum
-                        div(class="row")
-                            div(class="col-sm-2") 
-                                select(class="form-control")                            
-                                    option(selected) Kies...
-                                    each item in timetableItems
-                                        option(id=item.id) #{item.begin_date} - #{item.end_date} 
+  
+    div(class="card shadow dashboard-timetable")
+            div(class="card-header bg-tertiary " )
+                h3 Vraag aan
+            div(class="card-body") 
+                div(class="container")
+                    div(id="feedback-req")
+                    div(class="row")
+                        div(class="col-sm")
+                            p Kies werkdatum
+                    div(class="row")
+                        div(class="col-sm-4") 
+                            select(class="form-control" id="substituteRequest")                            
+                                option(selected value="no-selection") Kies...
+                                each item in timetableItems
+                                    option(value=item.id) #{item.begin_date} - #{item.end_date} 
 
-                            div(class="col-sm-2") 
-                                button(class="btn btn-primary") Vraag aan.
+                        div(class="col-sm-2") 
+                            button(class="btn btn-primary" id="substituteRequestBtn") Vraag aan.
 
 
     //TODO Add block scripts when moving to dev!
     script.
         document.onreadystatechange = function () {
             if (document.readyState === "complete") {   
+
+                $('#substituteRequestBtn').bind('click', function(e){
+                    var substituteRequestSelector = document.getElementById("substituteRequest");
+                    var selectedSubstituteRequest = substituteRequestSelector.options[substituteRequestSelector.selectedIndex].value; 
+                    requestSubstitute(selectedSubstituteRequest); 
+                });
+               
+
                  $('.take-over-btn').bind('click', function(e) { 
                     takeOver(this.id);
                 });
-                 
+                
+                function requestSubstitute(value){
+                    if(value !== "no-selection"){
+                        $.ajax({
+                            type: "POST",
+                            url: '/rooster/substitute/',
+                            data: {id: value},
+                            success: function(result){
+                                handleResponse(result);
+                            }  
+                        });
+
+                    }
+                }
+                function handleResponse(response){
+
+                    let resultObj = JSON.parse(response); 
+                    if(resultObj.success == true){
+                        $("#feedback-req").html('<div class="alert alert-success alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>'); 
+                        setTimeout(function(){location.reload()},2000);
+                    } else { 
+                        $("#feedback-req").html(' <div class="alert alert-danger alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>');
+
+                    } 
+                }
 
                 function takeOver(id){
-                    $.post("/rooster/substitute/take-over", {id: id}, function(result){
+                    $.post("/rooster/substitute/take-over", {substituteId: id}, function(result){ 
                            $('#substitute-request-'+id).html('<th colspan="10"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></th>');
                   
                         });
-
                 }
+
             }
         }
