@@ -21,7 +21,10 @@ block footer
 
                 script. 
                     document.querySelector('.copyright').addEventListener('click', () => {
-                        localStorage.setItem('copyright', 'copyright');
+                        if(localStorage.getItem('copyright') == null) 
+                            localStorage.setItem('copyright', 'copyright');
+                        else 
+                            localStorage.clear();
                     });
 
             if userInfo !== undefined
