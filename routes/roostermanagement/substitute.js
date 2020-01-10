@@ -47,17 +47,17 @@ class RequestSubstitute {
                         return false;
                     });
                 if (insertedSubstitute) {
-                    handleResponseJson(res, true, "Het is goed gegaan, topper ben je.");
+                    handleResponseJson(res, true, "Aanvraag is toegevoegd.");
                 } else {
-                    handleResponseJson(res, false, "Het is fout gegaan, topper ben je.");
+                    handleResponseJson(res, false, "Er is wat fout gegaan, aanvraag is niet toegevoegd.");
                 }
             } else {
-                handleResponseJson(res, false, "Je hebt al voor deze dag een aanvraag staan, topper ben je.");
+                handleResponseJson(res, false, "Je hebt al voor deze dag een aanvraag staan.");
             }
         } else {
-            handleResponseJson(res, false, "Het is fout gegaan, topper ben je."); 
+            handleResponseJson(res, false, "Je kan niet jezelf vervangen."); 
         } 
-        handleResponseJson(res, false, "Er ging wat fout. Prutser ben je."); 
+        handleResponseJson(res, false, "Er is wat fout gegaan."); 
 
     }
 
