@@ -56,9 +56,9 @@ block content
     script(type="text/template" id="js--popover-button-template")
         div(class="input-group")
             div(class="input-group-prepend")
-                a(class="btn btn-info anchor" id="btn1") Vervanging aanvragen
+                a(class="btn btn-info anchor js--substitute") Vervanging aanvragen
             div(class="input-group-append")
-                a(class="btn btn-primary anchor hidden" id="btn2") Ziek Melden
+                a(class="btn btn-primary anchor hidden js--sick") Ziek Melden
     script.
         $(function () {
 
@@ -71,23 +71,21 @@ block content
             $('#roosterdiv').on('show.bs.popover', function (element) {
                 $("[data-toggle='popover']").each((id, item) => {
                     $(item).popover('hide');
-                });                 
+                });               
             });
 
             $('#roosterdiv').on('inserted.bs.popover', async function (element) {
-
+                if(element.target.dataset.daycount == 0){
+                    $('.js--sick').removeClass('hidden');
+                }           
             });
 
             $('#roosterdiv').on('shown.bs.popover', async function (element) {
-                if(element.target.dataset.daycount == 0){
-                    $('#btn2').removeClass('hidden');
-                }           
-
-                $('#btn1').click(function (e){
+                $('.js--substitute').click(function (e){
                     window.location = "/requestdayoff";}
                 );
 
-                $('#btn2').click(function (e){
+                $('.js--sick').click(function (e){
                     window.location = "/call-in-sick";
                 });
             });
