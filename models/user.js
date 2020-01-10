@@ -51,8 +51,8 @@ class User extends Model {
     }
 
     // TODO: Check if hashed password is the same as hashed&stored password. 
-    isPassword(password) {
-        if (verifyHash(password, this.password, config))
+    async isPassword(password) {
+        if (await verifyHash(password, this.password, config))
             return true;
         return false;
     }
