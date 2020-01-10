@@ -31,7 +31,21 @@ class RequestSubstitute {
         }
        
     }
-    
+
+    //TODO checks if user is not requesting user.
+    //TODO rename? relocate to other file.
+    static async takeOver(req, res, next) {
+        await substitute.query().where('id', req.body.id)
+            .update({ status: "AWAITING_APPROVAL", replaced_by_user: req.session.user.id })
+            .then(function () { 
+                return true;
+            })
+            .catch(function (e) {
+                console.log(e);
+                return false;}); 
+
+        res.redirect("/substitute/list"); 
+    }
 }
 
 module.exports = RequestSubstitute;

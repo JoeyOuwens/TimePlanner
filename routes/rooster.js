@@ -18,5 +18,6 @@ router.post('/edit-user/:timetable_id', edit.post);
 
 router.get('/substitute/list', substitute.get);
 router.post('/substitute', substitute.post);
+router.post('/substitute/take-over', substitute.takeOver);
 
 module.exports = router;
