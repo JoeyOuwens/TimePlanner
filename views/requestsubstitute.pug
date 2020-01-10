@@ -68,8 +68,7 @@ block content
                                                         p(class="text-danger") Afgekeurd
                                             td #{substitute.comment}
                                 else
-                                    td Geen aanvragen
-                                // Pagination?
+                                    td Geen aanvragen 
                             
     br
   
@@ -154,10 +153,15 @@ block content
                 }
 
                 function takeOver(id){
-                    $.post("/rooster/substitute/take-over", {substituteId: id}, function(result){ 
-                           $('#substitute-request-'+id).html('<th colspan="10"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></th>');
-                  
-                        });
+                    $('#substitute-request-'+id).html('<th colspan="10"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></th>');
+                    $.ajax({
+                            type: "POST",
+                            url: '/rooster/substitute/take-over',
+                            data: {substituteId: id},
+                            success: function(result){
+                                location.reload();                                
+                            }  
+                        });  
                 }
 
             }

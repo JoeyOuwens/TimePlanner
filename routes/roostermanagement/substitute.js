@@ -74,7 +74,7 @@ class RequestSubstitute {
                 console.log(e);
                 return false;}); 
 
-        res.redirect("/rooster/substitute/list"); 
+        res.send(JSON.stringify({success: true})); 
     }
 }
 

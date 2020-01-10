@@ -8,7 +8,7 @@ class Index {
         let timetable_list = [];
 
         for (let i = 0; i < timetable_items.length; i++) {
-            timetable_list.push({ "title": timetable_users[i].firstname + ' ' + timetable_users[i].lastname, "start": timetable_items[i].begin_date, "end": timetable_items[i].end_date, "timetable_id": timetable_items[i].id, "timetable_comment": timetable_items[i].comment});
+            timetable_list.push({ "title": timetable_users[i].firstname + ' ' + timetable_users[i].lastname, "start": timetable_items[i].begin_date, "end": timetable_items[i].end_date, "timetable_id": timetable_items[i].id, "timetable_comment": timetable_items[i].comment, "timetable_user_id": timetable_users[i].id });
         }
 
         res.render('rooster',
