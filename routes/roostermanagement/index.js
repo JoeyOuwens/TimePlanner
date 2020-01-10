@@ -15,8 +15,7 @@ class Index {
                         "timetable_id": item.id
                     });
             });
-        });
-
+        }); 
         res.render('rooster',
             {
                 title: 'Rooster',

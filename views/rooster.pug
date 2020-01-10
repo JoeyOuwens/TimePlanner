@@ -1,45 +1,63 @@
 extends layout
 
 block styles
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.css' rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.css' rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.css' rel='stylesheet')
+
+    
+    link( href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' )
+
+
+    link( href='https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.css' rel='stylesheet' )
+
+  
+
+    link( href='https://unpkg.com/@fullcalendar/resource-timeline@4.3.0/main.min.css' rel='stylesheet' ) 
+
+
+
+
 
 block scripts
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js')
+
+    
+    script( src='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js')
+    script( src='https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.js')
+
+    script( src='https://unpkg.com/@fullcalendar/resource-common@4.3.1/main.min.js')
+
+    script( src='https://unpkg.com/@fullcalendar/resource-timeline@4.3.0/main.min.js')
 
 block content
     script.
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
-
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: [ 'timeGrid' ],
-                defaultView: 'timeGridWeek',
-                allDaySlot: false,
-                events: !{timeTable},
-                eventClick: function(info){ 
-                    $('#modalTitle').html(info.event.title);
-                    $('#Commentaar').html("Commentaar: "+info.event.extendedProps.timetable_comment);
-                    $('#fullCalModal').modal();
-                    $('#editBtn').val(info.event.extendedProps.timetable_id);
+              schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+              plugins: [ 'resourceTimeline' ],
+              header: {
+                left: 'today prev,next',
+                center: 'title',
+                right: 'resourceTimelineWeek', 
+              },
+              defaultView: 'resourceTimelineWeek',
+              aspectRatio: 2, 
+              slotDuration: '06:00:00',
+              slotLabelFormat: [
+                      {weekday: 'long', month: 'numeric', day: 'numeric'  }, 
+                      {   }, 
 
-                    $('#editBtn').click(function (e){
-                        window.location = "/rooster/edit-user/" + this.value;
-                    });
-                },
-                eventTimeFormat: {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false
-                }
-
+                    ], 
+              resourceColumns: [
+                {
+                  labelText: 'Medewerker',
+                  field: 'title' }
+              ], 
+              resources: [ {"id": "1","title": "Gerard Ramsea"}  ],
+              events: '#{timeTable}',
             });
 
-            calendar.render();
-        });
+            calendar.render(); 
+        }); 
+              
         
     br
     //-https://stackoverflow.com/questions/29965136/fullcalendar-modal-on-event-click-not-displaying-correctly
