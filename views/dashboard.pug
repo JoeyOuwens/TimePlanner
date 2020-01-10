@@ -24,27 +24,31 @@ block content
                                     each rooster_item in day.day_items
                                         p #{rooster_item.begin_time} - #{rooster_item.end_time}
                                 else
-                                    p Je bent niet ingeroosterd.
+                                    p Je bent niet ingeroosterd. 
+
         div( class="col-sm-12 col-md-6 col-lg-5")
-            div(class="card shadow dashboard-timetable")
+            div(class="card shadow")
                 div(class="card-header bg-tertiary")
                     h3 Notificaties 
                         i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
                 div(class="card-body")
+                    P Er zijn geen notificaties
+
         div( class="col-sm-12 col-md-6 col-lg-3")
-            div(class="card shadow dashboard-timetable")
+            div(class="card shadow dashboard-employees")
                 div(class="card-header bg-tertiary")
                     h3 Nieuwste medewerkers
                         i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
                 div(class="card-body")
-    br
-    div(class="row")
-        div( class="col-sm-12")
-            div(class="card shadow dashboard-timetable")
-                div(class="card-header bg-tertiary")
-                    h3 Widget editor
-                div(class="card-body")
+                    each user in newest_users
+                        div(class="row no-gutter employee-item")
+                            div( class="col-sm-3")
+                                img(src="/"+user.getImage() class="img-responsive profile-img")
+                            div( class="col-sm-9")
+                                b #{user.getFullName()}
 
+                        
+    br
     if log_in_redirect !== undefined
         div(class="greeting-message js--greeting-message hidden")
             div(class="alert alert-success")

@@ -1,7 +1,6 @@
 'use strict';
 var express = require('express');
 var router = express.Router();
-var login = require('../controller/authenticate/login');
 var validation = require('../classes/validation');
 var resetTokenHandler = require('../classes/resetToken');
 
@@ -15,23 +14,35 @@ router.get('/', function (req, res, next) {
 /* Login user */
 
 router.post('/', async function (req, res, next) {
-    const username = req.body.username.toLowerCase();
+    var errors = [];
+    const email = req.body.username.toLowerCase();
     const password = req.body.password;
-    let loginResult = await login(username, password);
 
-    if (loginResult) {
-        if (req.session.user === undefined) {
-            req.session.user = await User.query().where('email', username).first();
-            req.session.logged_in = true;
-            if (req.session.user.profile_image === "") {
-                req.session.user.profile_image = "images/default_profileimage.jpg";
+    const user = await User.query().where({
+        email: email,
+        active: true
+    }).first();
+
+    if (user !== undefined) {
+        if (user.isPassword(password)) {
+            if (req.session.user === undefined) {
+                req.session.user = user;
+                req.session.logged_in = true;
+                if (req.session.user.profile_image === "") {
+                    req.session.user.profile_image = "images/default_profileimage.jpg";
+                }
             }
+
+            res.redirect('/dashboard');
+            return;
+        } else {
+            errors.push('Het ingevulde wachtwoord is onjuist. ');
         }
-        
-        res.redirect('/dashboard');
     } else {
-        res.render('index', { error: true});
+        errors.push('Het emailadres is onjuist of het account is gedeactiveerd. ');
     }
+
+    res.render('index', { errors: errors });
 });
 
 

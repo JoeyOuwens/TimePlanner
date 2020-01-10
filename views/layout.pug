@@ -1,6 +1,7 @@
 doctype html
 html
     head
+        meta(charset='utf-8')
         title= title + ' | TimePlanner'
         meta( name="viewport" content="width=device-width, initial-scale=1")
         link(rel='manifest', href='/manifest.json')
@@ -22,7 +23,9 @@ html
         script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")
         script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous")
 
-        
+        block styles
+        block scripts
+
     body
         if userInfo !== undefined 
             header
@@ -39,5 +42,24 @@ html
                         h2 #{title}
                 div(class="card-body") 
                     block content
+        
+
 
         include footer
+
+    div(class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModal" aria-hidden="true")
+        div(class="modal-dialog modal-dialog-centered" role="document")     
+        div(class="modal-content")
+            div(class="modal-header")
+                h5(class="modal-title" id="Title") Info
+                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                    span(aria-hidden="true") &times; 
+            div(class="modal-body" id="bodyText")
+            
+            div( class="modal-footer") 
+                    button( type="button" class="btn btn-primary" id= "back-btn") Terug
+                    button( type="button" class="btn btn-primary" id="next-btn") Volgende
+ 
+
+
+        script(src="/javascript/modal.js")

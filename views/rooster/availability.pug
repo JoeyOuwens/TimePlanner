@@ -15,12 +15,13 @@ block content
                             th(class="col-xs-1" scope="col") Zondag
                     tbody
                         tr 
-                        each day in availability
-                            td
-                                if(day == "")
-                                    label Niet 
-                                else
-                                    label #{day} 
+                            if(availability !== undefined)
+                                each day in availability
+                                    td
+                                        if(day === undefined || day === "")
+                                            label Niet
+                                        else
+                                            label #{day} 
                                     
                              
     br
@@ -43,18 +44,18 @@ block content
                         tbody
                             tr  
                                 td 
-                                    input(type="text" name="monday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.monday)    
+                                    input(type="text" name="monday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability !== undefined ? availability.monday : "")    
                                 td 
-                                    input(type="text" name="tuesday"  placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.tuesday)       
+                                    input(type="text" name="tuesday"  placeholder="--:-- - --:--" class=" form-control input-sm" value=availability !== undefined ? availability.tuesday : "")       
                                 td 
-                                    input(type="text" name="wednesday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.wednesday)   
+                                    input(type="text" name="wednesday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability !== undefined ? availability.wednesday : "")   
                                 td 
-                                    input(type="text" name="thursday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.thursday)       
+                                    input(type="text" name="thursday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability !== undefined ? availability.thursday : "")       
                                 td 
-                                    input(type="text" name="friday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.friday)   
+                                    input(type="text" name="friday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability !== undefined ? availability.friday : "")   
                                 td 
-                                    input(type="text" name="saturday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.saturday)   
+                                    input(type="text" name="saturday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability !== undefined ? availability.saturday : "")   
                                 td
-                                    input(type="text" name="sunday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability.sunday)
+                                    input(type="text" name="sunday" placeholder="--:-- - --:--" class=" form-control input-sm" value=availability !== undefined ? availability.sunday : "")
                         
                     input(type="submit" class="float-right btn btn-primary btn-sm" value="Geef door")  

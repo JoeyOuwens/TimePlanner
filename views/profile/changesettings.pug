@@ -24,6 +24,9 @@ form(class="form" method="POST")
 
         div( class="col-sm-12 col-lg-6")
             div(class="form-group")
+                label(for="lastname") Tussenvoegsel:
+                input(type="text" class="form-control" name="middlename" value=userInfo.middlename)
+            div(class="form-group")
                 label(for="lastname") Achternaam:
                 input(type="text" class="form-control" name="lastname" value=userInfo.lastname required)
             div(class="form-group")

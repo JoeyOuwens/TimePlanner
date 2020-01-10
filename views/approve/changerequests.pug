@@ -1,0 +1,61 @@
+﻿div(class="card shadow dashboard-timetable change-requests")
+    div(class="card-header bg-tertiary " role="button"  data-toggle="collapse" data-target="#collapseChangeRequests"  aria-controls="collapseChangeRequests" aria-expanded="true")
+        h3 Vervanging verzoeken
+            i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
+    div(class="collapse show" id="collapseChangeRequests" )
+        div(class="card-body")
+            div(class="table-responsive")
+                table(class="table table-hover table-sm")
+                    thead(class="bg-secondary")
+                        tr
+                            th(scope="col") Aanvraag datum
+                            th(scope="col") Aanvrager
+                            th(scope="col") Begin
+                            th(scope="col") Eind
+                            th(scope="col") Overgenomen door
+                            th(scope="col") Status
+                            th(scope="col") Commentaar
+                            th(scope="col")  
+                            th(scope="col")  
+                
+                    tbody
+                        if(changeRequests !== [])
+                            each request in changeRequests 
+                                - var date = "" +new Date(request.creation_datetime).getDate() +"-"+new Date(request.creation_datetime).getMonth()+"-"+new Date(request.creation_datetime).getFullYear()
+                                tr(id='change-request-'+request.id ) 
+                                    th(scope="col" )  #{date}
+                                    th(scope="col" )  
+                                        a( role="button" data-toggle="popover" data-trigger="hover" data-placement="right"  title=""+request.requestingUser.getFullName()  data-html='true' data-content="Functie: "+request.requestingUser.function data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header popover-header-primary"></h3><div class="popover-body"></div></div>') #{request.requestingUser.getFullName()}
+                                    th(scope="col" )  #{request.timeTableItem.begin_date}
+                                    th(scope="col" )  #{request.timeTableItem.end_date} 
+                                    th(scope="col" )  
+                                        if !(request.status == "AWAITING_REPLACEMENT")
+                                            a( role="button" data-toggle="popover" data-trigger="hover" data-placement="right"  title=""+request.replacedByUser.getFullName()  data-html='true' data-content="Functie: "+request.replacedByUser.function data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header popover-header-primary"></h3><div class="popover-body"></div></div>') #{request.replacedByUser.getFullName()}
+                                    th(scope="col" ) 
+                                        case request.status 
+                                            when "AWAITING_APPROVAL" 
+                                                p(class="text-dark") Afwachting
+                                            when "AWAITING_REPLACEMENT" 
+                                                p(class="text-dark") Niet overgenomen
+                                            when "APPROVED" 
+                                                p(class="text-success") Goedgekeurd
+                                            when "DENIED"
+                                                p(class="text-danger") Afgekeurd
+                                    th(scope="col") 
+                                        if request.status == "AWAITING_APPROVAL"
+                                            input(class="form-control " id="status-comment-change-"+request.id)
+                                        else
+                                            p #{request.comment}
+                                    if request.status == "AWAITING_APPROVAL" 
+                                        th(scope="col" )
+                                                button(class="btn btn-success btn-sm accept-change-request-btn" id=""+request.id) Goedkeuren
+                                        th(scope="col" ) 
+                                                button( class="btn btn-danger btn-sm deny-change-request-btn" id=""+request.id) Afkeuren
+                                    else
+                                        th(scope="col")  
+                                        th(scope="col")    
+                                                            
+                        else
+                            tr
+                                th(scope="col" colspan="10") Geen aanvragen bekend
+
