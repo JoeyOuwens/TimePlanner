@@ -11,7 +11,7 @@ class RequestSubstitute {
         begin_date.setHours(0, 0, 0, 0); 
         let items = await knex.select().from('timetable_items')
             .where('user', req.session.user.id)
-            .andWhere('begin_date', '>=', begin_date.toISOString().replace('T', ' ').replace('Z', ''))
+            .andWhere('begin_date', '>=', begin_date.toISOString())
             .then((values) => {
                 values.forEach((item, index, array) => {
                     item.begin_time = new Date(item.begin_date).toTimeString().split(' ')[0].split(/(.+):/)[1];

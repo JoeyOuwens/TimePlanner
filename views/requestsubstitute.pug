@@ -22,11 +22,29 @@ block content
                                 if(substituteList.length > 0)
                                     each substitute in substituteList 
                                         tr(id="substitute-request-"+substitute.id ) 
-                                            - day = new Date(substitute.creation_date);
-                                            - month = new Date(substitute.creation_date).getMonth();
-                                            - year = new Date(substitute.creation_date).getFullYear();
-                                            - date = day + "-"  + month + "-" + year;
-                                            td #{substitute.creation_datetime}
+                                            - day = new Date(substitute.creation_datetime).getDate();
+                                            - month = new Date(substitute.creation_datetime).getMonth();
+                                            - year = new Date(substitute.creation_datetime).getFullYear();
+                                            - date = day + "-"  + (month+1) + "-" + year;
+                                            
+                                            - bdday = new Date(substitute.timetableItem.begin_date).getDate();
+                                            - bdmonth = new Date(substitute.timetableItem.begin_date).getMonth();
+                                            - bdyear = new Date(substitute.timetableItem.begin_date).getFullYear();
+                                            - bdhours = new Date(substitute.timetableItem.begin_date).getHours();
+                                            - if (String(bdhours).length == 1){bdhours = 0 + String(bdhours)};
+                                            - bdminutes = new Date(substitute.timetableItem.begin_date).getMinutes(); 
+                                            - if (String(bdminutes).length == 1){bdminutes = 0 + String(bdminutes);}; 
+                                            - bddate = bdday + "-"  + (bdmonth+1) + "-" + bdyear + " " + bdhours+":"+bdminutes;
+                                            
+                                            - edday = new Date(substitute.timetableItem.end_date).getDate();
+                                            - edmonth = new Date(substitute.timetableItem.end_date).getMonth();
+                                            - edyear = new Date(substitute.timetableItem.end_date).getFullYear();
+                                            - edhours = new Date(substitute.timetableItem.end_date).getHours();
+                                            - if (String(edhours).length == 1){edhours = 0 + String(edhours)};
+                                            - edminutes = new Date(substitute.timetableItem.end_date).getMinutes(); 
+                                            - if (String(edminutes).length == 1){edminutes = 0 + String(edminutes)};
+                                            - eddate = edday + "-"  + (edmonth+1) + "-" + edyear + " " + edhours+":"+edminutes;
+                                            td #{date}
                                             td #{substitute.requestingUser.getFullName()}  
                                             if substitute.requestingUser.id === substitute.replacedByUser.id
                                                 if substitute.replacedByUser.id === userInfo.id
@@ -36,8 +54,8 @@ block content
                                                         button(class="btn btn-primary btn-sm take-over-btn" id=substitute.id) Neem over
                                             else
                                                 td #{substitute.replacedByUser.getFullName()}
-                                            td #{substitute.timetableItem.begin_date}
-                                            td #{substitute.timetableItem.end_date}
+                                            td #{bddate}
+                                            td #{eddate}
                                             td 
                                                 case substitute.status 
                                                     when "AWAITING_APPROVAL" 
