@@ -1,14 +1,18 @@
 'use strict';
 var knex = require('../../db/knex');
+var substitute = require('../../models/substitute');
+var timetableItem = require('../../models/timetable_item');
 
 class RequestSubstitute {
     static async get(req, res) {
-        let data = getSubstituteList();
+        let data = await getSubstituteList();
         res.render('requestsubstitute', { title: "Vervangingslijst", substituteList : data });
 
     }
     static async post(req, res, next) {
         let id = req.body.id
+        //let ti = await timetableItem.query('timetable_items.user').where('id', id)
+
         let timetableUser = await knex.select('timetable_items.user')
             .from("timetable_items").where('id', id);
         if (timetableUser[0].user == req.session.user.id) {
@@ -30,12 +34,15 @@ class RequestSubstitute {
     
 }
 
+module.exports = RequestSubstitute;
+
+
 async function getSubstituteList() {
-    const RequestSubstitute = await RequestSubstitute.query()
-        .eager('[requesting_user, replaced_by_user, timetable_item]')
+    const substituteList = await substitute.query()
+        .eager('[requestingUser, replacedByUser, timetableItem]')
         .then(function (data) { return data; })
         .catch(function (e) { console.log(e) });
-    return RequestSubstitute;
-}
 
-module.exports = RequestSubstitute;
+    console.log(substituteList)
+    return substituteList;
+}

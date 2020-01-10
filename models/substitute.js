@@ -13,7 +13,7 @@ class RequestSubstitute extends Model {
         const TimeTableItem = require('./timetable_item');
 
         return {
-            requesting_user: {
+            requestingUser: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: User,
                 join: {
@@ -21,7 +21,7 @@ class RequestSubstitute extends Model {
                     to: 'users.id'
                 }
             },
-            replaced_by_user: {
+            replacedByUser: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: User,
                 join: {
@@ -29,7 +29,7 @@ class RequestSubstitute extends Model {
                     to: 'users.id'
                 }
             },
-            timetable_item: {
+            timetableItem: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: TimeTableItem,
                 join: {
@@ -40,7 +40,6 @@ class RequestSubstitute extends Model {
 
         }
     }
-}
-}
+} 
 
 module.exports = RequestSubstitute;

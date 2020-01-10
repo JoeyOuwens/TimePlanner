@@ -23,9 +23,22 @@ block content
                                     - year = new Date(substitute.creation_date).getFullYear();
                                     - date = day + "-"  + month + "-" + year;
                                     td #{substitute.creation_datetime}
-                                    td #{substitute.requesting_user}
-                                    td #{substitute.replaced_by_user}
+                                    td #{substitute.requestingUser.getFullName()} 
+                                    if substitute.requestingUser.id === substitute.replacedByUser.id
+                                        td
+                                            button() Neem over
+                                    else
+                                        td #{substitute.replacedByUser.getFullName()}
                                     td #{substitute.timetable_item}
-                                    td #{substitute.status}
+                                    td 
+                                        case substitute.status 
+                                            when "AWAITING_APPROVAL" 
+                                                p(class="text-dark") Afwachting
+                                            when "AWAITING_REPLACEMENT" 
+                                                p(class="text-dark") Niet overgenomen
+                                            when "APPROVED" 
+                                                p(class="text-success") Goedgekeurd
+                                            when "DENIED"
+                                                p(class="text-danger") Afgekeurd
                                     td #{substitute.comment}
     br
