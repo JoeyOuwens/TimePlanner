@@ -15,7 +15,7 @@ class Index {
                         "start": item.begin_date,
                         "end": item.end_date,
                         "timetable_id": item.id,
-                        "timetable_user_id": timetable_users[i].id
+                        "timetable_user_id": item.user_id
                     });
             });
             return items;

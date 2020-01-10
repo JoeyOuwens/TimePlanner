@@ -21,13 +21,16 @@
                     tbody
                         if(changeRequests !== [])
                             each request in changeRequests 
-                                - var date = "" +new Date(request.creation_datetime).getDate() +"-"+new Date(request.creation_datetime).getMonth()+"-"+new Date(request.creation_datetime).getFullYear()
+                                - day = new Date(request.creation_datetime).getDate();
+                                - month = new Date(request.creation_datetime).getMonth();
+                                - year = new Date(request.creation_datetime).getFullYear();
+                                - date = day + "-"  + (month+1) + "-" + year;
                                 tr(id='change-request-'+request.id ) 
                                     th(scope="col" )  #{date}
                                     th(scope="col" )  
                                         a( role="button" data-toggle="popover" data-trigger="hover" data-placement="right"  title=""+request.requestingUser.getFullName()  data-html='true' data-content="Functie: "+request.requestingUser.function data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header popover-header-primary"></h3><div class="popover-body"></div></div>') #{request.requestingUser.getFullName()}
-                                    th(scope="col" )  #{request.timeTableItem.begin_date}
-                                    th(scope="col" )  #{request.timeTableItem.end_date} 
+                                    th(scope="col" )  #{request.timetableItem.begin_date}
+                                    th(scope="col" )  #{request.timetableItem.end_date} 
                                     th(scope="col" )  
                                         if !(request.status == "AWAITING_REPLACEMENT")
                                             a( role="button" data-toggle="popover" data-trigger="hover" data-placement="right"  title=""+request.replacedByUser.getFullName()  data-html='true' data-content="Functie: "+request.replacedByUser.function data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header popover-header-primary"></h3><div class="popover-body"></div></div>') #{request.replacedByUser.getFullName()}

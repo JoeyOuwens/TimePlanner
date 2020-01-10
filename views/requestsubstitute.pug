@@ -19,7 +19,7 @@ block content
                                     th(class="col-xs-1" scope="col") Status 
                                     th(class="col-xs-1" scope="col") Commentaar 
                             tbody
-                                if(substituteList.length > 0)
+                                if(substituteList.length != [])
                                     each substitute in substituteList 
                                         tr(id="substitute-request-"+substitute.id ) 
                                             - day = new Date(substitute.creation_datetime).getDate();

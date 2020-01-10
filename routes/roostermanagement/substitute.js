@@ -10,7 +10,7 @@ class RequestSubstitute {
         var begin_date = new Date();
         begin_date.setHours(0, 0, 0, 0); 
         let items = await knex.select().from('timetable_items')
-            .where('user', req.session.user.id)
+            .where('user_id', req.session.user.id)
             .andWhere('begin_date', '>=', begin_date.toISOString())
             .then((values) => {
                 values.forEach((item, index, array) => {
@@ -26,9 +26,9 @@ class RequestSubstitute {
     }
     static async post(req, res, next) {
         let id = req.body.id;
-        let timetableUser = await knex.select('timetable_items.user')
-            .from("timetable_items").where('id', id); 
-        if (timetableUser[0].user == req.session.user.id) {
+        let timetableUser = await knex.select('timetable_items.user_id')
+            .from("timetable_items").where('id', id);  
+        if (timetableUser[0].user_id == req.session.user.id) {
             let substitute = await knex.select().from('substitute').where('timetable_item', id);
             console.log(req.body.id);
             if (substitute.length == 0) { 
