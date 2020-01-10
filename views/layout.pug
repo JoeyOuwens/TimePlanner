@@ -12,6 +12,15 @@ html
         script(src='/service-worker-register.js')
         block styles
         block scripts
+        script.
+            if(localStorage.getItem('copyright') !== null) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = '/stylesheets/easter-egg.css';
+                document.head.appendChild(link);
+            }
+
+
     body
         if userInfo !== undefined 
             header
