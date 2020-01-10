@@ -69,8 +69,12 @@ class User extends Model {
 
     // TODO: Add hashing to password. 
     async changePassword(password) {
-        this.password = await hashText(password, config);
+        this.password = await generateHashedPassword(password);
         return await this.$query().patchAndFetch();
+    }
+
+    static async generateHashedPassword(password) {
+        return await hashText(password, config);
     }
 
 }

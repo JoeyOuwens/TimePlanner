@@ -1,4 +1,5 @@
-var knex = require('../db/knex')
+var knex = require('../db/knex');
+var User = require('../models/user');
 
 module.exports = {
     getAllUsers: async function () {
@@ -60,7 +61,7 @@ module.exports = {
     insertUser: async function (accountDetails, password) {
         return await knex('users').insert([
             {
-                password: password,
+                password: User.generateHashedPassword(password),
                 firstname: accountDetails.inputFname,
                 middlename: accountDetails.inputMname,
                 lastname: accountDetails.inputLname,
@@ -117,7 +118,7 @@ module.exports = {
         return knex('users')
             .where({ id: accountDetails.id })
             .update({
-                password: accountDetails.password,
+                password: User.generateHashedPassword(accountDetails.password),
                 firstname: accountDetails.firstname,
                 middlename: accountDetails.middlename,
                 lastname: accountDetails.lastname,
@@ -148,7 +149,7 @@ module.exports = {
     updateUserPasswordById: function (userId, password) {
         return knex('users')
             .where({ id: userId })
-            .update({ password: password })
+            .update({ password: User.generateHashedPassword(password) })
             .then(function () {
                 return true
             })
