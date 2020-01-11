@@ -16,7 +16,7 @@ block content
                                     - day = new Date(info.date).getDate();
                                     - month = new Date(info.date).getMonth();
                                     - year = new Date(info.date).getFullYear();
-                                    - date = day + "-"  + month + "-" + year;
+                                    - date = day + "-"  + (month+1) + "-" + year;
                                     td #{info.user.getFullName()}
                                     td #{date} 
                                     td #{info.reason} 
