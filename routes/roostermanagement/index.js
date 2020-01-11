@@ -3,11 +3,9 @@ var TimeTableItems = require('../../models/timetable_item');
 
 class Index {
     static async get(req, res, next) {
-        //const timetable_items = await knex.select().from('timetable_items');
-        //const timetable_users = await knex.select('*').from('timetable_items').leftJoin('users', 'timetable_items.user', 'users.id');
         let timetable_list = [];
 
-        const timetable_users = await TimeTableItems.query().eager('user').then((items) => {
+        await TimeTableItems.query().eager('user').then((items) => {
             items.forEach((item) => {
                 timetable_list.push(
                     {
@@ -18,7 +16,6 @@ class Index {
                         "timetable_user_id": item.user_id
                     });
             });
-            return items;
         });
 
         res.render('rooster',

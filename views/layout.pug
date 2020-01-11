@@ -15,8 +15,18 @@ html
         
         link(rel='stylesheet', href='/stylesheets/style.css')
         script(src='/service-worker-register.js')
+
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.css' rel='stylesheet')
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.css' rel='stylesheet')
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.css' rel='stylesheet')
+
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js')
+         
         block styles
         block scripts
+
     body
         if userInfo !== undefined 
             header
@@ -37,7 +47,6 @@ html
 
 
         include footer
-
 
     div(class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModal" aria-hidden="true")
         div(class="modal-dialog modal-dialog-centered" role="document")     

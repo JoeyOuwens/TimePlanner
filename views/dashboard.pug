@@ -7,12 +7,9 @@ block content
                 div(class="card-header bg-tertiary")
                     h3 Rooster
                         i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
-                div(class="card-body")
+                div(class="card-body" id="roosterdiv")
                     each day in timetable_days
-                        //div(class="" data-toggle="popover" data-trigger="click" data-placement="right")
-
-                        //div( class="row no-gutter timetable-item" role="button" data-toggle="popover" data-trigger="click" data-placement="right"  title="Opties"  data-html='true'  data-content=popovercontent data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>')
-                        div( class="row no-gutter timetable-item" id="")    
+                        div(class="row no-gutter timetable-item js--timetable-item" data-timetable-id=day.id data-daycount=day.day_count  data-toggle="popover" data-trigger=day.day_items.length > 0 ? "click" : "" data-placement="right" data-html='true' data-content=popovercontent)    
                             div( class="col-sm-12")
                                 case day.day_count
                                     when 0
@@ -52,13 +49,6 @@ block content
 
                         
     br
-    //- div(class="row")
-            div( class="col-sm-12")
-                div(class="card shadow dashboard-timetable")
-                    div(class="card-header bg-tertiary")
-                        h3 Widget editor
-                    div(class="card-body")
-
     if log_in_redirect !== undefined
         div(class="greeting-message js--greeting-message hidden")
             div(class="alert alert-success")
@@ -66,39 +56,43 @@ block content
             script.
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.remove('hidden') }, 60);
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.add('hidden') }, 4000);
-            
+    
+    script(type="text/template" id="js--popover-button-template")
+        div(class="input-group")
+            div(class="input-group-prepend")
+                a(class="btn btn-info anchor js--substitute") Vervanging aanvragen
+            div(class="input-group-append")
+                a(class="btn btn-primary anchor hidden js--sick") Ziek Melden
     script.
-            document.onreadystatechange = function () {
-                if (document.readyState === "complete") {  
-                    $(function () {
-                        var popupElement = '<div class="btn-group btn-toggle"><button class="btn btn-sm btn-info">On</button><button class="btn btn-sm btn-primary active">Off</button></div>';
-                       
-                        $('#popbutton').popover({
-                        animation: true,
-                        content: popupElement,
-                        html: true
-                        });
+        $(function () {
 
-                        $('body').on('click','.btn-toggle',function () {
-                            $(this).find('.btn').toggleClass('active');
+            $('.js--timetable-item').popover({
+                animation: true,
+                html: true,
+                content: $('#js--popover-button-template').html(),
+            });
 
-                            if ($(this).find('.btn-primary').length > 0) {
-                                $(this).find('.btn').toggleClass('btn-primary');
-                            }
-                            if ($(this).find('.btn-danger').length > 0) {
-                                $(this).find('.btn').toggleClass('btn-danger');
-                            }
-                            if ($(this).find('.btn-success').length > 0) {
-                                $(this).find('.btn').toggleClass('btn-success');
-                            }
-                            if ($(this).find('.btn-info').length > 0) {
-                                $(this).find('.btn').toggleClass('btn-info');
-                            }
+            $('#roosterdiv').on('show.bs.popover', function (element) {
+                $("[data-toggle='popover']").each((id, item) => {
+                    $(item).popover('hide');
+                });               
+            });
 
-                            $(this).find('.btn').toggleClass('btn-default');
-                        });
+            $('#roosterdiv').on('inserted.bs.popover', async function (element) {
+                if(element.target.dataset.daycount == 0){
+                    $('.js--sick').removeClass('hidden');
+                }           
+            });
 
-                    });
-                 }
-              }
-           
+            $('#roosterdiv').on('shown.bs.popover', async function (element) {
+                $('.js--substitute').click(function (e){
+                    window.location = "/rooster/substitute/list";}
+                );
+
+                $('.js--sick').click(function (e){
+                    window.location = "/call-in-sick";
+                });
+            });
+        });
+                     
+                    
