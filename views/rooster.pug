@@ -10,7 +10,7 @@ block scripts
     script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js')
 
-block content
+ 
     script.
         document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -82,27 +82,7 @@ block content
 
             calendar.render();
         });
-        
-    br
-    //-https://stackoverflow.com/questions/29965136/fullcalendar-modal-on-event-click-not-displaying-correctly
-    #fullCalModal.modal.fade
-        .modal-dialog
-            .modal-content
-                .modal-header
-                    h4#modalTitle.modal-title
-                    button.close(type='button' data-dismiss='modal')
-                        span(aria-hidden='true') &times;
-                        span.sr-only close
-                #modalBody.modal-body   
-                    p(id="Commentaar")
-                    button.btn.btn-warning(type='button') Vervanging
-                    .modal-footer
-                        button.btn.btn-default(type='button' data-dismiss='modal') Close
-                        button.btn.btn-primary(type='button' id="editBtn") Bewerken
-    div(class="card shadow")
-        div(class="card-header")
-            div(id='calendar')
-
+ 
 
 block content 
     br
