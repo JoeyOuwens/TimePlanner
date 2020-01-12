@@ -65,7 +65,7 @@
                                                 p(class="text-danger") Afgekeurd
                                     th(scope="col") 
                                         if request.status == "AWAITING_APPROVAL"
-                                            input(class="form-control " id="status-comment-change-"+request.id)
+                                            input(class="form-control " placeholder="(Optioneel) Vul in" id="status-comment-change-"+request.id)
                                         else
                                             p #{request.comment}
                                     if request.status == "AWAITING_APPROVAL" 
