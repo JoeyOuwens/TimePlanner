@@ -1,0 +1,168 @@
+extends layout
+
+block content
+    
+    
+    div(class="card shadow dashboard-timetable")
+            div(class="card-header bg-tertiary ")
+                h3 Vervanging aanvragen
+            div(class="card-body") 
+                div(class="table-responsive ")  
+                        table(class="table table-sm")
+                            thead(class="bg-secondary")
+                                tr
+                                    th(class="col-xs-1" scope="col") Aanvraag datum 
+                                    th(class="col-xs-1" scope="col") Aangevraagd door
+                                    th(class="col-xs-1" scope="col") Vervangen door 
+                                    th(class="col-xs-1" scope="col") Van 
+                                    th(class="col-xs-1" scope="col") Tot 
+                                    th(class="col-xs-1" scope="col") Status 
+                                    th(class="col-xs-1" scope="col") Commentaar 
+                            tbody
+                                if(substituteList.length != [])
+                                    each substitute in substituteList 
+                                        tr(id="substitute-request-"+substitute.id ) 
+                                            - day = new Date(substitute.creation_datetime).getDate();
+                                            - month = new Date(substitute.creation_datetime).getMonth();
+                                            - year = new Date(substitute.creation_datetime).getFullYear();
+                                            - date = day + "-"  + (month+1) + "-" + year;
+                                            
+                                            - bdday = new Date(substitute.timetableItem.begin_date).getDate();
+                                            - bdmonth = new Date(substitute.timetableItem.begin_date).getMonth();
+                                            - bdyear = new Date(substitute.timetableItem.begin_date).getFullYear();
+                                            - bdhours = new Date(substitute.timetableItem.begin_date).getHours();
+                                            - if (String(bdhours).length == 1){bdhours = 0 + String(bdhours)};
+                                            - bdminutes = new Date(substitute.timetableItem.begin_date).getMinutes(); 
+                                            - if (String(bdminutes).length == 1){bdminutes = 0 + String(bdminutes);}; 
+                                            - bddate = bdday + "-"  + (bdmonth+1) + "-" + bdyear + " " + bdhours+":"+bdminutes;
+                                            
+                                            - edday = new Date(substitute.timetableItem.end_date).getDate();
+                                            - edmonth = new Date(substitute.timetableItem.end_date).getMonth();
+                                            - edyear = new Date(substitute.timetableItem.end_date).getFullYear();
+                                            - edhours = new Date(substitute.timetableItem.end_date).getHours();
+                                            - if (String(edhours).length == 1){edhours = 0 + String(edhours)};
+                                            - edminutes = new Date(substitute.timetableItem.end_date).getMinutes(); 
+                                            - if (String(edminutes).length == 1){edminutes = 0 + String(edminutes)};
+                                            - eddate = edday + "-"  + (edmonth+1) + "-" + edyear + " " + edhours+":"+edminutes;
+                                            td #{date}
+                                            td #{substitute.requestingUser.getFullName()}  
+                                            if substitute.requestingUser.id === substitute.replacedByUser.id
+                                                if substitute.replacedByUser.id === userInfo.id
+                                                    td Niemand
+                                                else
+                                                    td
+                                                        button(class="btn btn-primary btn-sm take-over-btn" id=substitute.id) Neem over
+                                            else
+                                                td #{substitute.replacedByUser.getFullName()}
+                                            td #{bddate}
+                                            td #{eddate}
+                                            td 
+                                                case substitute.status 
+                                                    when "AWAITING_APPROVAL" 
+                                                        p(class="text-dark") In afwachting
+                                                    when "AWAITING_REPLACEMENT" 
+                                                        p(class="text-dark") Niet overgenomen
+                                                    when "APPROVED" 
+                                                        p(class="text-success") Goedgekeurd
+                                                    when "DENIED"
+                                                        p(class="text-danger") Afgekeurd
+                                            td #{substitute.comment}
+                                else
+                                    td Geen aanvragen 
+                            
+    br
+  
+    div(class="card shadow dashboard-timetable")
+            div(class="card-header bg-tertiary " )
+                h3 Vraag aan
+            div(class="card-body") 
+                div(class="container")
+                    div(id="feedback-req")
+                    div(class="row")
+                        div(class="col-sm")
+                            p Kies werkdatum
+                    div(class="row")
+                        div(class="col-sm-4") 
+                            select(class="form-control" id="substituteRequest")                            
+                                option(selected value="no-selection") Kies...
+                                each item in timetableItems
+                                
+                                    - bdday = new Date(item.begin_date).getDate();
+                                    - bdmonth = new Date(item.begin_date).getMonth();
+                                    - bdyear = new Date(item.begin_date).getFullYear();
+                                    - bdhours = new Date(item.begin_date).getHours();
+                                    - if (String(bdhours).length == 1){bdhours = 0 + String(bdhours)};
+                                    - bdminutes = new Date(item.begin_date).getMinutes(); 
+                                    - if (String(bdminutes).length == 1){bdminutes = 0 + String(bdminutes);}; 
+                                    - bddate = bdday + "-"  + (bdmonth+1) + "-" + bdyear + " " + bdhours+":"+bdminutes;
+                                            
+                                    - edday = new Date(item.end_date).getDate();
+                                    - edmonth = new Date(item.end_date).getMonth();
+                                    - edyear = new Date(item.end_date).getFullYear();
+                                    - edhours = new Date(item.end_date).getHours();
+                                    - if (String(edhours).length == 1){edhours = 0 + String(edhours)};
+                                    - edminutes = new Date(item.end_date).getMinutes(); 
+                                    - if (String(edminutes).length == 1){edminutes = 0 + String(edminutes)};
+                                    - eddate = edday + "-"  + (edmonth+1) + "-" + edyear + " " + edhours+":"+edminutes;    
+
+                                    option(value=item.id) #{bddate} - #{eddate} 
+
+                        div(class="col-sm-2") 
+                            button(class="btn btn-primary" id="substituteRequestBtn") Vraag aan.
+
+
+    //TODO Add block scripts when moving to dev!
+    script.
+        document.onreadystatechange = function () {
+            if (document.readyState === "complete") {   
+                
+                $('#substituteRequestBtn').bind('click', function(e){
+                    var substituteRequestSelector = document.getElementById("substituteRequest");
+                    var selectedSubstituteRequest = substituteRequestSelector.options[substituteRequestSelector.selectedIndex].value; 
+                    requestSubstitute(selectedSubstituteRequest); 
+                });
+               
+
+                 $('.take-over-btn').bind('click', function(e) { 
+                    takeOver(this.id);
+                });
+                
+                function requestSubstitute(value){
+                    if(value !== "no-selection"){
+                        $.ajax({
+                            type: "POST",
+                            url: '/rooster/substitute/',
+                            data: {id: value},
+                            success: function(result){
+                                handleResponse(result);
+                            }  
+                        });
+
+                    }
+                }
+                function handleResponse(response){
+
+                    let resultObj = JSON.parse(response); 
+                    if(resultObj.success == true){
+                        $("#feedback-req").html('<div class="alert alert-success alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>'); 
+                        setTimeout(function(){location.reload()},2000);
+                    } else { 
+                        $("#feedback-req").html(' <div class="alert alert-danger alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>');
+
+                    } 
+                }
+
+                function takeOver(id){
+                    $('#substitute-request-'+id).html('<th colspan="10"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></th>');
+                    $.ajax({
+                            type: "POST",
+                            url: '/rooster/substitute/take-over',
+                            data: {substituteId: id},
+                            success: function(result){
+                                location.reload();                                
+                            }  
+                        });  
+                }
+
+            }
+        }

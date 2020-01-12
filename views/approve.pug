@@ -1,0 +1,22 @@
+﻿extends layout
+
+block content
+    if(error !== undefined)
+        each msg in error
+            div(class="alert alert-danger alert-dismissible fade show" role="alert") #{msg}
+                button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                    i(class="fa fa-times") 
+    noscript
+        div(class="alert alert-danger alert-dismissible fade show" role="alert") Je hebt Javascript nodig om deze pagina te gebruiken...
+        button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+            i(class="fa fa-times") 
+   
+    if(page=='all' || page=='changeRequests')
+        include approve/changerequests
+
+    if page=='all'
+        br
+    if(page=='all' || page=='dayoffRequests')
+        include approve/dayoffrequests
+    script(src='/javascript/approveHandling.js')
+        
