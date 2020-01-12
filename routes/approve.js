@@ -51,8 +51,8 @@ router.post('/changerequest', async function (req, res) {
         await Substitute.query()
             .where('id', req.body.id)
             .update({ status: req.body.status, comment: req.body.status_comment })
-            .then(function () {
-                if (req.body.status == "APPROVED") {
+            .then(function () { 
+                if (req.body.status == "APPROVED") { 
                     updateTimeTable(req.body)
                 }
             })
@@ -63,9 +63,8 @@ router.post('/changerequest', async function (req, res) {
 }); 
 
 async function updateTimeTable(info) {
-    const substituteRequests = await Substitute.query().select().where('id', info.id).first();
-    //console.log(workReplacementRequest);
-    await TimeTableItem.query().where('id', substituteRequests.timetable_item).update({ user: substituteRequests.replaced_by_user});
+    const substituteRequests = await Substitute.query().select().where('id', info.id).first(); 
+    await TimeTableItem.query().where('id', substituteRequests.timetable_item).update({ user_id: substituteRequests.replaced_by_user });
 
 }
 
