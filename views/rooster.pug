@@ -18,7 +18,6 @@ block styles
 
 block scripts
 
-<<<<<<< HEAD
     
     script( src='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js')
     script( src='https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.js')
@@ -40,7 +39,8 @@ block scripts
         }
 
          
-        function onCalendarItemClick(timetableItemId,timetableItemUserId){   
+        function onCalendarItemClick(timetableItemId,timetableItemUserId){  
+            console.log(timetableItemUserId);
             let userId = "#{userInfo.id}"; 
             let userRole = "#{userInfo.role}";  
             if (String(userId) == String(timetableItemUserId)){ 
@@ -72,11 +72,9 @@ block scripts
             }
         }
 
-
-        // todo resource list & event list.
+         
         var timetableList = JSON.parse('#{timeTable}'.split('&quot;').join('"') ); 
-        var resourceList = JSON.parse('#{resources}'.split('&quot;').join('"') ); 
-        //timetableList.forEach(item =>  resourceList.push({'id':item.resourceId, 'title': item.title})); 
+        var resourceList = JSON.parse('#{resources}'.split('&quot;').join('"') );  
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -102,73 +100,11 @@ block scripts
               ], 
               resources: resourceList,
               events:  timetableList,
-=======
- 
-    script.
-        document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-         
-       
-       
-       function handleResponse(response){
-            let resultObj = JSON.parse(response); 
-            if(resultObj.success == true){
-                $("#feedback-req").html('<div class="alert alert-success alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>'); 
-                } 
-                else { 
-                $("#feedback-req").html(' <div class="alert alert-danger alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>');
-
-            } 
-        }
-
-         
-        function onCalendarItemClick(timetableItemId,timetableItemUserId){   
-            let userId = "#{userInfo.id}"; 
-            let userRole = "#{userInfo.role}";  
-            if (String(userId) == String(timetableItemUserId)){ 
-
-                $("#substituteBtnDiv").html('<button class="btn btn-success" type="button" data-dismiss="modal" id="substitutebutton" val="'+timetableItemId+'"> Vervanging aanvragen</button>');
-                $('#substitutebutton').click(function (e){
-                        $.ajax({
-                            type: "POST",
-                            url: '/rooster/substitute/',
-                            data: {id: timetableItemId},
-                            success: function(result){
-                                handleResponse(result);
-                            }  
-                        }); 
-                    });
-                      
-            } else{
-                $("#substituteBtnDiv").html('');
-            }
-            
-            if (userRole == "OWNER" || userRole == "MANAGER" ){
-                $("#editBtnDiv").html('<button class="btn btn-warning editBtn" type="button" id="editBtn" value="'+timetableItemId+'"> Aanpassen</button>');
-                 $('#editBtn').click(function (e){ 
-                    window.location = "/rooster/edit-user/"+ this.value;
-                });
-            } 
-            else{
-                $("#editBtnDiv").html('');
-            }
-        }
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: [ 'timeGrid' ],
-            defaultView: 'timeGridWeek',
-            allDaySlot: false,
-            events: !{timeTable},
->>>>>>> origin/master
             eventClick: function(info){ 
                                     $('#modalTitle').html(info.event.title);
-                                    $('#Commentaar').html("Commentaar: "+info.event.extendedProps.timetable_comment);
-                                    $('#fullCalModal').modal(); 
-<<<<<<< HEAD
-                                    onCalendarItemClick(info.event.extendedProps.id,info.event.extendedProps.resourceId);
-=======
-                                    onCalendarItemClick(info.event.extendedProps.timetable_id,info.event.extendedProps.timetable_user_id);
->>>>>>> origin/master
+                                    $('#Commentaar').html("Commentaar: "+info.event.extendedProps.comment);
+                                    $('#fullCalModal').modal();  
+                                    onCalendarItemClick(info.event.id,info.event.extendedProps.user_id);
                                     },
                 eventTimeFormat: {
                     hour: '2-digit',
@@ -177,18 +113,10 @@ block scripts
                 }
             });
 
-<<<<<<< HEAD
-            calendar.render(); 
-            console.log(calendar.getEvents());
+            calendar.render();  
         }); 
               
         
-=======
-            calendar.render();
-        });
- 
-
->>>>>>> origin/master
 block content 
     br
     //-https://stackoverflow.com/questions/29965136/fullcalendar-modal-on-event-click-not-displaying-correctly
@@ -211,9 +139,4 @@ block content
     div(class="card shadow")
         div(class="card-header")
             div(id='feedback-req')
-<<<<<<< HEAD
             div(id='calendar')
-=======
-            div(id='calendar')
-    
->>>>>>> origin/master

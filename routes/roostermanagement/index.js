@@ -1,43 +1,28 @@
 'use strict';
 var TimeTableItems = require('../../models/timetable_item');
 var SickDays = require('../../models/sickday');
-//var Substitute = require('../../models/substitute');
-var SICK_COLOR = "purple";
-var TAKEN_OVER_COLOR = "green"; 
-var REQUESTING_SUBSTITUTE_COLOR = "orange"; 
-var DEFAULT_COLOR = "";
-// ToDo color meegeven als hij overgenomen is.
+var Substitute = require('../../models/substitute');
+var SICK_COLOR = "#d11141";
+var TAKEN_OVER_COLOR = "#00b159";
+var REQUESTING_SUBSTITUTE_COLOR = "#ffc425";
+var DEFAULT_COLOR = "#00aedb";
+var sickDays;
+var timetable_list = [];
+var resource_list = [];
+
+// TO-DO IMPROVE PERFORMANCE
+
 class Index {
     static async get(req, res, next) {
-        var sickDays = await SickDays.query().where("date", "=", getDateOfToday());
-        let timetable_list = [];
-        let resource_list = [];
-        console.log(sickDays);
-        await TimeTableItems.query().eager('user').then((items) => {
-            items.forEach((item) => {
-                resource_list.push(
-                    {
-                        "id": item.user.id,
-                        "title": item.user.getFullName()
-                    }); 
+        var begin_date = new Date();
+        var end_date = new Date(); 
+        begin_date.setHours(0, 0, 0, 0);
+        end_date.setDate(end_date.getDate() + 8);
+        end_date.setHours(0, 0, 0, 0);
 
-                timetable_list.push(
-                    {
-                        "title": createEventTitle(item),
-                        "start": item.begin_date,
-                        "end": item.end_date,
-<<<<<<< HEAD
-                        "id": item.id,
-                        "resourceId": item.user.id,
-                        "color": getCorrectColor(item)
-                        
-=======
-                        "timetable_id": item.id,
-                        "timetable_user_id": item.user_id
->>>>>>> origin/master
-                    });
-            });
-        }); 
+
+        await getTimeTableData(begin_date, end_date);
+         
         res.render('rooster',
             {
                 title: 'Rooster',
@@ -45,21 +30,73 @@ class Index {
                 resources: JSON.stringify(resource_list)
             });
     }
+
+
+    static async updateTimeTable(req, res, next) {
+
+    }
+
 }
 
 module.exports = Index;
 
-function getDateOfToday() {
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = date.getMonth();
-    var day = date.getDate();
+async function getTimeTableData(begin_date, end_date) {
+    timetable_list = [];
+    resource_list = [];
 
-    var dateOfToday = new Date(year, month, day);
+    await TimeTableItems.query().eager('user')
+        .where('begin_date', '>=', begin_date.toISOString().replace('T', ' ').replace('Z', ''))
+        .where('end_date', '<=', end_date.toISOString().replace('T', ' ').replace('Z', ''))
+        .then(async (items) => {
 
-    return dateOfToday;
+
+            for (let item of items) {
+                resource_list.push(
+                    {
+                        "id": item.user.id,
+                        "title": item.user.getFullName()
+                    });
+
+                timetable_list.push(
+                    {
+                        "title": createEventTitle(item),
+                        "start": item.begin_date,
+                        "end": item.end_date,
+                        "id": item.id,
+                        "resourceId": item.user.id,
+                        "comment": item.comment,
+                        "user_id": item.user.id,
+                        "color": await getCorrectColor(item)
+                    });
+            };
+        });
+
 }
 
+
+async function getCorrectColor(item) {
+    let substitute = await Substitute.query().where("timetable_item", "=", item.id).first().then((data) => { return data }).catch((e) => { console.log(e) });
+    sickDays = await SickDays.query().where("user_id", "=", item.user.id);
+     
+    var isSick = isUserSick(item);
+    
+
+    if (substitute !== undefined) {
+        var isTakenOver = isRequestTakenOver(substitute);
+        var isAwaitingSubstitute = isRequestAwaitingSubstitute(substitute); 
+    }
+     
+    if (isSick) { 
+        return SICK_COLOR;
+    } else if (isTakenOver) { 
+        return TAKEN_OVER_COLOR;
+    } else if (isAwaitingSubstitute) { 
+        return REQUESTING_SUBSTITUTE_COLOR;
+    } else { 
+        return DEFAULT_COLOR;
+    }
+}
+ 
 function createEventTitle(item) {
     //Creates a title with HH:MM - HH:MM
     return `${new Date(item.begin_date).getHours()}:${String(new Date(item.begin_date).getMinutes()).length == 1 ? "0" + String(new Date(item.begin_date).getMinutes()) : String(new Date(item.begin_date).getMinutes())} - ${new Date(item.end_date).getHours()}:${String(new Date(item.end_date).getMinutes()).length == 1 ? "0" + String(new Date(item.end_date).getMinutes()) : String(new Date(item.end_date).getMinutes())}`;
@@ -67,22 +104,31 @@ function createEventTitle(item) {
 
 }
 
-function isUserSick(users, sickDays) {
-
+function isUserSick(item) {
+    let isSick = false; 
+    sickDays.forEach(function (sickDay) {
+        if (sickDay.user_id == item.user.id && new Intl.DateTimeFormat('en-US').format(sickDay.date) == new Intl.DateTimeFormat('en-US').format(new Date(item.begin_date))) {
+            isSick = true;
+            return true;
+        }
+    });
+    return isSick;
 }
 
-function substituteHandling() {
 
-
+function isRequestAwaitingSubstitute(substitute) {
+    if (substitute.status == "AWAITING_REPLACEMENT") {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-function isStillRequestingSubstitute() {
 
-
-}
-
-function isTakenOver() {
-
-
-
+function isRequestTakenOver(substitute) {
+    if (substitute.status == "APPROVED") {
+        return true;
+    } else {
+        return false;
+    }
 }
