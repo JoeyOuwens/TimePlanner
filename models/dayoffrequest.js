@@ -5,7 +5,7 @@ Model.knex(knex);
 
 class DayOffRequest extends Model {
     static get tableName() {
-        return 'dayoffrequests';
+        return 'day_off_requests';
     }
 }
 

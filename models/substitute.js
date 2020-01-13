@@ -3,11 +3,10 @@ const knex = require('../db/knex');
 
 Model.knex(knex);
 
-class WorkReplacement extends Model {
+class RequestSubstitute extends Model {
     static get tableName() {
-        return 'work_replacements';
+        return 'substitute';
     }
-  
 
     static get relationMappings() {
         const User = require('./User');
@@ -18,7 +17,7 @@ class WorkReplacement extends Model {
                 relation: Model.BelongsToOneRelation,
                 modelClass: User,
                 join: {
-                    from: 'work_replacements.requesting_user',
+                    from: 'substitute.requesting_user',
                     to: 'users.id'
                 }
             },
@@ -26,21 +25,21 @@ class WorkReplacement extends Model {
                 relation: Model.BelongsToOneRelation,
                 modelClass: User,
                 join: {
-                    from: 'work_replacements.replaced_by_user',
+                    from: 'substitute.replaced_by_user',
                     to: 'users.id'
                 }
             },
-            timeTableItem: {
+            timetableItem: {
                 relation: Model.BelongsToOneRelation,
                 modelClass: TimeTableItem,
                 join: {
-                    from: 'work_replacements.timetable_item',
+                    from: 'substitute.timetable_item',
                     to: 'timetable_items.id'
                 }
             }
 
         }
     }
-}
+} 
 
-module.exports = WorkReplacement;
+module.exports = RequestSubstitute;

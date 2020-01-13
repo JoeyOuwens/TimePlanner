@@ -21,7 +21,7 @@
                     tbody
                         if(dayoffRequests !== [])
                             each request in dayoffRequests  
-                                - week_left = request.week_left && request.status == "In afwachting"?"table-danger":""
+                                - week_left = request.week_left && request.status == "EVALUATING"?"table-danger":""
                                 - popovercontent = "<p>Uur loon:  &euro;" + request.salary 
                                 - popovercontent += "<p>Contract uren: " + request.contract_hours 
                                 - popovercontent += "<p>Email: " + request.email 
@@ -37,18 +37,18 @@
                                             th(scope="col" )  #{request.reason}
                                             th(scope="col" )  
                                                 case request.status
-                                                        when "In afwachting" 
-                                                            p(class="text-dark") #{request.status}
-                                                        when "Goedgekeurd" 
-                                                            p(class="text-success") #{request.status}
-                                                        when "Afgekeurd" 
-                                                            p(class="text-danger") #{request.status}
+                                                        when "EVALUATING" 
+                                                            p(class="text-dark") In afwachting
+                                                        when "APPROVED" 
+                                                            p(class="text-success") Goedgekeurd
+                                                        when "DENIED" 
+                                                            p(class="text-danger") Afgekeurd
                                             th(scope="col" ) 
-                                                if request.status == "In afwachting" && !(userInfo.id == request.userId) && !(userInfo.role == request.role) && !(userInfo.role == "MANAGER" && request.role == "OWNER") 
-                                                    input(class="form-control " id="status-comment-dayoff-"+request.id)
+                                                if request.status == "EVALUATING" && !(userInfo.id == request.userId) && !(userInfo.role == request.role) && !(userInfo.role == "MANAGER" && request.role == "OWNER") 
+                                                    input(class="form-control " placeholder="(Optioneel) Vul in" id="status-comment-dayoff-"+request.id)
                                                 else
                                                     p #{request.status_comment}
-                                            if request.status == "In afwachting"
+                                            if request.status == "EVALUATING"
                                                 if userInfo.id == request.userId || userInfo.role == request.role || (userInfo.role == "MANAGER" && request.role == "OWNER")
                                                     th(scope="col" )
                                                             button(class="btn btn-success btn-sm accept-dayoff-request-btn" disabled ) Goedkeuren

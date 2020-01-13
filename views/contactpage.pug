@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    div(id="messagebox")   
+    head
+        title Contact
+        h2 Contact form
+        p Note that this page is to send a message to the makers behind the application<br>
+        p The message will <b>NOT</b> be send to the employer
+
+    div(class = "container" id = "formcontainer")
+      .main 
+          label(id = "contactlabel") Name :
+          input(type='text' id="contact-name" name='name' placeholder='Name')
+          label(id = "contactlabel") Email :
+          input(type='text' id="contact-email" name='email' placeholder='Email')
+          label(id = "contactlabel") Message :
+          input(type='text' id="contact-message" name= 'message' placeholder = 'Message')
+          input(type='submit' id='submit_message' value='Submit')
+
+
+          
+    
+    script(src="javascript/sendForm.js")

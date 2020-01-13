@@ -14,19 +14,19 @@ div(class="row")
                         a.nav-link.dropdown-toggle(id='navbarDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href='#') Roosters
                         div.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                             a.dropdown-item(href='/rooster/') Rooster
-                            if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
+                            if !userInfo.isUser()
                                 a.dropdown-item(href='/rooster/add-user/') Rooster maken
                             if userInfo.contract_hours > 32
                                 a.dropdown-item(href='/availability') Voorkeuren
                             else
                                 a.dropdown-item(href='/availability') Beschikbaarheid 
-                            a.dropdown-item(href='#') Vervanging
-                            a.dropdown-item(href='#') Ziek melden
+                            a.dropdown-item(href='/rooster/substitute/list') Vervanging
+                            a.dropdown-item(href='/call-in-sick') Ziek melden
                             a.dropdown-item(href='/requestdayoff') Vrij vragen
-                    if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
+                    if !userInfo.isUser()
                         li.nav-item
-                            a.nav-link(href='/') Ziek meldingen
-                    if userInfo.role == 'MANAGER' || userInfo.role == 'OWNER'
+                            a.nav-link(href='/call-in-sick/list') Ziek meldingen
+                    if !userInfo.isUser()
                         li.nav-item.dropdown 
                             a.nav-link.dropdown-toggle(id='navbarApproveDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href='#') Goedkeuren
                             div.dropdown-menu(aria-labelledby='navbarApproveDropdownMenuLink')
@@ -42,7 +42,7 @@ div(class="row")
             ul.navbar-nav
                 li.nav-item.dropdown
                     a.nav-link.dropdown-toggle(id='profileDropdown', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', href="#") 
-                        img( src='/'+userInfo.profile_image class="img-responsive profile-img" alt="")
+                        img( src='/'+userInfo.getImage() class="img-responsive profile-img" alt="")
                     div#profile-dropdown.dropdown-menu(style="right:-30px; left:auto;" aria-labelledby='profileDropdown')
                         a.dropdown-item(href='/profile') #{userInfo.firstname}
                         hr

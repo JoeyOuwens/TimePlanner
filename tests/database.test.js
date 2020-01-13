@@ -6,7 +6,6 @@ describe('Check database connection', () => {
         knex.raw('select 1+1 as result').catch(err => {
             connection = false;
         });
-
         expect(connection).toBe(true);
     });
 });

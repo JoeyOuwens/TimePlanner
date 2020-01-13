@@ -10,7 +10,7 @@ var cookieSession = require('cookie-session');
 
 //const redis = require('redis');
 //const client = redis.createClient();
-var contact = require('./routes/contactpageroute')
+var contact = require('./routes/contactpageroute');
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/usermanagement/list');
@@ -28,6 +28,7 @@ var rooster = require('./routes/rooster');
 var availability = require('./routes/availability'); 
 var requestdayoff = require('./routes/requestdayoff');
 var approve = require('./routes/approve');
+var callinsick = require('./routes/call-in-sick');
 
 var app = express();
 
@@ -45,8 +46,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 } }));
-app.use(function (req, res, next) {
-    res.locals.userInfo = req.session.user;
+app.use(async function (req, res, next) {
+    var User = require('./models/user');
+    if (req.session.user !== undefined) {
+        res.locals.userInfo = await User.query().findById(req.session.user.id);
+        if (res.locals.userInfo.profile_image == "") { res.locals.userInfo.profile_image  = "images/default_profileimage.jpg" }
+
+    }
     next();
 });
 
@@ -66,12 +72,13 @@ app.use('/dashboard', sessionChecker, dashboard);
 app.use('/profile', sessionChecker, profile);
 app.use('/requestdayoff', sessionChecker, requestdayoff);
 app.use('/approve', sessionChecker, approve);
-app.use('/user/resetpassword', sessionChecker, passwordreset);
+app.use('/user/resetpassword', passwordreset);
 app.use('/logout', sessionChecker, logout); 
 app.use('/termsofuse', termsofuse);
 app.use('/privacypolicy', privacypolicy);
 app.use('/contactpage', contact); 
 app.use('/availability', sessionChecker, availability); 
+app.use('/call-in-sick', sessionChecker, callinsick); 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use((req, res, next) => {
