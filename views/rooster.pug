@@ -88,8 +88,7 @@ block scripts
         
         
          
-        var resourceList = JSON.parse('#{resources}'.split('&quot;').join('"') );  
-        console.log(resourceList);
+        var resourceList = JSON.parse('#{resources}'.split('&quot;').join('"') );   
         document.addEventListener('DOMContentLoaded', function() {
         
             var calendarEl = document.getElementById('calendar');
@@ -99,7 +98,7 @@ block scripts
               header: {
                 left: 'today prev,next',
                 center: 'title',
-                right: 'resourceTimelineWeek', 
+                right: 'resourceTimelineDay,resourceTimelineWeek', 
               },
               defaultView: 'resourceTimelineWeek',
               aspectRatio: 2, 

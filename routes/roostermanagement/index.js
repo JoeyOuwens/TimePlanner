@@ -14,17 +14,8 @@ var timetable_list = [];
 // TO-DO IMPROVE PERFORMANCE
 
 class Index {
-    static async get(req, res, next) {
-        var begin_date = new Date();
-        var end_date = new Date();
-        begin_date.setHours(0, 0, 0, 0);
-        end_date.setDate(end_date.getDate() + 8);
-        end_date.setHours(0, 0, 0, 0);
-
-
-        //await getTimeTableData(begin_date, end_date);
-        var resource_list = await getResourceList();
-        console.log(resource_list);
+    static async get(req, res, next) { 
+        var resource_list = await getResourceList(); 
         res.render('rooster',
             {
                 title: 'Rooster',
