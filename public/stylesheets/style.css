@@ -505,13 +505,6 @@ a.anchor:not([href]) {
     color: black;
 }
 
-/*.popover-content button.btn-primary {
-    color: #00A1FF;
-    border-color: #00A1FF;
-    background: white;
+.card {
+    margin-bottom: 20px;
 }
-
-.popover-content button.btn-default {
-    color: gray;
-    border-color: gray;
-}*/
