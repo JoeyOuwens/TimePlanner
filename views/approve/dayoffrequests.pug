@@ -45,7 +45,7 @@
                                                             p(class="text-danger") Afgekeurd
                                             th(scope="col" ) 
                                                 if request.status == "EVALUATING" && !(userInfo.id == request.userId) && !(userInfo.role == request.role) && !(userInfo.role == "MANAGER" && request.role == "OWNER") 
-                                                    input(class="form-control " id="status-comment-dayoff-"+request.id)
+                                                    input(class="form-control " placeholder="(Optioneel) Vul in" id="status-comment-dayoff-"+request.id)
                                                 else
                                                     p #{request.status_comment}
                                             if request.status == "EVALUATING"

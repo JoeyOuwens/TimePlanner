@@ -10,7 +10,7 @@ var cookieSession = require('cookie-session');
 
 //const redis = require('redis');
 //const client = redis.createClient();
-var contact = require('./routes/contactpageroute')
+var contact = require('./routes/contactpageroute');
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/usermanagement/list');

@@ -26,10 +26,15 @@ class Index {
                         "title": createEventTitle(item),
                         "start": item.begin_date,
                         "end": item.end_date,
+<<<<<<< HEAD
                         "id": item.id,
                         "resourceId": item.user.id,
                         "color": getCorrectColor(item)
                         
+=======
+                        "timetable_id": item.id,
+                        "timetable_user_id": item.user_id
+>>>>>>> origin/master
                     });
             });
         }); 
