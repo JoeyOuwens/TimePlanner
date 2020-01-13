@@ -9,9 +9,10 @@ var DEFAULT_COLOR = "";
 // ToDo color meegeven als hij overgenomen is.
 class Index {
     static async get(req, res, next) {
+        var sickDays = await SickDays.query().where("date", "=", getDateOfToday());
         let timetable_list = [];
         let resource_list = [];
-
+        console.log(sickDays);
         await TimeTableItems.query().eager('user').then((items) => {
             items.forEach((item) => {
                 resource_list.push(
@@ -27,7 +28,7 @@ class Index {
                         "end": item.end_date,
                         "id": item.id,
                         "resourceId": item.user.id,
-                        "color": item.user.id == 1? SICK_COLOR : "blue"
+                        "color": getCorrectColor(item)
                         
                     });
             });
@@ -43,6 +44,16 @@ class Index {
 
 module.exports = Index;
 
+function getDateOfToday() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    var day = date.getDate();
+
+    var dateOfToday = new Date(year, month, day);
+
+    return dateOfToday;
+}
 
 function createEventTitle(item) {
     //Creates a title with HH:MM - HH:MM
