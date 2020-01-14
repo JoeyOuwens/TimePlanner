@@ -114,8 +114,8 @@ async function isUserSick(item) {
     tomorrow.setDate(tomorrow.getDate() + 1);
 
     var sickDay = await SickDays.query().where("user_id", "=", item.user.id).andWhere("date", ">=", today.getTime()).andWhere("date", "<=", tomorrow.getTime()).first();
-    //console.log(sickDay);
-    if (sickDay !== undefined) {
+ 
+    if (sickDay !== undefined && new Intl.DateTimeFormat('en-US').format(sickDay.date) == new Intl.DateTimeFormat('en-US').format(today)) {
         isSick = true;
     }
     //var sickDays = await SickDays.query().where("user_id", "=", item.user.id);
