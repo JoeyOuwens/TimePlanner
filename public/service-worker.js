@@ -19,14 +19,23 @@ self.addEventListener('install', e => {
     // Wait until promise is finished  
     // Until it get rid of the service worker 
     e.waitUntil(
+        caches.open(CACHE)
+            .then(cache => {
+                cache.addAll(cacheables)
+                    // When everything is set 
+                    .then(() => self.skipWaiting());
+            })
+    );
+
+    e.waitUntil(
         setInterval(() => {
             caches.open(CACHE)
                 .then(cache => {
-                    cache.addAll(cacheables)
+                    cache.add(offlineCache)
                         // When everything is set 
                         .then(() => self.skipWaiting());
                 });
-        }, 60*60*1000));
+        }, 10*60* 1000));
 });
 
 self.addEventListener('activate', e => {
