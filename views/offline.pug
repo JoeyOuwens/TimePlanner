@@ -84,27 +84,8 @@ html
                         p
                             | Door dat de weergaven offline is kan het zijn dat er wijzigingen in het rooster zijn aangebracht. 
 
-                    div(class="card shadow")
-                        div(class="card-header bg-secondary")
-                            h2 Persoonlijk rooster
-                        div(class="card-body" id="roosterdiv")
-                            each day in timetable_days
-                                div(class="row no-gutter timetable-item js--timetable-item" data-timetable-id=day.id data-daycount=day.day_count  data-toggle="popover" data-trigger=day.day_items.length > 0 ? "click" : "" data-placement="right" data-html='true' data-content=popovercontent)    
-                                    div( class="col-sm-12")
-                                        case day.day_count
-                                            when 0
-                                                h4 Vandaag
-                                            when 1
-                                                h4 Morgen
-                                            when 2
-                                                h4 Overmorgen
-                                            default
-                                                h4 #{day.day_name}
-                                        if day.day_items.length > 0
-                                            each rooster_item in day.day_items
-                                                p #{rooster_item.begin_time} - #{rooster_item.end_time}
-                                        else
-                                            p Je bent niet ingeroosterd. 
+                    include dashboard-rooster.pug
+
 
                     div(class="card shadow")
                         div(class="card-header bg-secondary")
