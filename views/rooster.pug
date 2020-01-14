@@ -1,23 +1,33 @@
 extends layout
 
 block styles
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.css' rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.css' rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.css' rel='stylesheet')
+
+    
+    link( href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' )
+
+
+    link( href='https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.css' rel='stylesheet' )
+
+  
+
+    link( href='https://unpkg.com/@fullcalendar/resource-timeline@4.3.0/main.min.css' rel='stylesheet' ) 
+
+
+
+
 
 block scripts
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js')
 
- 
-    script.
-        document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-         
-       
-       
-       function handleResponse(response){
+    
+    script( src='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js')
+    script( src='https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.js')
+
+    script( src='https://unpkg.com/@fullcalendar/resource-common@4.3.1/main.min.js')
+
+    script( src='https://unpkg.com/@fullcalendar/resource-timeline@4.3.0/main.min.js')
+     
+    script. 
+         function handleResponse(response){
             let resultObj = JSON.parse(response); 
             if(resultObj.success == true){
                 $("#feedback-req").html('<div class="alert alert-success alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>'); 
@@ -29,7 +39,8 @@ block scripts
         }
 
          
-        function onCalendarItemClick(timetableItemId,timetableItemUserId){   
+        function onCalendarItemClick(timetableItemId,timetableItemUserId){  
+            console.log(timetableItemUserId);
             let userId = "#{userInfo.id}"; 
             let userRole = "#{userInfo.role}";  
             if (String(userId) == String(timetableItemUserId)){ 
@@ -61,29 +72,66 @@ block scripts
             }
         }
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: [ 'timeGrid' ],
-            defaultView: 'timeGridWeek',
-            allDaySlot: false,
-            events: !{timeTable},
+        function getTimeTableDate(data,callback){        
+                $.ajax({
+                    type: "POST",
+                    url: '/rooster/timetable', 
+                    data: { 
+                    data: data, 
+                    },
+                    success: function(result) {
+                        resultObj = JSON.parse(result); 
+                        callback(resultObj);                    
+                    }
+                });
+            }
+        
+        
+          
+        document.addEventListener('DOMContentLoaded', function() {
+        
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+              schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+              plugins: [ 'resourceTimeline' ],
+              header: {
+                left: 'today prev,next',
+                center: 'title',
+                right: 'resourceTimelineDay,resourceTimelineWeek', 
+              },
+              defaultView: 'resourceTimelineWeek',
+              aspectRatio: 2, 
+              slotDuration: {hours: 6},
+              slotLabelFormat: [
+                      {weekday: 'long', month: 'numeric', day: 'numeric'  }, 
+                      { hour: 'numeric'   }, 
+
+                    ], 
+              resourceColumns: [ 
+                {
+                  labelText: 'Medewerker',
+                  field: 'title' }
+              ], 
+              resources: !{resources},
+              events: function(data, callback) { getTimeTableDate(data,callback) },
             eventClick: function(info){ 
                                     $('#modalTitle').html(info.event.title);
-                                    $('#Commentaar').html("Commentaar: "+info.event.extendedProps.timetable_comment);
-                                    $('#fullCalModal').modal(); 
-                                    onCalendarItemClick(info.event.extendedProps.timetable_id,info.event.extendedProps.timetable_user_id);
+                                    $('#Commentaar').html("Commentaar: "+info.event.extendedProps.comment);
+                                    $('#fullCalModal').modal();  
+                                    onCalendarItemClick(info.event.id,info.event.extendedProps.user_id);
                                     },
                 eventTimeFormat: {
                     hour: '2-digit',
                     minute: '2-digit',
                     hour12: false
-                }
-
+                },
+                firstDay: 1
             });
 
-            calendar.render();
-        });
- 
-
+      
+            calendar.render();  
+        });  
+        
 block content 
     br
     //-https://stackoverflow.com/questions/29965136/fullcalendar-modal-on-event-click-not-displaying-correctly
@@ -107,4 +155,3 @@ block content
         div(class="card-header")
             div(id='feedback-req')
             div(id='calendar')
-    
