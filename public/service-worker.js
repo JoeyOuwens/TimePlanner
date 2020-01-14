@@ -11,6 +11,13 @@ const cacheables = [
     '/manifest.json',
     '/service-worker-register.js',
     '/images/favicon.ico',
+    'https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css',
+    'https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.css',
+    'https://unpkg.com/@fullcalendar/resource-timeline@4.3.0/main.min.css',
+    'https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js',
+    'https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.js',
+    'https://unpkg.com/@fullcalendar/resource-common@4.3.1/main.min.js',
+    'https://unpkg.com/@fullcalendar/resource-timeline@4.3.0/main.min.js',
     'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
 ];
 

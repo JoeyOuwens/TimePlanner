@@ -9,6 +9,63 @@ html
 
         script(src='/service-worker-register.js')
 
+
+        link( href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' )
+        link( href='https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.css' rel='stylesheet' )
+        link( href='https://unpkg.com/@fullcalendar/resource-timeline@4.3.0/main.min.css' rel='stylesheet' ) 
+
+        script( src='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js')
+        script( src='https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.js')
+        script( src='https://unpkg.com/@fullcalendar/resource-common@4.3.1/main.min.js')
+        script( src='https://unpkg.com/@fullcalendar/resource-timeline@4.3.0/main.min.js')
+
+        script.
+
+            document.addEventListener('DOMContentLoaded', function() {
+        
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                  schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+                  plugins: [ 'resourceTimeline' ],
+                  header: {
+                    left: 'today prev,next',
+                    center: 'title',
+                    right: 'resourceTimelineDay', 
+                  },
+                  defaultView: 'resourceTimelineDay',
+                  aspectRatio: 2, 
+                  slotDuration: {hours: 4},
+                  slotLabelFormat: [
+                          {weekday: 'long', month: 'numeric', day: 'numeric'  }, 
+                          { hour: 'numeric'   }, 
+
+                        ], 
+                  resourceColumns: [ 
+                    {
+                      labelText: 'Medewerker',
+                      field: 'title' }
+                  ], 
+                  resources: !{resources},
+                  events: !{events},
+                eventClick: function(info){ 
+                                        $('#modalTitle').html(info.event.title);
+                                        $('#Commentaar').html("Commentaar: "+info.event.extendedProps.comment);
+                                        $('#fullCalModal').modal();  
+                                        onCalendarItemClick(info.event.id,info.event.extendedProps.user_id);
+                                        },
+                    eventTimeFormat: {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false
+                    },
+                    firstDay: 1
+                });
+
+      
+                calendar.render();  
+            });  
+        
+
     body
         header(class="container-fluid bg-primary") 
             div(class="row") 
@@ -54,7 +111,4 @@ html
                             h2 Medewerkers rooster
                         div(class="card-body")
                             div(class="alert alert-info")
-                                p
-                                    | Let op!
-                                p
-                                    | Door dat de weergaven offline is kan het zijn dat er wijzigingen in het rooster zijn aangebracht. 
+                                div(id='calendar') 
