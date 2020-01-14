@@ -13,10 +13,7 @@ block content
                         if(sickdays.length > 0)
                             each info in sickdays 
                                 tr 
-                                    - day = new Date(info.date).getDate();
-                                    - month = new Date(info.date).getMonth();
-                                    - year = new Date(info.date).getFullYear();
-                                    - date = day + "-"  + (month+1) + "-" + year;
+                                    -  date = new Intl.DateTimeFormat("en-GB").format(new Date(info.date))
                                     td #{info.user.getFullName()}
                                     td #{date} 
                                     td #{info.reason} 
