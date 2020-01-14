@@ -40,6 +40,14 @@ class RequestSubstitute extends Model {
 
         }
     }
+    isRequestTakenOver() {
+        return this.status === "APPROVED";
+    }
+
+    isRequestAwaitingSubstitute() {
+        return this.status === "AWAITING_REPLACEMENT";
+    }
+
 } 
 
 module.exports = RequestSubstitute;
