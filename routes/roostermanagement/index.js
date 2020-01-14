@@ -6,12 +6,9 @@ var Substitute = require('../../models/substitute');
 var SICK_COLOR = "#d11141";
 var TAKEN_OVER_COLOR = "#00b159";
 var REQUESTING_SUBSTITUTE_COLOR = "#ffc425";
-var DEFAULT_COLOR = "#00aedb";
-var sickDays;
-var timetable_list = [];
-//var resource_list 
+var DEFAULT_COLOR = "#00aedb"; 
 
-// TO-DO IMPROVE PERFORMANCE
+// TO-DO IMPROVE PERFORMANCE / ? Caching??
 
 class Index {
     static async get(req, res, next) { 
@@ -40,7 +37,7 @@ module.exports = Index;
 async function getResourceList() {
     var resource_list = [];
     await Users.query().where("active", "=", true)
-        .then(async (users) => {
+        .then((users) => {
             users.forEach((user) => {
                 resource_list.push({
                     "id": user.id,
@@ -52,7 +49,7 @@ async function getResourceList() {
 }
 
 async function getTimeTableData(begin_date, end_date) {
-    timetable_list = [];
+    var timetable_list = [];
     await TimeTableItems.query().eager('user')
         .where('begin_date', '>=', begin_date.toISOString().replace('T', ' ').replace('Z', ''))
         .where('end_date', '<=', end_date.toISOString().replace('T', ' ').replace('Z', ''))
@@ -68,7 +65,7 @@ async function getTimeTableData(begin_date, end_date) {
                         "id": item.id,
                         "resourceId": item.user.id,
                         "comment": item.comment,
-                        "user_id": item.user.id,
+                        "user_id": item.user.id, 
                         "color": await getCorrectColor(item)
                     });
             };
@@ -79,9 +76,9 @@ async function getTimeTableData(begin_date, end_date) {
 
 async function getCorrectColor(item) {
     let substitute = await Substitute.query().where("timetable_item", "=", item.id).first().then((data) => { return data }).catch((e) => { console.log(e) });
-    sickDays = await SickDays.query().where("user_id", "=", item.user.id);
+    var sickDays = await SickDays.query().where("user_id", "=", item.user.id);
 
-    var isSick = isUserSick(item);
+    var isSick = isUserSick(item, sickDays);
 
 
     if (substitute !== undefined) {
@@ -107,7 +104,7 @@ function createEventTitle(item) {
 
 }
 
-function isUserSick(item) {
+function isUserSick(item, sickDays) {
     let isSick = false;
     sickDays.forEach(function (sickDay) {
         if (sickDay.user_id == item.user.id && new Intl.DateTimeFormat('en-US').format(sickDay.date) == new Intl.DateTimeFormat('en-US').format(new Date(item.begin_date))) {
