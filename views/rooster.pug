@@ -87,8 +87,7 @@ block scripts
             }
         
         
-         
-        var resourceList = JSON.parse('#{resources}'.split('&quot;').join('"') );   
+          
         document.addEventListener('DOMContentLoaded', function() {
         
             var calendarEl = document.getElementById('calendar');
@@ -113,7 +112,7 @@ block scripts
                   labelText: 'Medewerker',
                   field: 'title' }
               ], 
-              resources: resourceList,
+              resources: !{resources},
               events: function(data, callback) { getTimeTableDate(data,callback) },
             eventClick: function(info){ 
                                     $('#modalTitle').html(info.event.title);
