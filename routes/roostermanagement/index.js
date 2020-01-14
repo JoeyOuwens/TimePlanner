@@ -22,10 +22,11 @@ class Index {
 
 
     static async updateTimeTable(req, res, next) {
+        console.time("Update time");
         var begin_date = new Date(req.body.data.start);
         var end_date = new Date(req.body.data.end); 
         var timetable = await getTimeTableData(begin_date, end_date); 
-
+        console.timeEnd("Update time");
         res.send(JSON.stringify(timetable));
     }
 
@@ -76,9 +77,8 @@ async function getTimeTableData(begin_date, end_date) {
 
 async function getCorrectColor(item) {
     let substitute = await Substitute.query().where("timetable_item", "=", item.id).first().then((data) => { return data }).catch((e) => { console.log(e) });
-    var sickDays = await SickDays.query().where("user_id", "=", item.user.id);
 
-    var isSick = isUserSick(item, sickDays);
+    var isSick = await isUserSick(item);
 
 
     if (substitute !== undefined) {
@@ -104,14 +104,28 @@ function createEventTitle(item) {
 
 }
 
-function isUserSick(item, sickDays) {
+async function isUserSick(item) {
     let isSick = false;
-    sickDays.forEach(function (sickDay) {
-        if (sickDay.user_id == item.user.id && new Intl.DateTimeFormat('en-US').format(sickDay.date) == new Intl.DateTimeFormat('en-US').format(new Date(item.begin_date))) {
-            isSick = true;
-            return true;
-        }
-    });
+
+    const today = new Date(item.begin_date);
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(item.begin_date);
+    tomorrow.setHours(0, 0, 0, 0);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    var sickDay = await SickDays.query().where("user_id", "=", item.user.id).andWhere("date", ">=", today.getTime()).andWhere("date", "<=", tomorrow.getTime()).first();
+    //console.log(sickDay);
+    if (sickDay !== undefined) {
+        isSick = true;
+    }
+    //var sickDays = await SickDays.query().where("user_id", "=", item.user.id);
+
+    //sickDays.forEach(function (sickDay) {
+    //    if (sickDay.user_id == item.user.id && new Intl.DateTimeFormat('en-US').format(sickDay.date) == new Intl.DateTimeFormat('en-US').format(new Date(item.begin_date))) {
+    //        isSick = true;
+    //        return true;
+    //    }
+    //});
     return isSick;
 }
 
