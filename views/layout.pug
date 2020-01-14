@@ -29,10 +29,11 @@ html
 
     body
         if userInfo !== undefined 
-            header
+            header(class="container-fluid bg-primary")
+
                 include fullNavbar
         else
-            header
+            header(class="container-fluid bg-primary")
                 include homeheader
 
         main(class="container") 
