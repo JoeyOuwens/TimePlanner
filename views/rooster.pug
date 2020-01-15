@@ -30,12 +30,16 @@ block scripts
          function handleResponse(response){
             let resultObj = JSON.parse(response); 
             if(resultObj.success == true){
-                $("#feedback-req").html('<div class="alert alert-success alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>'); 
+                showFeedback('success', resultObj);                
                 } 
                 else { 
-                $("#feedback-req").html(' <div class="alert alert-danger alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>');
-
+                showFeedback('danger', resultObj);
             } 
+        }
+
+        function showFeedback(type,resultObj)
+        {
+            $("#feedback-req").html(' <div class="alert alert-'+ type +' alert-dismissible fade show" role="alert">' + resultObj.message + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <i class="fa fa-times"> </div>');
         }
 
          
