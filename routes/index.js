@@ -30,9 +30,6 @@ router.get('/offline', async function (req, res) {
     first_day_of_next_week.setHours(0, 0, 0, 0);
     first_day_of_next_week.setDate(first_day_of_week.getDate() + 7);
 
-    console.log(first_day_of_week);
-    console.log(first_day_of_next_week);
-
     context.resources = JSON.stringify(await rooster_index.getResourceList());
 
     context.events = JSON.stringify(await rooster_index.getTimeTableData(first_day_of_week, first_day_of_next_week));
