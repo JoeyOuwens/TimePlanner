@@ -1,0 +1,94 @@
+html
+    head
+        link(rel='manifest', href='/manifest.json')
+        link(rel="shortcut icon", href="/images/favicon.ico", type="image/x-icon")
+
+        link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+
+        link(rel='stylesheet', href='/stylesheets/style.css')
+
+        script(src='/service-worker-register.js')
+
+
+        link( href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' )
+        link( href='https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.css' rel='stylesheet' )
+        link( href='https://unpkg.com/@fullcalendar/resource-timeline@4.3.0/main.min.css' rel='stylesheet' ) 
+
+        script( src='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js')
+        script( src='https://unpkg.com/@fullcalendar/timeline@4.3.0/main.min.js')
+        script( src='https://unpkg.com/@fullcalendar/resource-common@4.3.1/main.min.js')
+        script( src='https://unpkg.com/@fullcalendar/resource-timeline@4.3.0/main.min.js')
+
+        script.
+
+            document.addEventListener('DOMContentLoaded', function() {
+        
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                  schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+                  plugins: [ 'resourceTimeline' ],
+                  header: {
+                    left: 'today prev,next',
+                    center: 'title',
+                    right: 'resourceTimelineDay', 
+                  },
+                  defaultView: 'resourceTimelineDay',
+                  aspectRatio: 2, 
+                  slotDuration: {hours: 4},
+                  slotLabelFormat: [
+                          {weekday: 'long', month: 'numeric', day: 'numeric'  }, 
+                          { hour: 'numeric'   }, 
+
+                        ], 
+                  resourceColumns: [ 
+                    {
+                      labelText: 'Medewerker',
+                      field: 'title' }
+                  ], 
+                  resources: !{resources},
+                  events: !{events},
+                eventClick: function(info){ 
+                                        $('#modalTitle').html(info.event.title);
+                                        $('#Commentaar').html("Commentaar: "+info.event.extendedProps.comment);
+                                        $('#fullCalModal').modal();  
+                                        onCalendarItemClick(info.event.id,info.event.extendedProps.user_id);
+                                        },
+                    eventTimeFormat: {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false
+                    },
+                    firstDay: 1
+                });
+
+      
+                calendar.render();  
+            });  
+        
+
+    body
+        header(class="container-fluid bg-primary") 
+            div(class="row") 
+                div(class="col-sm-12 col-md-4 col-lg-3") 
+                    a.navbar-brand(href='/')  
+                        h1 TimePlanner
+        main(class="container")
+            br
+            div(class="card shadow dashboard-timetable")
+                div(class="card-header bg-secondary")
+                    h2 #{title}
+                div(class="card-body")
+                    div(class="alert alert-info")
+                        p
+                            | Let op!
+                        p
+                            | Door dat de weergaven offline is kan het zijn dat er wijzigingen in het rooster zijn aangebracht. 
+
+                    include dashboard-rooster.pug
+
+
+                    div(class="card shadow")
+                        div(class="card-header bg-secondary")
+                            h2 Medewerkers rooster
+                        div(class="card-body")
+                            div(id='calendar') 

@@ -47,32 +47,6 @@ async function getResourceList() {
     return resource_list;
 }
 
-async function getTimeTableData(begin_date, end_date) {
-    var timetable_list = [];
-    await TimeTableItems.query().eager('user')
-        .where('begin_date', '>=', begin_date.toISOString().replace('T', ' ').replace('Z', ''))
-        .where('end_date', '<=', end_date.toISOString().replace('T', ' ').replace('Z', ''))
-        .then(async (items) => {
-
-            for (let item of items) {
-
-                timetable_list.push(
-                    {
-                        "title": createEventTitle(item),
-                        "start": item.begin_date,
-                        "end": item.end_date,
-                        "id": item.id,
-                        "resourceId": item.user.id,
-                        "comment": item.comment,
-                        "user_id": item.user.id,
-                        "color": await getCorrectColor(item)
-                    });
-            };
-        });
-    return timetable_list;
-}
-
-
 async function getCorrectColor(item) {
     let substitute = await Substitute.query().where("timetable_item", "=", item.id).first().then((data) => { return data }).catch((e) => { console.log(e) });
 
@@ -120,4 +94,31 @@ async function isUserSick(item) {
     } 
     return isSick;
 }
- 
+
+async function getTimeTableData(begin_date, end_date) {
+    var timetable_list = [];
+    await TimeTableItems.query().eager('user')
+        .where('begin_date', '>=', begin_date.toISOString().replace('T', ' ').replace('Z', ''))
+        .where('end_date', '<=', end_date.toISOString().replace('T', ' ').replace('Z', ''))
+        .then(async (items) => {
+
+            for (let item of items) {
+
+                timetable_list.push(
+                    {
+                        "title": createEventTitle(item),
+                        "start": item.begin_date,
+                        "end": item.end_date,
+                        "id": item.id,
+                        "resourceId": item.user.id,
+                        "comment": item.comment,
+                        "user_id": item.user.id,
+                        "color": await getCorrectColor(item)
+                    });
+            };
+        });
+    return timetable_list;
+}
+
+module.exports.getTimeTableData = getTimeTableData;
+module.exports.getResourceList = getResourceList;
