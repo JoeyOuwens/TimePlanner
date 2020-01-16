@@ -16,7 +16,7 @@ block content
                                     - day = new Date(info.date).getDate();
                                     - month = new Date(info.date).getMonth();
                                     - year = new Date(info.date).getFullYear();
-                                    - date = day + "-"  + (month+1) + "-" + year;
+                                    - date = day + "-"  + (month+1) + "-" + year; 
                                     td #{info.user.getFullName()}
                                     td #{date} 
                                     td #{info.reason} 
@@ -29,7 +29,7 @@ block content
                     ul(class="pagination")
                         li(class=page==1?"page-item disabled":"page-item" )                        
                             - var pageB = page==1?1:page-1 ;
-                            a(class="page-link" href="/call-in-sick/list/"+pageB tabindex="-1" aria-disabled=""+page==1?"true":"false" ) Previous
+                            a(class="page-link" href="/call-in-sick/list/"+pageB tabindex="-1" aria-disabled=""+page==1?"true":"false" ) Vorige
                         - var i = 1
                         while i < maxPages + 1
                             - var pageLink = "/call-in-sick/list/"+i;
@@ -42,5 +42,5 @@ block content
                             - i = i + 1;
                         li(class=page==maxPages?"page-item disabled":"page-item")
                             - var pageF = page==maxPages?maxPages:page+1 ; 
-                            a(class="page-link" href="/call-in-sick/list/"+pageF aria-disabled=""+page==maxPages?"true":"false" ) Next
+                            a(class="page-link" href="/call-in-sick/list/"+pageF aria-disabled=""+page==maxPages?"true":"false" ) Volgende
             div(class="col")

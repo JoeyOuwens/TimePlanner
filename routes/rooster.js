@@ -8,6 +8,7 @@ var substitute = require('./roostermanagement/substitute');
 
 
 router.get('/', index.get);
+router.post('/timetable', index.updateTimeTable);
 
 router.get('/add-user', add.get);
 

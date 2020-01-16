@@ -34,14 +34,6 @@ block content
                         a( href="/profile/changesettings")
                             i( class="fa fa-user") 
                             | Profiel wijzigen
-                    li( class={active: page == 'tasks'})
-                        a( href="/profile/tasks")
-                            i( class="fa fa-calendar") 
-                            | Rooster 
-                    li( class={active: page == 'help'})
-                        a( href="/profile/help")
-                            i( class="fa fa-info-circle")
-                            | Help 
         div( class="col-md-6 col-lg-9")
             div( class="profile-content") 
                 case page
@@ -49,8 +41,6 @@ block content
                         include profile/overview
                     when "changesettings"
                         include profile/changesettings
-                    when "help"
-                        include profile/help
                     default
                         include profile/overview
             script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")

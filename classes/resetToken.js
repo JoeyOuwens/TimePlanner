@@ -39,8 +39,7 @@ async function handleTokenGeneration(user) {
     var tokenSerial = Token.generateToken();
     if (await insertTokenIntoDB(tokenSerial, user.id)) {
         await emailHandler.sendResetPasswordEmail(user.email, tokenSerial);
-    }
-    //console.log(await Token.query().select());
+    } 
 }
 
 async function insertTokenIntoDB(tokenSerial, userId) {

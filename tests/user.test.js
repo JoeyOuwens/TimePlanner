@@ -54,7 +54,7 @@ describe('Check user', () => {
 
     it('Check if password check works for users', async () => {
         const user = await User.query().first();
-        expect(user.isPassword(user.password)).toBe(true);
-        expect(user.isPassword('NotAValidPassWoRd!' + user.password)).toBe(false);
+        expect(await user.isPassword('IHaveNoPassword')).toBe(true);
+        expect(await user.isPassword('SomeOtherPassword')).toBe(false);
     });
 });
