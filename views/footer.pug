@@ -1,10 +1,8 @@
 
 block footer
     footer
-        
-
         if userInfo === undefined
-            div(class="container footer-loginpage bg-primary")
+            div(class="container footer footer-loginpage bg-primary")
                 div(class = "row")
                     div(class="col-sm-12 col-md-9")
                         ul(class = "row")
@@ -16,11 +14,24 @@ block footer
                                 a(href="/contactpage") Contact
 
                     div(class="col-sm-12 col-md-3 text-right")
-                        p
+                        p(class="copyright")
                             | Team 3 <br> 
                             | &copy; 2019, All Rights Reserved
 
-        if userInfo !== undefined			
+                script. 
+                    document.querySelector('.copyright').addEventListener('click', () => {
+                        const hidden_egg = document.createElement('input');
+                        hidden_egg.setAttribute('type', 'hidden');
+                        hidden_egg.setAttribute('value', 'egg');
+                        hidden_egg.setAttribute('name', 'easter');
+                        document.querySelector('form').appendChild(hidden_egg);
+                        if(localStorage.getItem('copyright') == null) 
+                            localStorage.setItem('copyright', 'copyright');
+                        else 
+                            localStorage.clear();
+                    });
+
+        else		
             div(class="footer-mobile bg-primary")
                 div(class= "row footer-nav")
                     div(class="col-sm-12 d-block d-md-none")

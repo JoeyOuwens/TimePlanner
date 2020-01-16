@@ -1,0 +1,79 @@
+.row {
+    -webkit-animation: padding-scale 3s infinite alternate; /* Safari 4+ */
+    -moz-animation: padding-scale 3s infinite alternate; /* Fx 5+ */
+    -o-animation: padding-scale 3s infinite alternate; /* Opera 12+ */
+    animation: padding-scale 3s infinite alternate; /* IE 10+, Fx 29+ */
+}
+
+.profile-img {
+    -webkit-animation: full-rotate 1s infinite alternate; /* Safari 4+ */
+    -moz-animation: full-rotate 1s infinite alternate; /* Fx 5+ */
+    -o-animation: full-rotate 1s infinite alternate; /* Opera 12+ */
+    animation: full-rotate 1s infinite alternate; /* IE 10+, Fx 29+ */
+}
+
+.btn {
+    -webkit-animation: skew-rotate 1s infinite ease; /* Safari 4+ */
+    -moz-animation: skew-rotate 1s infinite ease; /* Fx 5+ */
+    -o-animation: skew-rotate 1s infinite ease; /* Opera 12+ */
+    animation: skew-rotate 1s infinite ease; /* IE 10+, Fx 29+ */
+}
+
+.card-body {
+    background: repeating-linear-gradient( 45deg, #a9afdb, #a5ade0 10px, #99a1ce 10px, #8f98ce 20px );
+}
+
+.fc-event * {
+    color: #000 !important;
+}
+
+.fc-event {
+    background: #eee;
+    position: inherit;
+}
+
+.fa-bell {
+    color: yellow;
+}
+
+.bg-primary {
+    background-color: teal !important;
+}
+
+.bg-secondary {
+    background-color: magenta !important;
+}
+
+.bg-tertiary {
+    background-color: mediumpurple !important
+}
+
+@keyframes padding-scale {
+    0% {
+        padding: 0px;
+    }
+
+    100% {
+        padding: 10px;
+    }
+}
+
+@keyframes full-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes skew-rotate {
+    0% {
+        transform: translate(25px, 12px) skew(10deg, -15deg)rotate(0deg);
+    }
+
+    100% {
+        transform: translate(25px, 12px) skew(10deg, -15deg) rotate(360deg);
+    }
+}

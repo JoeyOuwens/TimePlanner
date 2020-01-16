@@ -23,7 +23,15 @@ html
         script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/timegrid/main.js')
-         
+
+        script.
+            if(localStorage.getItem('copyright') !== null) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = '/stylesheets/easter-egg.css';
+                document.head.appendChild(link);
+            }
+            
         block styles
         block scripts
 
