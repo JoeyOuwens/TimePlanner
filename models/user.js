@@ -102,7 +102,6 @@ class User extends Model {
 
 
 
-    // TODO: Check if hashed password is the same as hashed&stored password. 
     async isPassword(password) {
         if (await verifyHash(password, this.password, config))
             return true;
@@ -119,7 +118,6 @@ class User extends Model {
         return (await this.$query().patchAndFetch()).active;
     }
 
-    // TODO: Add hashing to password. 
     async changePassword(password) {
         this.password = await generateHashedPassword(password);
         return await this.$query().patchAndFetch();
