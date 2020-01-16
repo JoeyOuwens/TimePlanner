@@ -29,28 +29,6 @@ module.exports = {
 //EVALUATING
 //APPROVED
 //DENIED
-
-//function changeStatusCodeToDutch(data) {
-//    //console.log(data);
-//    for (const info of data) {
-        
-//        switch (info.status) {
-//            case "EVALUATING":
-//                info.status = "In afwachting";
-//                break;
-//            case "DENIED":
-//                info.status = "Afgekeurd";
-//                break;
-//            case "APPROVED":
-//                info.status = "Goedgekeurd";
-//                break;
-//            default:
-//                info.status = "Foutieve status code";
-//                break;
-//        }
-//    } 
-//    return data 
-//}
 async function insertIntoDB(info) {
     dateOfToday = new Date()
     return await knex('day_off_requests').insert([

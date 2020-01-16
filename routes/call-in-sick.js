@@ -10,10 +10,8 @@ const pageSize = 10;
 /*GET  page */
 router.get('/', async function (req, res) {
 
-    var alreadyCalledInSick = false;
-    console.log(req.session.user)
-    var sickday = await getTodaysSickDayByUserId(req.session.user.id);
-    console.log(sickday)
+    var alreadyCalledInSick = false; 
+    var sickday = await getTodaysSickDayByUserId(req.session.user.id); 
     if (sickday.length > 0) {
         alreadyCalledInSick = true;
 
@@ -24,8 +22,7 @@ router.get('/', async function (req, res) {
 
 });
 
-router.post('/', async function (req, res) {
-    console.log(req.body)
+router.post('/', async function (req, res) { 
     if (req.body.callInSick) { 
          
         var today = await getTodaysSickDayByUserId(req.session.user.id); 

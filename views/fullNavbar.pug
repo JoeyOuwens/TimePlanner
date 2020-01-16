@@ -47,9 +47,8 @@ div(class="row")
                         a.dropdown-item(href='/profile') #{userInfo.firstname}
                         hr
                         a.dropdown-item(href='/profile/') Profiel Overzicht
-                        a.dropdown-item(href='/profile/changesettings/') Profiel Wijzigen
-                        a.dropdown-item(href='/profile/tasks') Rooster
+                        a.dropdown-item(href='/profile/changesettings/') Profiel Wijzigen 
                         hr
-                        a.dropdown-item(href='/profile/help') Help
+                        a.dropdown-item(href='' data-toggle="modal" id="helpBtn" data-target="#helpModal") Help
                         hr
                         a.dropdown-item(href='/logout/') Uitloggen

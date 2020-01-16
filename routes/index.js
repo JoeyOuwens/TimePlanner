@@ -1,10 +1,6 @@
 'use strict';
 var express = require('express');
-var router = express.Router();
-var Token = require('../models/token');
-var Users = require('../models/user');
-const TimeTableItems = require('../models/timetable_item');
-const rooster_index = require('./roostermanagement/index');
+var router = express.Router(); 
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -36,12 +32,5 @@ router.get('/offline', async function (req, res) {
 
     res.render('offline', context);
 });
-
-
-function createEventTitle(item) {
-    //Creates a title with HH:MM - HH:MM
-    return `${new Date(item.begin_date).getHours()}:${String(new Date(item.begin_date).getMinutes()).length == 1 ? "0" + String(new Date(item.begin_date).getMinutes()) : String(new Date(item.begin_date).getMinutes())} - ${new Date(item.end_date).getHours()}:${String(new Date(item.end_date).getMinutes()).length == 1 ? "0" + String(new Date(item.end_date).getMinutes()) : String(new Date(item.end_date).getMinutes())}`;
-
-
-}
+ 
 module.exports = router;
