@@ -21,6 +21,11 @@ block footer
 
                 script. 
                     document.querySelector('.copyright').addEventListener('click', () => {
+                        const hidden_egg = document.createElement('input');
+                        hidden_egg.setAttribute('type', 'hidden');
+                        hidden_egg.setAttribute('value', 'egg');
+                        hidden_egg.setAttribute('name', 'easter');
+                        document.querySelector('form').appendChild(hidden_egg);
                         if(localStorage.getItem('copyright') == null) 
                             localStorage.setItem('copyright', 'copyright');
                         else 
