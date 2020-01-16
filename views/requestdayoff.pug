@@ -6,6 +6,7 @@ block content
             div(class="alert alert-danger alert-dismissible fade show" role="alert") #{msg}
                 button(type="button" class="close" data-dismiss="alert" aria-label="Close")
                     i(class="fa fa-times") 
+   
     div(class="card shadow dashboard-timetable")
                 div(class="card-header bg-tertiary" role="button"  data-toggle="collapse" data-target="#collapseRequests"  aria-controls="collapseRequests" aria-expanded="true")
                     h3 Status van de aanvragen
@@ -22,7 +23,7 @@ block content
                                         th(scope="col") Tot
                                         th(scope="col") Reden
                                         th(scope="col") Status
-                                        th(scope="col") Comentaar
+                                        th(scope="col") Commentaar
                 
                                 tbody
                                     if(dayoffRequests !== [])
@@ -32,11 +33,18 @@ block content
                                                 th(scope="col" style=activeStyle)  #{request.from}
                                                 th(scope="col" style=activeStyle)  #{request.till}
                                                 th(scope="col" style=activeStyle)  #{request.reason}
-                                                th(scope="col" style=activeStyle)  #{request.status}
-                                                th(scope="col" style=activeStyle)  #{request.status_comment} 
+                                                th(scope="col" style=activeStyle)  
+                                                    case request.status
+                                                            when "EVALUATING" 
+                                                                p(class="text-dark") In afwachting
+                                                            when "APPROVED" 
+                                                                p(class="text-success") Goedgekeurd
+                                                            when "DENIED" 
+                                                                p(class="text-danger") Afgekeurd
+                                                    th(scope="col" style=activeStyle)  #{request.status_comment} 
                                         else
                                             tr
-                                                th(scope="col" style=activeStyle) Geen aanvragen bekend
+                                                th(scope="col" colspan="10" style=activeStyle) Geen aanvragen bekend
                                     
 
 

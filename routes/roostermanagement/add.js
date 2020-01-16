@@ -3,29 +3,23 @@ var knex = require('../../db/knex');
 var availabilityHandler = require('../../classes/availabilityHandler');
 var User = require('../../models/user');
 var TimeTableItem = require('../../models/timetable_item');
+const rooster_index = require('./index');
 
 class Add {
-    
+
     static async get(req, res, next) {
-        if (req.session.user.role === 'USER') 
+        if (req.session.user.role === 'USER')
             res.redirect('/rooster/');
 
-        let timetable_list = [];
-        await TimeTableItem.query().eager('user').then((list) => {
-            list.forEach((item) => {
-                timetable_list.push({ "title": item.user.getFullName(), "start": item.begin_date, "end": item.end_date });
-            });
-        });
-
-        res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await User.query().where({ active: true}), availability: await availabilityHandler.retreiveAll(), timeTable: JSON.stringify(timetable_list) });
-}
+        res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await User.query().where({ active: true }), availability: await availabilityHandler.retreiveAll(), resources: JSON.stringify(await rooster_index.getResourceList()) });
+    }
 
     static async post(req, res, next) {
         if (req.session.user.role === 'USER')
             res.redirect('/rooster/');
 
         if (req.body.begin_date >= req.body.end_date) {
-            res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await User.query().where({ active: true }) , availability: await availabilityHandler.retreiveAll(), user: req.body, error: "Begintijd mag niet later zijn dan eindtijd", success: false });
+            res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await User.query().where({ active: true }), resources: JSON.stringify(await rooster_index.getResourceList()), availability: await availabilityHandler.retreiveAll(), user: req.body, error: "Begintijd mag niet later zijn dan eindtijd", success: false });
             return;
         }
 
@@ -38,15 +32,7 @@ class Add {
             });
 
         if (req.body.stay_on_page === 'on') {
-            let timetable_list = [];
-
-            await TimeTableItem.query().eager('user').then((list) => {
-                list.forEach((item) => {
-                    timetable_list.push({ "title": item.user.getFullName(), "start": item.begin_date, "end": item.end_date });
-                });
-            });
-
-            res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await User.query().where({ active: true }), availability: await availabilityHandler.retreiveAll(), success: true, timeTable: JSON.stringify(timetable_list)  });
+            res.render('rooster/add-user', { title: "Gebruiker inroosteren", user_list: await User.query().where({ active: true }), resources: JSON.stringify(await rooster_index.getResourceList()), availability: await availabilityHandler.retreiveAll(), success: true });
 
         }
         else
@@ -56,3 +42,4 @@ class Add {
 }
 
 module.exports = Add;
+

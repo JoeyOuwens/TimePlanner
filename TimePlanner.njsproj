@@ -61,6 +61,7 @@
     <Content Include="models\availability.js" />
     <Content Include="migrations\20191129150530_dayoffrequests.js" />
     <Content Include="models\sickday.js" />
+    <Content Include="models\substitute.js" />
     <Content Include="models\token.js">
       <SubType>Code</SubType>
     </Content>
@@ -82,6 +83,9 @@
     <Content Include="node_modules\images\tile310x310.png" />
     <Content Include="node_modules\images\tile70x70.png" />
     <Content Include="node_modules\images\_head.html" />
+    <Content Include="public\javascript\approveHandling.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\javascript\modal.js" />
     <Content Include="public\javascript\sendForm.js" />
     <Content Include="public\javascript\availabilityValidation.js">
@@ -125,6 +129,9 @@
     <Content Include="routes\reset-password.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\roostermanagement\add.js" />
+    <Content Include="routes\roostermanagement\edit.js" />
+    <Content Include="routes\roostermanagement\index.js" />
     <Content Include="routes\termsofuse.js" />
     <Content Include="routes\rooster.js">
       <SubType>Code</SubType>
@@ -154,6 +161,10 @@
     <Content Include="views\approve.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\approve\changerequests.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\approve\dayoffrequests.pug"/>
     <Content Include="views\call-in-sick.pug">
       <SubType>Code</SubType>
     </Content>
@@ -183,12 +194,15 @@
     <Content Include="views\profile\overview.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\requestsubstitute.pug" />
     <Content Include="views\reset-password.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\rooster.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\rooster\add-user.pug" />
+    <Content Include="views\rooster\availability.pug" />
     <Content Include="views\termsofuse.pug" />
     <Content Include="views\usermanagement\create.pug" />
     <Content Include="views\usermanagement\edit.pug">
@@ -203,13 +217,16 @@
     <Folder Include="db\" />
     <Folder Include="node_modules\" />
     <Folder Include="public\uploads\" />
+    <Folder Include="routes\roostermanagement\" />
     <Folder Include="routes\usermanagement\" />
     <Folder Include="seeds\" />
     <Folder Include="settings\" />
+    <Folder Include="views\approve\" />
     <Content Include="views\users.pug">
       <SubType>Code</SubType>
     </Content>
     <Folder Include="views\profile\" />
+    <Folder Include="views\rooster\" />
     <Folder Include="views\usermanagement\" />
   </ItemGroup>
   <ItemGroup>

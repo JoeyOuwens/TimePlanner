@@ -1,9 +1,8 @@
 
 block footer
     footer
-        div(class="container footer bg-primary")
-
-            if userInfo === undefined
+        if userInfo === undefined
+            div(class="container footer footer-loginpage bg-primary")
                 div(class = "row")
                     div(class="col-sm-12 col-md-9")
                         ul(class = "row")
@@ -32,8 +31,9 @@ block footer
                             localStorage.clear();
                     });
 
-            if userInfo !== undefined
-                div(class = "row footer-nav")
+        else		
+            div(class="footer-mobile bg-primary")
+                div(class= "row footer-nav")
                     div(class="col-sm-12 d-block d-md-none")
                         nav.navbar.navbar-expand-lg.navbar-nav.lg-nav
                             ul.navbar-nav.ml-auto.mr-auto
@@ -49,4 +49,3 @@ block footer
                                     h3
                                         a.nav-link(href='/profile') 
                                             i(class="fas fa-user")
-

@@ -14,6 +14,11 @@ h1 {
     color:black;
 }
 
+.navbar-brand {
+    width: 100%;
+    text-align: center;
+}
+
 .bg-primary {
     background-color: #03396c !important;
 }
@@ -34,7 +39,12 @@ h1 {
     color: white;
 }
 
-.popover-header {
+.hidden {
+    display: none;
+}
+
+.popover-header,
+.popover-header-primary {
     background-color: #03396c !important;
     border-color: #03396c !important;
     border-top: 2px solid #03396c !important;
@@ -44,6 +54,10 @@ h1 {
 
 .row.card-row {
     margin: -1.25rem;
+}
+
+.card {
+    margin-bottom: 20px;
 }
 
 .bg-primary *,
@@ -105,9 +119,9 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    z-index: 1;
 }
-
-.footer {
+.footer-loginpage {
     position: center;
     width: 100%;
     background-color: #007bff;
@@ -117,21 +131,48 @@ footer {
     border-radius: 8px 8px 0 0;
 }
 
-    .footer li {
+    .footer-loginpage li {
         display: inline;
         padding: 2px;
         margin-bottom: 2px;
         opacity: 0.5;
     }
 
-    .footer a {
+    .footer-loginpage a {
         color: white;
     }
 
-    .footer p {
+    .footer-loginpage p {
         margin-bottom: 0;
         opacity: 0.5;
     }
+.footer-mobile {
+    position: center;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    text-align: justify;
+    box-shadow: 0px 0px 4px #000000;
+}
+    .footer-mobile li {
+        display: inline;
+        padding: 10vw;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        opacity: 0.5;
+    }
+
+
+    .footer-mobile a {
+        position: center;
+        color: white;
+    }
+
+    .footer-mobile p {
+        margin-bottom: 0;
+        opacity: 0.5;
+    }
+
 
 .header{
     padding: 10px;
@@ -157,7 +198,7 @@ footer {
 }
 
 .lg-nav li a, .lg-nav li p, .lg-nav li ul, .lg-nav li i, .lg-nav li {
-    font-size: 3rem;
+    font-size: 1.25rem;
     color: white;
     font-weight: 700;
     opacity: 1;
@@ -415,8 +456,13 @@ Licensed under MIT
     color: white;
 }
 
-.fc-event:hover {
+.fc-event:hover,
+.anchor:hover {
     cursor: pointer;
+}
+
+a.anchor:not([href]) {
+    color: white;
 }
 
 /* Popup box BEGIN */
@@ -480,4 +526,29 @@ Licensed under MIT
     margin: 20px;
     display: inline-block;
     font-weight: bold;
+}
+
+.popover {
+    width: 350px;
+    max-width: 1500px;
+}
+
+.popover-content h4 {
+    color: #00A1FF;
+}
+
+.popover-content h4 small {
+    color: black;
+}
+
+@media (max-width: 768px) {
+
+    .navbar-mobile {
+        position: center;
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        text-align: justify;
+        box-shadow: 0px 0px 4px #000000;
+    }
 }

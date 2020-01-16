@@ -24,7 +24,7 @@ router.post('/', async function (req, res, next) {
     }).first();
 
     if (user !== undefined) {
-        if (user.isPassword(password)) {
+        if (await user.isPassword(password)) {
             if (req.session.user === undefined) {
                 req.session.user = user;
                 req.session.logged_in = true;

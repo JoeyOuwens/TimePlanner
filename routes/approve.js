@@ -2,18 +2,17 @@
 var express = require('express');
 var router = express.Router();
 var dayoffRequestHandler = require('../classes/dayoffRequestHandler')
+const Substitute = require('../models/substitute');
+const TimeTableItem = require('../models/timetable_item');
 var validation = require('../classes/validation')
-var EVALUATING_STATUS_CODE = "In afwachting"
+var EVALUATING_STATUS_CODE = "EVALUATING"
 
 /*GET page */
 router.get('/', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
-        var dayoffRequests = await dayoffRequestHandler.retreiveAll();
-        isDateCreatedLessThenAWeek(dayoffRequests);
-        dayoffRequests.sort((a) => (a.week_left) ? -1 : 1).sort((a, b) => (a.creation_date < b.creation_date) ? -1 : 1).sort((a) => (a.status == EVALUATING_STATUS_CODE) ? -1 : 1)
-        changeDateToString(dayoffRequests);
-        console.log(dayoffRequests)
-        res.render('approve', { title: 'Goedkeuren', dayoffRequests:dayoffRequests});
+        var dayoffRequests = await getDayOffRequests();
+        var changeRequests = await getSubstituteRequests();
+        res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests, changeRequests: changeRequests, page: 'all'});
     } else {
 
         res.redirect('/dashboard');
@@ -21,12 +20,71 @@ router.get('/', async function (req, res) {
 
 }); 
 
+
+router.get('/dayoffrequests/', async function (req, res) {
+    if (isUserOwnerOrManager(req.session.user.role)) {
+        var dayoffRequests = await getDayOffRequests();
+        res.render('approve', { title: 'Goedkeuren', dayoffRequests: dayoffRequests, page: 'dayoffRequests' });
+    } else {
+        res.redirect('/dashboard');
+    }
+});
+
+router.get('/changeRequests/', async function (req, res) {
+    if (isUserOwnerOrManager(req.session.user.role)) {
+        var substituteRequests = await getSubstituteRequests();
+        //console.log(workReplacementRequests)
+        res.render('approve', { title: 'Goedkeuren', changeRequests: substituteRequests, page: 'changeRequests' });
+    } else {
+        res.redirect('/dashboard');
+    }
+});
 router.post('/dayoffrequest', async function (req, res) { 
     if (isUserOwnerOrManager(req.session.user.role)) {
         await dayoffRequestHandler.updateStatus(req.body);
         res.redirect('/');
     }
 }); 
+
+router.post('/changerequest', async function (req, res) {
+    if (isUserOwnerOrManager(req.session.user.role)) {
+        await Substitute.query()
+            .where('id', req.body.id)
+            .update({ status: req.body.status, comment: req.body.status_comment })
+            .then(function () { 
+                if (req.body.status == "APPROVED") { 
+                    updateTimeTable(req.body)
+                }
+            })
+            .catch(function (e) { console.log(e); });
+        //console.log(req.body);
+        res.redirect('/');
+    }
+}); 
+
+async function updateTimeTable(info) {
+    const substituteRequests = await Substitute.query().select().where('id', info.id).first(); 
+    await TimeTableItem.query().where('id', substituteRequests.timetable_item).update({ user_id: substituteRequests.replaced_by_user });
+
+}
+
+async function  getDayOffRequests() {
+    var dayoffRequests = await dayoffRequestHandler.retreiveAll();
+    isDateCreatedLessThenAWeek(dayoffRequests);
+    dayoffRequests.sort((a) => (a.week_left) ? -1 : 1).sort((a, b) => (a.creation_date < b.creation_date) ? -1 : 1).sort((a) => (a.status == EVALUATING_STATUS_CODE) ? -1 : 1)
+    changeDateToString(dayoffRequests);
+    //console.log(dayoffRequests)
+    return dayoffRequests;
+};
+
+async function getSubstituteRequests() { 
+    const substituteRequests = await Substitute.query()
+        .eager('[requestingUser, replacedByUser,timetableItem]') 
+        .then(function (data) { return data; })
+        .catch(function (e) { console.log(e) }); 
+
+    return substituteRequests;
+}
 
 function isUserOwnerOrManager(role) {
     if (role == "OWNER" || role == "MANAGER") {
@@ -42,7 +100,8 @@ function flipDateFormat(date) {
     return date.split("-").reverse().join("-");
 }
 
- 
+  
+
 
 // Formats:
 //creation_date: dd-mm-yyyy hh:mm:ss

@@ -3,8 +3,7 @@ var express = require('express');
 var validation = require('../classes/validation');
 var router = express.Router();
 var path = require('path');
-var fs = require('fs');
-var $ = require('jquery');
+var fs = require('fs'); 
 
 
 const multer = require('multer');
