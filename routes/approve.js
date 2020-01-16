@@ -32,8 +32,7 @@ router.get('/dayoffrequests/', async function (req, res) {
 
 router.get('/changeRequests/', async function (req, res) {
     if (isUserOwnerOrManager(req.session.user.role)) {
-        var substituteRequests = await getSubstituteRequests();
-        //console.log(workReplacementRequests)
+        var substituteRequests = await getSubstituteRequests(); 
         res.render('approve', { title: 'Goedkeuren', changeRequests: substituteRequests, page: 'changeRequests' });
     } else {
         res.redirect('/dashboard');
@@ -56,8 +55,7 @@ router.post('/changerequest', async function (req, res) {
                     updateTimeTable(req.body)
                 }
             })
-            .catch(function (e) { console.log(e); });
-        //console.log(req.body);
+            .catch(function (e) { console.log(e); }); 
         res.redirect('/');
     }
 }); 
@@ -72,8 +70,7 @@ async function  getDayOffRequests() {
     var dayoffRequests = await dayoffRequestHandler.retreiveAll();
     isDateCreatedLessThenAWeek(dayoffRequests);
     dayoffRequests.sort((a) => (a.week_left) ? -1 : 1).sort((a, b) => (a.creation_date < b.creation_date) ? -1 : 1).sort((a) => (a.status == EVALUATING_STATUS_CODE) ? -1 : 1)
-    changeDateToString(dayoffRequests);
-    //console.log(dayoffRequests)
+    changeDateToString(dayoffRequests); 
     return dayoffRequests;
 };
 

@@ -100,8 +100,7 @@ router.post('/upload', function (req, res) {
                 User.query().findById(req.session.user.id).patch({ profile_image: `uploads/${req.file.filename}` }).then(function () {
                     if (!((req.session.user.profile_image == "") || (req.session.user.profile_image == "images/default_profileimage.jpg")) ) { 
                         fs.unlink(`public/${req.session.user.profile_image}`, function (err) {
-                            if (err) throw err; 
-                            console.log('File deleted!');
+                            if (err) throw err;  
                         }); 
 
                         req.session.user.profile_image = `uploads/${req.file.filename}`
@@ -120,15 +119,6 @@ router.post('/upload', function (req, res) {
             }
         }
     });
-});
-
-router.get('/tasks/', function (req, res, next) {
-    res.render('profile', { title: 'Rooster gegevens',  page: 'tasks' });
-
-});
-
-router.get('/help/', function (req, res, next) {
-    res.render('profile', { title: 'Help', page: 'help' });
 });
  
 
