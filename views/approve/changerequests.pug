@@ -1,0 +1,83 @@
+﻿div(class="card shadow dashboard-timetable change-requests")
+    div(class="card-header bg-tertiary " role="button"  data-toggle="collapse" data-target="#collapseChangeRequests"  aria-controls="collapseChangeRequests" aria-expanded="true")
+        h3 Vervanging verzoeken
+            i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
+    div(class="collapse show" id="collapseChangeRequests" )
+        div(class="card-body")
+            div(class="table-responsive")
+                table(class="table table-hover table-sm")
+                    thead(class="bg-secondary")
+                        tr
+                            th(scope="col") Aanvraag datum
+                            th(scope="col") Aanvrager
+                            th(scope="col") Begin
+                            th(scope="col") Eind
+                            th(scope="col") Overgenomen door
+                            th(scope="col") Status
+                            th(scope="col") Commentaar
+                            th(scope="col")  
+                            th(scope="col")  
+                
+                    tbody
+                        if(changeRequests !== [])
+                            each request in changeRequests 
+                                - day = new Date(request.creation_datetime).getDate();
+                                - month = new Date(request.creation_datetime).getMonth();
+                                - year = new Date(request.creation_datetime).getFullYear();
+                                - date = day + "-"  + (month+1) + "-" + year;
+
+                                - bdday = new Date(request.timetableItem.begin_date).getDate();
+                                - bdmonth = new Date(request.timetableItem.begin_date).getMonth();
+                                - bdyear = new Date(request.timetableItem.begin_date).getFullYear();
+                                - bdhours = new Date(request.timetableItem.begin_date).getHours();
+                                - if (String(bdhours).length == 1){bdhours = 0 + String(bdhours)};
+                                - bdminutes = new Date(request.timetableItem.begin_date).getMinutes(); 
+                                - if (String(bdminutes).length == 1){bdminutes = 0 + String(bdminutes);}; 
+                                - bddate = bdday + "-"  + (bdmonth+1) + "-" + bdyear + " " + bdhours+":"+bdminutes;
+
+                                
+                                - edday = new Date(request.timetableItem.end_date).getDate();
+                                - edmonth = new Date(request.timetableItem.end_date).getMonth();
+                                - edyear = new Date(request.timetableItem.end_date).getFullYear();
+                                - edhours = new Date(request.timetableItem.end_date).getHours();
+                                - if (String(edhours).length == 1){edhours = 0 + String(edhours)};
+                                - edminutes = new Date(request.timetableItem.end_date).getMinutes(); 
+                                - if (String(edminutes).length == 1){edminutes = 0 + String(edminutes)};
+                                - eddate = edday + "-"  + (edmonth+1) + "-" + edyear + " " + edhours+":"+edminutes;
+                                tr(id='change-request-'+request.id ) 
+                                    th(scope="col" )  #{date}
+                                    th(scope="col" )  
+                                        a( role="button" data-toggle="popover" data-trigger="hover" data-placement="right"  title=""+request.requestingUser.getFullName()  data-html='true' data-content="Functie: "+request.requestingUser.function data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header popover-header-primary"></h3><div class="popover-body"></div></div>') #{request.requestingUser.getFullName()}
+                                    th(scope="col" )  #{bddate}
+                                    th(scope="col" )  #{eddate} 
+                                    th(scope="col" )  
+                                        if !(request.status == "AWAITING_REPLACEMENT")
+                                            a( role="button" data-toggle="popover" data-trigger="hover" data-placement="right"  title=""+request.replacedByUser.getFullName()  data-html='true' data-content="Functie: "+request.replacedByUser.function data-template='<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header popover-header-primary"></h3><div class="popover-body"></div></div>') #{request.replacedByUser.getFullName()}
+                                    th(scope="col" ) 
+                                        case request.status 
+                                            when "AWAITING_APPROVAL" 
+                                                p(class="text-dark") Afwachting
+                                            when "AWAITING_REPLACEMENT" 
+                                                p(class="text-dark") Niet overgenomen
+                                            when "APPROVED" 
+                                                p(class="text-success") Goedgekeurd
+                                            when "DENIED"
+                                                p(class="text-danger") Afgekeurd
+                                    th(scope="col") 
+                                        if request.status == "AWAITING_APPROVAL"
+                                            input(class="form-control " placeholder="(Optioneel) Vul in" id="status-comment-change-"+request.id)
+                                        else
+                                            p #{request.comment}
+                                    if request.status == "AWAITING_APPROVAL" 
+                                        th(scope="col" )
+                                                button(class="btn btn-success btn-sm accept-change-request-btn" id=""+request.id) Goedkeuren
+                                        th(scope="col" ) 
+                                                button( class="btn btn-danger btn-sm deny-change-request-btn" id=""+request.id) Afkeuren
+                                    else
+                                        th(scope="col")  
+                                        th(scope="col")    
+                                                            
+                        else
+                            tr
+                                th(scope="col" colspan="10") Geen aanvragen bekend
+

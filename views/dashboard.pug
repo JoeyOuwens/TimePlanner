@@ -3,48 +3,30 @@ extends layout
 block content
     div(class="row no-gutter")
         div( class="col-sm-12 col-md-6 col-lg-4")
-            div(class="card shadow dashboard-timetable")
-                div(class="card-header bg-tertiary")
-                    h3 Rooster
-                        i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
-                div(class="card-body")
-                    each day in timetable_days
-                        div(class="row no-gutter timetable-item")
-                            div( class="col-sm-12")
-                                case day.day_count
-                                    when 0
-                                        h4 Vandaag
-                                    when 1
-                                        h4 Morgen
-                                    when 2
-                                        h4 Overmorgen
-                                    default
-                                        h4 #{day.day_name}
-                                if day.day_items.length > 0
-                                    each rooster_item in day.day_items
-                                        p #{rooster_item.begin_time} - #{rooster_item.end_time}
-                                else
-                                    p Je bent niet ingeroosterd. 
+            include dashboard-rooster.pug
         div( class="col-sm-12 col-md-6 col-lg-5")
-            div(class="card shadow dashboard-timetable")
+            div(class="card shadow")
                 div(class="card-header bg-tertiary")
                     h3 Notificaties 
                         i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
                 div(class="card-body")
+                    P Er zijn geen notificaties
+
         div( class="col-sm-12 col-md-6 col-lg-3")
-            div(class="card shadow dashboard-timetable")
+            div(class="card shadow dashboard-employees")
                 div(class="card-header bg-tertiary")
                     h3 Nieuwste medewerkers
                         i(class="fa fa-bell" style="position: absolute;right: 28px;top: 16px;")
                 div(class="card-body")
-    br
-    div(class="row")
-        div( class="col-sm-12")
-            div(class="card shadow dashboard-timetable")
-                div(class="card-header bg-tertiary")
-                    h3 Widget editor
-                div(class="card-body")
+                    each user in newest_users
+                        div(class="row no-gutter employee-item")
+                            div( class="col-sm-3")
+                                img(src="/"+user.getImage() class="img-responsive profile-img")
+                            div( class="col-sm-9")
+                                b #{user.getFullName()}
 
+                        
+    br
     if log_in_redirect !== undefined
         div(class="greeting-message js--greeting-message hidden")
             div(class="alert alert-success")
@@ -52,3 +34,43 @@ block content
             script.
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.remove('hidden') }, 60);
                     setTimeout(function(){ document.querySelector('.js--greeting-message').classList.add('hidden') }, 4000);
+    
+    script(type="text/template" id="js--popover-button-template")
+        div(class="input-group")
+            div(class="input-group-prepend")
+                a(class="btn btn-info anchor js--substitute") Vervanging aanvragen
+            div(class="input-group-append")
+                a(class="btn btn-primary anchor hidden js--sick") Ziek Melden
+    script.
+        $(function () {
+
+            $('.js--timetable-item').popover({
+                animation: true,
+                html: true,
+                content: $('#js--popover-button-template').html(),
+            });
+
+            $('#roosterdiv').on('show.bs.popover', function (element) {
+                $("[data-toggle='popover']").each((id, item) => {
+                    $(item).popover('hide');
+                });               
+            });
+
+            $('#roosterdiv').on('inserted.bs.popover', async function (element) {
+                if(element.target.dataset.daycount == 0){
+                    $('.js--sick').removeClass('hidden');
+                }           
+            });
+
+            $('#roosterdiv').on('shown.bs.popover', async function (element) {
+                $('.js--substitute').click(function (e){
+                    window.location = "/rooster/substitute/list";}
+                );
+
+                $('.js--sick').click(function (e){
+                    window.location = "/call-in-sick";
+                });
+            });
+        });
+                     
+                    

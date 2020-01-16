@@ -9,6 +9,7 @@ document.onreadystatechange = function () {
             message = $('#contact-message').val();
             if (validation(name, email, message)) {
                 $.post("contactpage", { name: name, email: email, message: message }, function (result) {
+                    window.setTimeout(2000);
                     location.reload();
                 });
                 showMessage('success','Message sent'); 

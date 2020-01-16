@@ -1,6 +1,6 @@
 /* Safe up */
-exports.up = function (knex) {
-    knex.schema.hasTable('users').then(function (exists) {
+exports.up = async function (knex) {
+    await knex.schema.hasTable('users').then(function (exists) {
         if (!exists) {
             return knex.schema.createTable('users', t => {
                 t.increments('id');
@@ -21,9 +21,13 @@ exports.up = function (knex) {
                 t.string("role");
                 t.string("profile_image");
                 t.boolean("active");
+                t.boolean("firsttime");
                 t.unique('email');
             });
         }
+    })
+    .catch(function (error) {
+        console.error(error);
     });
 };
 

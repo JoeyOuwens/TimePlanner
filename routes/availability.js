@@ -2,24 +2,29 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var knex = require('../db/knex');  
+var Availability = require('../models/availability');  
 var availabilityHandler = require('../classes/availabilityHandler');  
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
-     
-    var availability = await availabilityHandler.retreiveById(req.session.user.id)  
-     
+
+    var availability = await Availability.query().where({ user_id: req.session.user.id }).first();
+
+    if (availability === undefined) {
+        availability = await Availability.query().insert({
+            user_id: req.session.user.id
+        });
+    }
 
     var pageTitle = changePageTitleAccordingToContractHours(req, pageTitle);
-    
-    res.render('rooster/availability', { title: pageTitle, availability: availability });
+
+    res.render('rooster/availability', { title: pageTitle, availability: availability !== undefined ? availability.getWeekDays() : undefined });
 });
 
 router.post('/', async function (req, res, next) {
-    console.log(req.body)
+    console.log(req.body);
 
-    await availabilityHandler.update(req)
+    await availabilityHandler.update(req.session.user.id, req.body);
 
     res.redirect('/availability');
 });

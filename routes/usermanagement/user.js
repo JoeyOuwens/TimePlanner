@@ -1,33 +1,40 @@
 'use strict';
 var express = require('express');
-var router = express.Router();
-var userDBHandler = require('../../classes/userDBHandler')
-var validation = require('../../classes/validation')
+var router = express.Router(); 
+var validation = require('../../classes/validation');
+var User = require('../../models/user');
+var DayOffRequest = require('../../models/dayoffrequest');
 
 
 /* GET page. */
-router.get('/delete/:id',  async function (req, res) {
-    if (req.session.user.role == 'OWNER' || req.session.user.role == 'MANAGER') { 
-        if (await allowedToChange(req.session.user, req.params.id)){
-            userDBHandler.deactivateUserById(req.params.id);
+router.post('/deactivate/',  async function (req, res) {
+    if (!res.locals.userInfo.isUser()) {
+        if (await allowedToChange(res.locals.userInfo, req.body.id)) {
+            (await User.query().findById(req.body.id)).deactivate();
         }
     }
     res.redirect('/usermanagement/list');
 
 });
-router.get('/activate/:id', async function (req, res) {
-    if (await allowedToChange(req.session.user, req.params.id)) {
-        userDBHandler.activateUserById(req.params.id);
+router.post('/activate/', async function (req, res) {
+    if (!res.locals.userInfo.isUser()) {
+        if (await allowedToChange(res.locals.userInfo, req.body.id)) {
+            (await User.query().findById(req.body.id)).activate();
+        }
     }
     res.redirect('/usermanagement/list');
-
 });
+ 
 
 
 router.get('/edit/:id', async function (req, res) {
-    if (await allowedToChange(req.session.user, req.params.id)) {
-        var user = await userDBHandler.getUserById(req.params.id)
-        res.render('usermanagement/edit', { title: `Aanpassen - ${user[0].firstname} ${user[0].middlename}  ${user[0].lastname}`, user: user[0] });
+    if (!res.locals.userInfo.isUser()) {
+        if (await allowedToChange(res.locals.userInfo, req.params.id)) {
+            var user = await User.query().findById(req.params.id);
+            res.render('usermanagement/edit', { title: `Aanpassen - ${user.getFullName()}`, user: user, failedFields: [] });
+        } else {
+            res.redirect('/usermanagement/list');
+        }
     } else {
         res.redirect('/usermanagement/list');
     }
@@ -35,17 +42,17 @@ router.get('/edit/:id', async function (req, res) {
 
 
 router.post('/edit/:id', async function (req, res) {
-    req.body.id = req.params.id 
+    var user = await User.query().findById(req.params.id);
+    const failedFields = fieldValidation(req.body);
     req.body.zip = req.body.zip.replace(/\s/g, ''); 
-    var failedFields = fieldValidation(req.body);
-    if (failedFields.length == 0) {
-        if (userDBHandler.updateUser(req.body)) {
+    if (failedFields.length === 0) {
+        if (await User.query().patchAndFetchById(req.params.id, req.body)) {
             res.redirect('/usermanagement/list');
         } else {
-            res.render('usermanagement/edit', { title: 'Aanpassen', throwError: true, errorMessage: "Er is wat fout gegaan met aanpassen, probeer opnieuw.", failedFields: failedFields, user: req.body });
+            res.render('usermanagement/edit', { title: `Aanpassen - ${user.getFullName()}`, throwError: true, errorMessage: "Er is wat fout gegaan met aanpassen, probeer opnieuw.", failedFields: failedFields, user: req.body });
         }
     } else {
-        res.render('usermanagement/edit', { title: 'Aanpassen', throwError: true, errorMessage: "\u00C9\u00E9n of meerdere velden zijn onjuist ingevuld.", failedFields: failedFields, user: req.body });
+        res.render('usermanagement/edit', { title: `Aanpassen - ${user.getFullName()}`, throwError: true, errorMessage: "\u00C9\u00E9n of meerdere velden zijn onjuist ingevuld.", failedFields: failedFields, user: req.body });
     }
 });
 
@@ -55,12 +62,16 @@ module.exports = router;
 
 
 async function allowedToChange(requestingUser, changingUserId) {
-    var changingUser = await userDBHandler.getUserById(changingUserId)
-    if ((requestingUser.role == 'MANAGER' && changingUser[0].role == "OWNER") || (requestingUser.role == 'MANAGER' && changingUser[0].role == "MANAGER") || (requestingUser.id == changingUser[0].id)) {
-        return false
-    } else {
-        return true
-    }
+    var changingUser = await User.query().findById(changingUserId);
+
+    if (
+        changingUser.isOwner() ||
+        requestingUser.isUser() ||
+        (requestingUser.isManager() && changingUser.isOwner()) ||
+        (requestingUser.isManager() && changingUser.isManager()) ||
+        requestingUser.id === changingUser.id)
+        return false;
+    return true;
 };
 
 
@@ -78,7 +89,7 @@ function fieldValidation(details) {
     if (!validation.hours(details.contract_hours)) {
         failed.push("contract_hours");
     }
-    if (!validation.rights(details.role)) {
+    if (details.role !== undefined && !validation.rights(details.role)) {
         failed.push("role");
     }
     if (!validation.telephone(details.phone_number)) {
