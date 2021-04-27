@@ -36,7 +36,7 @@
     "pg-promise": "^9.3.6",
     "pug": "^2.0.0-beta6",
     "react-scripts": "^3.3.0",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "serve-favicon": "^2.3.0",
     "sqlite3": "^4.1.1",
     "tui-calendar": "^1.12.9",
